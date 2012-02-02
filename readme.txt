@@ -26,6 +26,21 @@ To install and configure this plugin...
 2. Activate the plugin via the 'Plugins' admin menu.
 3. Configuration the password in your WordPress Privacy settings.
 
+== Frequently Asked Questions ==
+
+= How can I change the Wordpress logo to a different image? =
+
+Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith. This will change the login on your password entry page AND also you admin login page.
+
+= Where can I report bugs and issues? =
+
+Please log issues and bugs on the plugin's [GitHub page](https://github.com/benhuson/password-protected/issues).
+You can also submit suggested enhancements if you like.
+
+= How can I contribute? =
+
+If you can, please [fork the code](https://github.com/benhuson/password-protected) and submit a pull request via GitHub. If you're not comfortable using Git, then please just submit it to the issues link above.
+
 == Screenshots ==
 
 1. Login page perfectly mimicks the WordPress login.
@@ -35,4 +50,4 @@ To install and configure this plugin...
 
 = 1.0 =
 
-* First Release
+* First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
