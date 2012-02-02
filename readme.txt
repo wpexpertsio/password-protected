@@ -30,7 +30,7 @@ To install and configure this plugin...
 
 = How can I change the Wordpress logo to a different image? =
 
-Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith. This will change the login on your password entry page AND also you admin login page.
+Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith. This will change the logo on your password entry page AND also your admin login page.
 
 = Where can I report bugs and issues? =
 
