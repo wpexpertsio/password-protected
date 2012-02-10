@@ -43,19 +43,22 @@ class Password_Protected_Admin {
 	 */
 	function sanitize_password_protected_password( $val ) {
 		$old_val = get_option( 'password_protected_password' );
-		if ( empty( $val['new'] ) ) {
-			return $old_val;
-		} elseif ( empty( $val['confirm'] ) ) {
-			add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. When setting a new password please enter it in both fields.', 'password_protected' ) );
-			return $old_val;
-		} elseif ( $val['new'] != $val['confirm'] ) {
-			add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. Password fields did not match.', 'password_protected' ) );
-			return $old_val;
-		} elseif ( $val['new'] == $val['confirm'] ) {
-			add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password saved.', 'password_protected' ), 'updated' );
-			return $val['new'];
+		if ( is_array( $val ) ) {
+			if ( empty( $val['new'] ) ) {
+				return $old_val;
+			} elseif ( empty( $val['confirm'] ) ) {
+				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. When setting a new password please enter it in both fields.', 'password_protected' ) );
+				return $old_val;
+			} elseif ( $val['new'] != $val['confirm'] ) {
+				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. Password fields did not match.', 'password_protected' ) );
+				return $old_val;
+			} elseif ( $val['new'] == $val['confirm'] ) {
+				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password saved.', 'password_protected' ), 'updated' );
+				return md5( $val['new'] );
+			}
+			return get_option( 'password_protected_password' );
 		}
-		return get_option( 'password_protected_password' );
+		return $val;
 	}
 	
 	/**

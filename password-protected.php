@@ -90,7 +90,7 @@ class Password_Protected {
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
 			$pwd = get_option( 'password_protected_password' );
 			// If correct password...
-			if ( $password_protected_pwd == $pwd && $pwd != '' ) {
+			if ( md5( $password_protected_pwd ) == $pwd && $pwd != '' ) {
 				$_SESSION[$this->get_site_id() . '_password_protected_auth'] = 1;
 			} else {
 				// ... otherwise incorrect password
