@@ -26,6 +26,10 @@ To install and configure this plugin...
 2. Activate the plugin via the 'Plugins' admin menu.
 3. Configuration the password in your WordPress Privacy settings.
 
+= Upgrading =
+
+If you are upgrading manually via FTP rather that through the WordPress automatic upgrade link, please de-activate and re-activate the plugin to ensure the plugin upgrades correctly.
+
 == Frequently Asked Questions ==
 
 = How can I change the Wordpress logo to a different image? =
