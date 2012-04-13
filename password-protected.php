@@ -238,9 +238,9 @@ class Password_Protected {
 	 */
 	function set_auth_cookie( $remember = false, $secure = '') {
 		if ( $remember ) {
-			$expiration = $expire = time() + apply_filters( 'password_protected_auth_cookie_expiration', 86400, $remember );
+			$expiration = $expire = time() + apply_filters( 'password_protected_auth_cookie_expiration', 1209600, $remember );
 		} else {
-			$expiration = time() + apply_filters( 'password_protected_auth_cookie_expiration', 86400, $remember );
+			$expiration = time() + apply_filters( 'password_protected_auth_cookie_expiration', 172800, $remember );
 			$expire = 0;
 		}
 	
