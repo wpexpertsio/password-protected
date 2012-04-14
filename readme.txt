@@ -52,6 +52,10 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 
 == Changelog ==
 
+= 1.2 =
+
+* Use cookies instead of sessions.
+
 = 1.1 =
 
 * Encrypt passwords in database.
