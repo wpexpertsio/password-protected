@@ -67,11 +67,13 @@ class Password_Protected {
 	 * @todo An option/filter to prevent disabling of feeds.
 	 */
 	function disable_feeds() {
-		add_action( 'do_feed', array( $this, 'disable_feed' ), 1 );
-		add_action( 'do_feed_rdf', array( $this, 'disable_feed' ), 1 );
-		add_action( 'do_feed_rss', array( $this, 'disable_feed' ), 1 );
-		add_action( 'do_feed_rss2', array( $this, 'disable_feed' ), 1 );
-		add_action( 'do_feed_atom', array( $this, 'disable_feed' ), 1 );
+		if ( $this->is_active() ) {
+			add_action( 'do_feed', array( $this, 'disable_feed' ), 1 );
+			add_action( 'do_feed_rdf', array( $this, 'disable_feed' ), 1 );
+			add_action( 'do_feed_rss', array( $this, 'disable_feed' ), 1 );
+			add_action( 'do_feed_rss2', array( $this, 'disable_feed' ), 1 );
+			add_action( 'do_feed_atom', array( $this, 'disable_feed' ), 1 );
+		}
 	}
 	
 	/**
