@@ -38,7 +38,7 @@ Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login
 
 = How can I log out? =
 
-Just a "password-protected=logout" query to your URL.
+Just add a "password-protected=logout" query to your URL.
 eg. http://www.example.com/?password-protected=logout
 
 = Where can I report bugs and issues? =
