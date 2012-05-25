@@ -36,6 +36,11 @@ If you are upgrading manually via FTP rather that through the WordPress automati
 
 Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith. This will change the logo on your password entry page AND also your admin login page.
 
+= How can I log out? =
+
+Just a "password-protected=logout" query to your URL.
+eg. http://www.example.com/?password-protected=logout
+
 = Where can I report bugs and issues? =
 
 Please log issues and bugs on the plugin's [GitHub page](https://github.com/benhuson/password-protected/issues).
