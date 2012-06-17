@@ -131,7 +131,7 @@ class Password_Protected {
 			return;
 		
 		// Show login form
-		if ( isset( $_GET['password-protected'] ) && 'login' == $_GET['password-protected'] ) {
+		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
 			include( dirname( __FILE__ ) . '/theme/login.php' );
 			exit();
 		} else {
