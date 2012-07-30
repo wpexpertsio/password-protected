@@ -4,7 +4,7 @@
 Plugin Name: Password Protected
 Plugin URI: http://www.benhuson.co.uk/
 A very simple way to quickly password protect your WordPress site with a single password. Integrates seamlessly into your WordPress privacy settings.
-Version: 1.2.1
+Version: 1.2.2
 Author: Ben Huson
 Author URI: http://www.benhuson.co.uk/
 License: GPLv2

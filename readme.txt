@@ -4,7 +4,7 @@ Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 A very simple way to quickly password protect your WordPress site with a single password. Integrates seamlessly into your WordPress privacy settings.
 
@@ -56,6 +56,11 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 2. Integrates seamlessly into your WordPress privacy settings.
 
 == Changelog ==
+
+= 1.2.2 =
+
+* Escape 'redirect_to' attribute. Props A. Alagha.
+* Show login error messages.
 
 = 1.2.1 =
 
