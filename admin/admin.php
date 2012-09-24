@@ -2,13 +2,21 @@
 
 class Password_Protected_Admin {
 	
+	var $options_group = 'reading';
+	
 	/**
 	 * Constructor
 	 */
 	function Password_Protected_Admin() {
+		global $wp_version;
 		add_action( 'admin_init', array( $this, 'privacy_settings' ) );
 		add_action( 'admin_notices', array( $this, 'password_protected_admin_notices' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
+		
+		// Pre WordPress 3.5 settings group compatibility
+		if ( version_compare( $wp_version, '3.5.dev', '<' ) ) {
+			$this->options_group = 'privacy';
+		}
 	}
 	
 	/**
@@ -19,24 +27,24 @@ class Password_Protected_Admin {
 			'password_protected',
 			'Password Protected Settings',
 			array( $this, 'password_protected_settings_section' ),
-			'privacy'
+			$this->options_group
 		);
 		add_settings_field(
 			'password_protected_status',
 			'Password Protection Status',
 			array( $this, 'password_protected_status_field' ),
-			'privacy',
+			$this->options_group,
 			'password_protected'
 		);
 		add_settings_field(
 			'password_protected_password',
 			'New Password',
 			array( $this, 'password_protected_password_field' ),
-			'privacy',
+			$this->options_group,
 			'password_protected'
 		);
- 		register_setting( 'privacy', 'password_protected_status', 'intval' );
- 		register_setting( 'privacy', 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
+ 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
+ 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
 	}
 	
 	/**
@@ -108,7 +116,7 @@ class Password_Protected_Admin {
 	 */
 	function password_protected_admin_notices(){
 		global $current_screen;
-		if ( $current_screen->id == 'options-privacy' ) {
+		if ( $current_screen->id == 'options-' . $this->options_group ) {
 			$status = get_option( 'password_protected_status' );
 			$pwd = get_option( 'password_protected_password' );
 			if ( (bool) $status && empty( $pwd ) ) {
