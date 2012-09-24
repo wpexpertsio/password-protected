@@ -92,7 +92,7 @@ class Password_Protected {
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
 			$pwd = get_option( 'password_protected_password' );
 			// If correct password...
-			if ( md5( $password_protected_pwd ) == $pwd && $pwd != '' ) {
+			if ( ( md5( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 				$this->set_auth_cookie();
 				if ( ! empty( $_REQUEST['redirect_to'] ) ) {
 					wp_redirect( $_REQUEST['redirect_to'] );
