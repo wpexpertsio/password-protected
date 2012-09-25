@@ -91,7 +91,7 @@ class Password_Protected {
 	function allow_feeds( $bool ) {
 		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) )
 			return 0;
-		return 1;
+		return $bool;
 	}
 	
 	/**
