@@ -45,6 +45,7 @@ class Password_Protected_Admin {
 		);
  		register_setting( $this->options_group, 'password_protected_status', 'intval' );
  		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
+ 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
 	}
 	
 	/**
@@ -82,6 +83,7 @@ class Password_Protected_Admin {
 	 */
 	function password_protected_status_field() {
 		echo '<input name="password_protected_status" id="password_protected_status" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_status' ), false ) . ' /> ' . __( 'Enabled', 'password_protected' );
+		echo '<input name="password_protected_feeds" id="password_protected_feeds" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_feeds' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Feeds', 'password_protected' );
 	}
 	
 	/**
@@ -90,6 +92,13 @@ class Password_Protected_Admin {
 	function password_protected_password_field() {
 		echo '<input type="password" name="password_protected_password[new]" id="password_protected_password_new" size="16" value="" autocomplete="off"> <span class="description">' . __( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'password_protected' ) . '</span><br>
 			<input type="password" name="password_protected_password[confirm]" id="password_protected_password_confirm" size="16" value="" autocomplete="off"> <span class="description">' . __( 'Type your new password again.', 'password_protected' ) . '</span>';
+	}
+	
+	/**
+	 * Allow Feeds Field
+	 */
+	function password_protected_feeds_field() {
+		echo '<input name="password_protected_feeds" id="password_protected_feeds" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_feeds' ), false ) . ' /> ' . __( 'Allow Feeds', 'password_protected' );
 	}
 	
 	/**

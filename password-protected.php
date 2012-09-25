@@ -44,8 +44,9 @@ class Password_Protected {
 		$this->errors = new WP_Error();
 		register_activation_hook( __FILE__, array( &$this, 'install' ) );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
+		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), 1 );
-		$this->disable_feeds();
+		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		if ( is_admin() ) {
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
 			$this->admin = new Password_Protected_Admin();
@@ -81,7 +82,16 @@ class Password_Protected {
 	 * @todo Make Translatable
 	 */
 	function disable_feed() {
-		wp_die( __( 'Feeds are not available for this site. Please visit the <a href="'. get_bloginfo( 'url' ) .'">website</a>.' ) );
+		wp_die( sprintf( __( 'Feeds are not available for this site. Please visit the <a href="%s">website</a>.', 'password_protected' ), get_bloginfo( 'url' ) ) );
+	}
+	
+	/**
+	 * Allow Feeds
+	 */
+	function allow_feeds( $bool ) {
+		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) )
+			return 0;
+		return 1;
 	}
 	
 	/**
