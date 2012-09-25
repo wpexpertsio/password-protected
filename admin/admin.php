@@ -25,20 +25,20 @@ class Password_Protected_Admin {
 	function privacy_settings() {
 		add_settings_section(
 			'password_protected',
-			'Password Protected Settings',
+			__( 'Password Protected Settings', 'password_protected' ),
 			array( $this, 'password_protected_settings_section' ),
 			$this->options_group
 		);
 		add_settings_field(
 			'password_protected_status',
-			'Password Protection Status',
+			__( 'Password Protected Status', 'password_protected' ),
 			array( $this, 'password_protected_status_field' ),
 			$this->options_group,
 			'password_protected'
 		);
 		add_settings_field(
 			'password_protected_password',
-			'New Password',
+			__( 'New Password', 'password_protected' ),
 			array( $this, 'password_protected_password_field' ),
 			$this->options_group,
 			'password_protected'
