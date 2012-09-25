@@ -12,10 +12,21 @@ class Password_Protected_Admin {
 		add_action( 'admin_init', array( $this, 'privacy_settings' ) );
 		add_action( 'admin_notices', array( $this, 'password_protected_admin_notices' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
+		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		
 		// Pre WordPress 3.5 settings group compatibility
 		if ( version_compare( $wp_version, '3.5.dev', '<' ) ) {
 			$this->options_group = 'privacy';
+		}
+	}
+	
+	/**
+	 * Admin Enqueue Scripts
+	 */
+	function admin_enqueue_scripts() {
+		global $current_screen;
+		if ( 'options-' . $this->options_group == $current_screen->id ) {
+			wp_enqueue_script( 'password_protected_settings', PASSWORD_PROTECTED_URL . '/admin/js/settings.js', array( 'jquery' ) );
 		}
 	}
 	
