@@ -36,20 +36,20 @@ class Password_Protected_Admin {
 	function privacy_settings() {
 		add_settings_section(
 			'password_protected',
-			__( 'Password Protected Settings', 'password_protected' ),
+			__( 'Password Protected Settings', 'password-protected' ),
 			array( $this, 'password_protected_settings_section' ),
 			$this->options_group
 		);
 		add_settings_field(
 			'password_protected_status',
-			__( 'Password Protected Status', 'password_protected' ),
+			__( 'Password Protected Status', 'password-protected' ),
 			array( $this, 'password_protected_status_field' ),
 			$this->options_group,
 			'password_protected'
 		);
 		add_settings_field(
 			'password_protected_password',
-			__( 'New Password', 'password_protected' ),
+			__( 'New Password', 'password-protected' ),
 			array( $this, 'password_protected_password_field' ),
 			$this->options_group,
 			'password_protected'
@@ -68,13 +68,13 @@ class Password_Protected_Admin {
 			if ( empty( $val['new'] ) ) {
 				return $old_val;
 			} elseif ( empty( $val['confirm'] ) ) {
-				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. When setting a new password please enter it in both fields.', 'password_protected' ) );
+				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. When setting a new password please enter it in both fields.', 'password-protected' ) );
 				return $old_val;
 			} elseif ( $val['new'] != $val['confirm'] ) {
-				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. Password fields did not match.', 'password_protected' ) );
+				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password not saved. Password fields did not match.', 'password-protected' ) );
 				return $old_val;
 			} elseif ( $val['new'] == $val['confirm'] ) {
-				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password saved.', 'password_protected' ), 'updated' );
+				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password saved.', 'password-protected' ), 'updated' );
 				return $val['new'];
 			}
 			return get_option( 'password_protected_password' );
@@ -86,30 +86,23 @@ class Password_Protected_Admin {
 	 * Password Protected Section
 	 */
 	function password_protected_settings_section() {
-		echo '<p>' . __( 'Password protect your web site. Users will be asked to enter a password to view the site.', 'password_protected' ) . '</p>';
+		echo '<p>' . __( 'Password protect your web site. Users will be asked to enter a password to view the site.', 'password-protected' ) . '</p>';
 	}
 	
 	/**
 	 * Password Protection Status Field
 	 */
 	function password_protected_status_field() {
-		echo '<input name="password_protected_status" id="password_protected_status" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_status' ), false ) . ' /> ' . __( 'Enabled', 'password_protected' );
-		echo '<input name="password_protected_feeds" id="password_protected_feeds" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_feeds' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Feeds', 'password_protected' );
+		echo '<input name="password_protected_status" id="password_protected_status" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_status' ), false ) . ' /> ' . __( 'Enabled', 'password-protected' );
+		echo '<input name="password_protected_feeds" id="password_protected_feeds" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_feeds' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Feeds', 'password-protected' );
 	}
 	
 	/**
 	 * Password Field
 	 */
 	function password_protected_password_field() {
-		echo '<input type="password" name="password_protected_password[new]" id="password_protected_password_new" size="16" value="" autocomplete="off"> <span class="description">' . __( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'password_protected' ) . '</span><br>
-			<input type="password" name="password_protected_password[confirm]" id="password_protected_password_confirm" size="16" value="" autocomplete="off"> <span class="description">' . __( 'Type your new password again.', 'password_protected' ) . '</span>';
-	}
-	
-	/**
-	 * Allow Feeds Field
-	 */
-	function password_protected_feeds_field() {
-		echo '<input name="password_protected_feeds" id="password_protected_feeds" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_feeds' ), false ) . ' /> ' . __( 'Allow Feeds', 'password_protected' );
+		echo '<input type="password" name="password_protected_password[new]" id="password_protected_password_new" size="16" value="" autocomplete="off"> <span class="description">' . __( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'password-protected' ) . '</span><br>
+			<input type="password" name="password_protected_password[confirm]" id="password_protected_password_confirm" size="16" value="" autocomplete="off"> <span class="description">' . __( 'Type your new password again.', 'password-protected' ) . '</span>';
 	}
 	
 	/**
@@ -140,7 +133,7 @@ class Password_Protected_Admin {
 			$status = get_option( 'password_protected_status' );
 			$pwd = get_option( 'password_protected_password' );
 			if ( (bool) $status && empty( $pwd ) ) {
-				echo '<div class="error"><p>' . __( 'You have enabled password protection but not yet set a password. Please set one below.', 'password_protected' ) . '</p></div>';
+				echo '<div class="error"><p>' . __( 'You have enabled password protection but not yet set a password. Please set one below.', 'password-protected' ) . '</p></div>';
 			}
 		}
 	}

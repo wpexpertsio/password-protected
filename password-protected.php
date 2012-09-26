@@ -46,6 +46,7 @@ class Password_Protected {
 	function Password_Protected() {
 		$this->errors = new WP_Error();
 		register_activation_hook( __FILE__, array( &$this, 'install' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), 1 );
@@ -54,6 +55,13 @@ class Password_Protected {
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
 			$this->admin = new Password_Protected_Admin();
 		}
+	}
+	
+	/**
+	 * I18n
+	 */
+	function load_plugin_textdomain() {
+		load_plugin_textdomain( 'password-protected', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 	
 	/**
@@ -85,7 +93,7 @@ class Password_Protected {
 	 * @todo Make Translatable
 	 */
 	function disable_feed() {
-		wp_die( sprintf( __( 'Feeds are not available for this site. Please visit the <a href="%s">website</a>.', 'password_protected' ), get_bloginfo( 'url' ) ) );
+		wp_die( sprintf( __( 'Feeds are not available for this site. Please visit the <a href="%s">website</a>.', 'password-protected' ), get_bloginfo( 'url' ) ) );
 	}
 	
 	/**
@@ -114,7 +122,7 @@ class Password_Protected {
 			} else {
 				// ... otherwise incorrect password
 				$this->clear_auth_cookie();
-				$this->errors->add( 'incorrect_password', 'Incorrect Password' );
+				$this->errors->add( 'incorrect_password', __( 'Incorrect Password', 'password-protected' ) );
 			}
 		}
 		

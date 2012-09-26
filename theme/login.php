@@ -37,7 +37,7 @@ if ( SITECOOKIEPATH != COOKIEPATH )
 
 // If cookies are disabled we can't log in even with a valid password.
 if ( isset( $_POST['testcookie'] ) && empty( $_COOKIE[TEST_COOKIE] ) )
-	$Password_Protected->errors->add( 'test_cookie', __( "<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href='http://www.google.com/cookies.html'>enable cookies</a> to use WordPress." ) );
+	$Password_Protected->errors->add( 'test_cookie', __( "<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href='http://www.google.com/cookies.html'>enable cookies</a> to use WordPress.", 'password-protected' ) );
 
 // Shake it!
 $shake_error_codes = array( 'empty_password', 'incorrect_password' );
@@ -111,14 +111,14 @@ do_action( 'password_protected_login_head' );
 	
 	<form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="post">
 		<p>
-			<label for="password_protected_pass"><?php _e( 'Password' ) ?><br />
+			<label for="password_protected_pass"><?php _e( 'Password', 'password-protected' ) ?><br />
 			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>
 		</p>
 		<!--
-		<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90"<?php checked( ! empty( $_POST['rememberme'] ) ); ?> /> <?php esc_attr_e( 'Remember Me' ); ?></label></p>
+		<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90"<?php checked( ! empty( $_POST['rememberme'] ) ); ?> /> <?php esc_attr_e( 'Remember Me', 'password-protected' ); ?></label></p>
 		-->
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php esc_attr_e( 'Log In' ); ?>" tabindex="100" />
+			<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php esc_attr_e( 'Log In', 'password-protected' ); ?>" tabindex="100" />
 			<input type="hidden" name="testcookie" value="1" />
 			<input type="hidden" name="password-protected" value="login" />
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
