@@ -106,7 +106,9 @@ do_action( 'password_protected_login_head' );
 			echo '<p class="message">' . apply_filters( 'password_protected_login_messages', $messages ) . "</p>\n";
 	}
 	?>
-
+	
+	<?php do_action( 'password_protected_before_login_form' ); ?>
+	
 	<form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="post">
 		<p>
 			<label for="password_protected_pass"><?php _e( 'Password' ) ?><br />
@@ -122,7 +124,9 @@ do_action( 'password_protected_login_head' );
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
 		</p>
 	</form>
-
+	
+	<?php do_action( 'password_protected_after_login_form' ); ?>
+	
 </div>
 
 <script type="text/javascript">
