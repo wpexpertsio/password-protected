@@ -3,8 +3,9 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 1.2.2
+Tested up to: 3.4.2
+Stable tag: 1.3
+License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password. Integrates seamlessly into your WordPress privacy settings.
 
@@ -36,6 +37,10 @@ If you are upgrading manually via FTP rather that through the WordPress automati
 
 Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith. This will change the logo on your password entry page AND also your admin login page.
 
+= How can I enable feeds while the site is password protected? =
+
+In the settings, check the 'Allow Feeds' checkbox.
+
 = How can I log out? =
 
 Just add a "password-protected=logout" query to your URL.
@@ -56,6 +61,15 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 2. Integrates seamlessly into your WordPress privacy settings.
 
 == Changelog ==
+
+= 1.3 =
+
+* Added checkbox to allow access to feeds when protection is enabled.
+* Prepare for WordPress 3.5 Settings API changes.
+* Added 'password_protected_before_login_form' and 'password_protected_after_login_form' actions.
+* Added 'password_protected_process_login' filter to make it possible to extend login functionality.
+* Now possible to use 'pre_update_option_password_protected_password' filter to use password before it is encrypted and saved.
+* Ready for [translations](http://codex.wordpress.org/I18n_for_WordPress_Developers).
 
 = 1.2.2 =
 
@@ -78,3 +92,14 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 = 1.0 =
 
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
+
+== Upgrade Notice ==
+
+= 1.3 =
+Allow access to feeds. Ready for translation.
+
+= 1.2 =
+Use cookies instead of sessions.
+
+= 1.1 =
+Passwords saved encrypted.
