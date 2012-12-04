@@ -44,32 +44,8 @@ class Password_Protected_Admin {
 	function admin_enqueue_scripts() {
 		global $current_screen;
 		if ( 'options-' . $this->options_group == $current_screen->id ) {
-			wp_enqueue_style( 'wp-pointer' );
-			wp_enqueue_script( 'password_protected_settings', PASSWORD_PROTECTED_URL . '/admin/js/settings.js', array( 'jquery', 'wp-pointer' ) );
-			wp_localize_script( 'password_protected_settings', 'Password_Protected_Settings', $this->localize_settings_js() );
+			wp_enqueue_script( 'password_protected_settings', PASSWORD_PROTECTED_URL . '/admin/js/settings.js', array( 'jquery' ) );
 		}
-	}
-	
-	/**
-	 * Localize Settings JavaScript
-	 */
-	function localize_settings_js() {
-		
-		// Allow Administrators Pointer
-		$pointer_text_allow_administrators = '<h3>' . esc_js( __( 'New Feature', 'password-protected' ) ) . '</h3>';
-		$pointer_text_allow_administrators .= '<p>' . esc_js( __( 'Check this box to allow administrators to view the site without entering the password. Also enable this if you want to be able to preview the site in the theme customizer.', 'password-protected' ) ) . '</p>';
-	 
-		// Get the list of dismissed pointers for the user
-		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
-	 	
-		// Check whether our pointers have been dismissed
-		if ( in_array( 'PASSWORD_PROTECTED_ALLOW_ADMINISTRATORS', $dismissed ) ) {
-			$pointer_text_allow_administrators = '';
-		}
-	 
-		return array(
-			'pointerTextAllowAdministrators' => $pointer_text_allow_administrators
-		);
 	}
 	
 	/**
