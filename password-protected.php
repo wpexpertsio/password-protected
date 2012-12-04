@@ -55,6 +55,7 @@ class Password_Protected {
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), 1 );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
+		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		if ( is_admin() ) {
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
 			$this->admin = new Password_Protected_Admin();
@@ -105,6 +106,15 @@ class Password_Protected {
 	 */
 	function allow_feeds( $bool ) {
 		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) )
+			return 0;
+		return $bool;
+	}
+	
+	/**
+	 * Allow Administrators
+	 */
+	function allow_administrators( $bool ) {
+		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) )
 			return 0;
 		return $bool;
 	}
