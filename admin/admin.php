@@ -10,6 +10,7 @@ class Password_Protected_Admin {
 	function Password_Protected_Admin() {
 		global $wp_version;
 		add_action( 'admin_init', array( $this, 'privacy_settings' ) );
+		add_action( 'load-options-reading.php', array( $this, 'add_reading_help_tabs' ), 20 );
 		add_action( 'admin_notices', array( $this, 'password_protected_admin_notices' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
 		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
@@ -18,6 +19,23 @@ class Password_Protected_Admin {
 		if ( version_compare( $wp_version, '3.5.dev', '<' ) ) {
 			$this->options_group = 'privacy';
 		}
+	}
+	
+	/**
+	 * Add Reading Help Tabs
+	 */
+	function add_reading_help_tabs() {
+		global $wp_version;
+		if ( version_compare( $wp_version, '3.3', '<' ) )
+			return;
+		get_current_screen()->add_help_tab( array(
+			'id'      => 'PASSWORD_PROTECTED_READING',
+			'title'   => __( 'Password Protected', 'password-protected' ),
+			'content' => __( '<p><strong>Enabled Checkbox</strong><br />Turn on/off password protection.</p>', 'password-protected' )
+				. __( '<p><strong>Allow RSS Feeds Checkbox</strong><br />RSS Feeds will be able to accessed even when the site is password proteced.</p>', 'password-protected' )
+				. __( '<p><strong>Allow Administrators Checkbox</strong><br />Administrators will not need to enter a password to view the site (providing they are logged in of course). You will also need to enable this option if you want administrators to be able to preview the site in the Theme Customizer.</p>', 'password-protected' )
+				. __( '<p><strong>Password Fields</strong><br />To set a new password, enter it into both fields. You cannot set an `empty` password. To disable password protection uncheck the Enabled checkbox.</p>', 'password-protected' )
+		) );
 	}
 	
 	/**
@@ -38,8 +56,8 @@ class Password_Protected_Admin {
 	function localize_settings_js() {
 		
 		// Allow Administrators Pointer
-		$pointer_text_allow_administrators = '<h3>' . esc_js( __( 'New Feature' ) ) . '</h3>';
-		$pointer_text_allow_administrators .= '<p>' . esc_js( __( 'Check this box to allow administrators to view the site without entering the password. Also enable this if you want to be able to preview the site in the theme customizer.' ) ) . '</p>';
+		$pointer_text_allow_administrators = '<h3>' . esc_js( __( 'New Feature', 'password-protected' ) ) . '</h3>';
+		$pointer_text_allow_administrators .= '<p>' . esc_js( __( 'Check this box to allow administrators to view the site without entering the password. Also enable this if you want to be able to preview the site in the theme customizer.', 'password-protected' ) ) . '</p>';
 	 
 		// Get the list of dismissed pointers for the user
 		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
