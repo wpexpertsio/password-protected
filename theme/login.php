@@ -78,7 +78,7 @@ do_action( 'password_protected_login_head' );
 ?>
 
 </head>
-<body class="login login-password-protected">
+<body class="login login-password-protected login-action-password-protected-login wp-core-ui">
 
 <div id="login">
 	<h1><a href="<?php echo esc_url( apply_filters( 'password_proteced_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
@@ -118,7 +118,7 @@ do_action( 'password_protected_login_head' );
 		<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90"<?php checked( ! empty( $_POST['rememberme'] ) ); ?> /> <?php esc_attr_e( 'Remember Me', 'password-protected' ); ?></label></p>
 		-->
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php esc_attr_e( 'Log In', 'password-protected' ); ?>" tabindex="100" />
+			<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In', 'password-protected' ); ?>" tabindex="100" />
 			<input type="hidden" name="testcookie" value="1" />
 			<input type="hidden" name="password-protected" value="login" />
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
