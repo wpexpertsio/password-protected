@@ -72,8 +72,11 @@ class Password_Protected {
 	 * Is Active?
 	 */
 	function is_active() {
-		if ( (bool) get_option( 'password_protected_status' ) )
+		if ( (bool) get_option( 'password_protected_status' ) ) {
+			if ( ! defined( 'DONOTCACHEPAGE' ) )
+				define( 'DONOTCACHEPAGE', true );
 			return true;
+		}
 		return false;
 	}
 	
