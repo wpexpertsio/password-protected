@@ -66,7 +66,7 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 
 == Changelog ==
 
-= 1.3 =
+= 1.4 =
 * Add option to allow administrators to use the site without logging in.
 * Use DONOTCACHEPAGE to try to prevent some caching issues.
 * Updated login screen styling for WordPress 3.5 compatibility.
