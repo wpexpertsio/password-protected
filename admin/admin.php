@@ -10,7 +10,7 @@ class Password_Protected_Admin {
 	 */
 	function Password_Protected_Admin() {
 		global $wp_version;
-		add_action( 'admin_init', array( $this, 'privacy_settings' ), 5 );
+		add_action( 'admin_init', array( $this, 'password_protected_settings' ), 5 );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_notices', array( $this, 'password_protected_admin_notices' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
@@ -70,7 +70,7 @@ class Password_Protected_Admin {
 	/**
 	 * Settings API
 	 */
-	function privacy_settings() {
+	function password_protected_settings() {
 		add_settings_section(
 			'password_protected',
 			'',
