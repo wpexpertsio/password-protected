@@ -27,7 +27,7 @@ To install and configure this plugin...
 
 1. Upload or install the plugin through your WordPress admin.
 2. Activate the plugin via the 'Plugins' admin menu.
-3. Configuration the password in your WordPress Privacy settings.
+3. Configuration the password in your WordPress reading settings (or privacy settings prior to WordPress 3.5).
 
 = Upgrading =
 
