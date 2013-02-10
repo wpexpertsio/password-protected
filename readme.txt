@@ -7,18 +7,17 @@ Tested up to: 3.5
 Stable tag: 1.4
 License: GPLv2 or later
 
-A very simple way to quickly password protect your WordPress site with a single password. Integrates seamlessly into your WordPress settings.
+A very simple way to quickly password protect your WordPress site with a single password.
 
 == Description ==
 
-A very simple way to quickly password protect your WordPress site with a single password. Integrates seamlessly into your WordPress settings.
+A very simple way to quickly password protect your WordPress site with a single password.
 
 Features include:
 
 * Password protect your WordPress site with a single password.
 * Option to allow access to feeds.
 * Option to allow administrators access without entering password.
-* Integrates seamlessly into your WordPress reading settings (or privacy settings prior to WordPress 3.5).
 * Works with Mark Jaquith's [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin.
             
 == Installation ==
@@ -27,7 +26,7 @@ To install and configure this plugin...
 
 1. Upload or install the plugin through your WordPress admin.
 2. Activate the plugin via the 'Plugins' admin menu.
-3. Configuration the password in your WordPress reading settings (or privacy settings prior to WordPress 3.5).
+3. Configure the password options in the Password Protected settings.
 
 = Upgrading =
 
@@ -61,8 +60,7 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 == Screenshots ==
 
 1. Login page perfectly mimicks the WordPress login.
-2. Integrates seamlessly into your WordPress reading settings in WordPress 3.5+.
-3. Integrates into your WordPress privacy settings in earlier versions of WordPress.
+2. Password Protected settings page.
 
 == Changelog ==
 
