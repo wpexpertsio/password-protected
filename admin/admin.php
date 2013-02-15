@@ -12,6 +12,7 @@ class Password_Protected_Admin {
 		global $wp_version;
 		add_action( 'admin_init', array( $this, 'password_protected_settings' ), 5 );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'password_protected_help_tabs', array( $this, 'help_tabs' ), 5 );
 		add_action( 'admin_notices', array( $this, 'password_protected_admin_notices' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
 		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
@@ -22,7 +23,7 @@ class Password_Protected_Admin {
 	 */
 	function admin_menu() {
 		$this->settings_page_id = add_options_page( __( 'Password Protected', 'password-protected' ), __( 'Password Protected', 'password-protected' ), 'manage_options', 'password-protected', array( $this, 'settings_page' ) );
-		add_action( 'load-' . $this->settings_page_id, array( $this, 'add_reading_help_tabs' ), 20 );
+		add_action( 'load-' . $this->settings_page_id, array( $this, 'add_help_tabs' ), 20 );
 	}
 
 	/**
@@ -41,13 +42,20 @@ class Password_Protected_Admin {
 	}
 
 	/**
-	 * Add Reading Help Tabs
+	 * Add Help Tabs
 	 */
-	function add_reading_help_tabs() {
+	function add_help_tabs() {
 		global $wp_version;
 		if ( version_compare( $wp_version, '3.3', '<' ) )
 			return;
-		get_current_screen()->add_help_tab( array(
+		do_action( 'password_protected_help_tabs', get_current_screen() );
+	}
+
+	/**
+	 * Help Tabs
+	 */
+	function help_tabs( $current_screen ) {
+		$current_screen->add_help_tab( array(
 			'id'      => 'PASSWORD_PROTECTED_SETTINGS',
 			'title'   => __( 'Password Protected', 'password-protected' ),
 			'content' => __( '<p><strong>Enabled Checkbox</strong><br />Turn on/off password protection.</p>', 'password-protected' )
