@@ -124,7 +124,8 @@ class Password_Protected_Admin {
 	 * Password Protected Section
 	 */
 	function password_protected_settings_section() {
-		echo '<p>' . __( 'Password protect your web site. Users will be asked to enter a password to view the site.', 'password-protected' ) . '</p>';
+		echo '<p>' . __( 'Password protect your web site. Users will be asked to enter a password to view the site.', 'password-protected' ) . '<br />
+			' . __( 'For more information about Password Protected settings, view the "Help" tab at the top of this page.', 'password-protected' ) . '</p>';
 	}
 	
 	/**
