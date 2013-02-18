@@ -13,6 +13,7 @@ A very simple way to quickly password protect your WordPress site with a single 
 
 A very simple way to quickly password protect your WordPress site with a single password.
 
+This plugin only protects your WordPress content. It **does not protect and images or uploaded files** so if you enter and exact URL to in image file it will still be accessible.
 Features include:
 
 * Password protect your WordPress site with a single password.
