@@ -14,12 +14,15 @@ A very simple way to quickly password protect your WordPress site with a single 
 A very simple way to quickly password protect your WordPress site with a single password.
 
 This plugin only protects your WordPress content. It **does not protect and images or uploaded files** so if you enter and exact URL to in image file it will still be accessible.
+
 Features include:
 
 * Password protect your WordPress site with a single password.
 * Option to allow access to feeds.
 * Option to allow administrators access without entering password.
 * Works with Mark Jaquith's [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin.
+
+> Please note, this plugin does not currently work with WP Engine hosting due to their page caching implementation.
             
 == Installation ==
 
