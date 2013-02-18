@@ -69,8 +69,8 @@ class Password_Protected_Admin {
 	 * Admin Enqueue Scripts
 	 */
 	function admin_enqueue_scripts() {
-		global $current_screen;
-		if ( 'options-' . $this->options_group == $current_screen->id ) {
+		$current_screen = get_current_screen();
+		if ( 'settings_page_' . $this->options_group == $current_screen->id ) {
 			wp_enqueue_script( 'password_protected_settings', PASSWORD_PROTECTED_URL . '/admin/js/settings.js', array( 'jquery' ) );
 		}
 	}
@@ -177,7 +177,7 @@ class Password_Protected_Admin {
 	 * Warns the user if they have enabled password protection but not entered a password
 	 */
 	function password_protected_admin_notices(){
-		global $current_screen;
+		$current_screen = get_current_screen();
 		if ( $current_screen->id == 'options-' . $this->options_group ) {
 			$status = get_option( 'password_protected_status' );
 			$pwd = get_option( 'password_protected_password' );
