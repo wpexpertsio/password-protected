@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 /**
  * @todo Use wp_hash_password() ?
+ * @todo Remember me
  */
 
 define( 'PASSWORD_PROTECTED_SUBDIR', '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) );
@@ -121,7 +122,14 @@ class Password_Protected {
 			return 0;
 		return $bool;
 	}
-	
+
+	/**
+	 * Encrypt Password
+	 */
+	function encrypt_password( $password ) {
+		return md5( $password );
+	}
+
 	/**
 	 * Maybe Process Login
 	 */
@@ -130,7 +138,7 @@ class Password_Protected {
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
 			$pwd = get_option( 'password_protected_password' );
 			// If correct password...
-			if ( ( md5( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
+			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 				$this->set_auth_cookie();
 				if ( ! empty( $_REQUEST['redirect_to'] ) ) {
 					wp_redirect( $_REQUEST['redirect_to'] );
@@ -320,7 +328,7 @@ class Password_Protected {
 		if ( empty( $old_version ) || version_compare( '1.1', $old_version ) ) {
 			$pwd = get_option( 'password_protected_password' );
 			if ( ! empty( $pwd ) ) {
-				$new_pwd = md5( $pwd );
+				$new_pwd = $this->encrypt_password( $pwd );
 				update_option( 'password_protected_password', $new_pwd );
 			} 
 		}

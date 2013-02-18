@@ -165,8 +165,9 @@ class Password_Protected_Admin {
 	 * @return string Filtered new value.
 	 */
 	function pre_update_option_password_protected_password( $newvalue, $oldvalue ) {
+		global $Password_Protected;
 		if ( $newvalue != $oldvalue ) {
-			$newvalue = md5( $newvalue );
+			$newvalue = $Password_Protected->encrypt_password( $newvalue );
 		}
 		return $newvalue;
 	}
