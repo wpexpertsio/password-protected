@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
 Requires at least: 3.1
-Tested up to: 3.5
-Stable tag: 1.4
+Tested up to: 3.5.1
+Stable tag: 1.5
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -68,6 +68,12 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 
 == Changelog ==
 
+= 1.5 =
+* Requires WordPress 3.1+
+* Settings now have their own page.
+* Fixed an open redirect vulnerability. Props Chris Campbell.
+* Added note about WP Engine compatibility to readme.txt
+
 = 1.4 =
 * Add option to allow administrators to use the site without logging in.
 * Use DONOTCACHEPAGE to try to prevent some caching issues.
@@ -101,6 +107,9 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 1.5 =
+Fixes an open redirect vulnerability. Settings now have own page.
 
 = 1.4 =
 Administrators can use the site without logging in. WordPress 3.5 compatible.
