@@ -141,7 +141,7 @@ class Password_Protected {
 			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 				$this->set_auth_cookie();
 				if ( ! empty( $_REQUEST['redirect_to'] ) ) {
-					wp_redirect( $_REQUEST['redirect_to'] );
+					$this->safe_redirect( $_REQUEST['redirect_to'] );
 					exit;
 				}
 			} else {
@@ -334,6 +334,19 @@ class Password_Protected {
 		}
 		
 		update_option( 'password_protected_version', $this->version );
+	}
+
+	/**
+	 * Safe Redirect
+	 *
+	 * Ensure the redirect is to the same site or pluggable list of allowed domains.
+	 * If invalid will redirect to ...
+	 * Based on the WordPress wp_safe_redirect() function.
+	 */
+	function safe_redirect( $location, $status = 302 ) {
+		$location = wp_sanitize_redirect( $location );
+		$location = wp_validate_redirect( $location, home_url() );
+		wp_redirect( $location, $status );
 	}
 
 }
