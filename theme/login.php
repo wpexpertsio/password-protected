@@ -44,10 +44,18 @@ $shake_error_codes = array( 'empty_password', 'incorrect_password' );
 if ( $Password_Protected->errors->get_error_code() && in_array( $Password_Protected->errors->get_error_code(), $shake_error_codes ) )
 	add_action( 'password_protected_login_head', 'wp_shake_js', 12 );
 
-// Add support for Mark Jaquith's Login Logo plugin
-// http://wordpress.org/extend/plugins/login-logo/
-if ( class_exists( 'CWS_Login_Logo_Plugin' ) )
+/**
+ * Support 3rd party plugins
+ */
+if ( class_exists( 'CWS_Login_Logo_Plugin' ) ) {
+	// Add support for Mark Jaquith's Login Logo plugin
+	// http://wordpress.org/extend/plugins/login-logo/
 	add_action( 'password_protected_login_head', array( new CWS_Login_Logo_Plugin, 'login_head' ) );
+} elseif ( class_exists( 'UberLoginLogo' ) ) {
+	// Add support for Uber Login Logo plugin
+	// http://wordpress.org/plugins/uber-login-logo/
+	 add_action( 'password_protected_login_head', array( 'UberLoginLogo', 'replaceLoginLogo' ) );
+}
 
 ?>
 <!DOCTYPE html>
