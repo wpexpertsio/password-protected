@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
 Requires at least: 3.1
-Tested up to: 3.5.1
-Stable tag: 1.5
+Tested up to: 3.5.2
+Stable tag: 1.6
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -21,6 +21,7 @@ Features include:
 * Option to allow access to feeds.
 * Option to allow administrators access without entering password.
 * Works with Mark Jaquith's [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin.
+* Works with the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin.
 
 > Please note, this plugin does not currently work with WP Engine hosting due to their page caching implementation.
             
@@ -39,7 +40,7 @@ If you are upgrading manually via FTP rather that through the WordPress automati
 == Frequently Asked Questions ==
 
 = How can I change the Wordpress logo to a different image? =
-Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith. This will change the logo on your password entry page AND also your admin login page.
+Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith or the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin. This will change the logo on your password entry page AND also your admin login page.
 
 = How can I enable feeds while the site is password protected? =
 In the settings, check the 'Allow Feeds' checkbox.
@@ -67,6 +68,9 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 1.6 =
+* Added support for Uber Login Logo plugin.
 
 = 1.5 =
 * Requires WordPress 3.1+
@@ -107,6 +111,9 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 1.6 =
+Added support for Uber Login Logo plugin.
 
 = 1.5 =
 Fixes an open redirect vulnerability. Settings now have own page.
