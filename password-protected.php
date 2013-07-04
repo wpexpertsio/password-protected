@@ -74,6 +74,11 @@ class Password_Protected {
 	 * Is Active?
 	 */
 	function is_active() {
+
+		// Always allow access to robots.txt
+		if ( is_robots() )
+			return false;
+
 		if ( (bool) get_option( 'password_protected_status' ) ) {
 			if ( ! defined( 'DONOTCACHEPAGE' ) )
 				define( 'DONOTCACHEPAGE', true );
