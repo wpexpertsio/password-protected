@@ -70,6 +70,7 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 == Changelog ==
 
 = 1.6 =
+* Robots.txt is now always accessible.
 * Added support for Uber Login Logo plugin.
 
 = 1.5 =
