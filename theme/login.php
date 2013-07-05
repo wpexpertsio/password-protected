@@ -48,7 +48,7 @@ if ( $Password_Protected->errors->get_error_code() && in_array( $Password_Protec
  * Support 3rd party plugins
  */
 if ( class_exists( 'CWS_Login_Logo_Plugin' ) ) {
-	// Add support for Mark Jaquith's Login Logo plugin
+        // Add support for Mark Jaquith's Login Logo plugin
 	// http://wordpress.org/extend/plugins/login-logo/
 	add_action( 'password_protected_login_head', array( new CWS_Login_Logo_Plugin, 'login_head' ) );
 } elseif ( class_exists( 'UberLoginLogo' ) ) {
@@ -79,6 +79,11 @@ if ( $is_iphone ) {
 	#login { padding: 20px 0; }
 	</style>
 	<?php
+}
+
+//If the site is set to private (in privacy settings) add <meta name='robots' content='noindex,nofollow' />
+if ( '0' == get_option( 'blog_public' ) ){
+        echo("<meta name='robots' content='noindex,nofollow' />");
 }
 
 do_action( 'login_enqueue_scripts' );
