@@ -88,11 +88,6 @@ if ( $is_iphone ) {
 do_action( 'login_enqueue_scripts' );
 do_action( 'password_protected_login_head' );
 
-
-//If the site is set to private (in privacy settings) add <meta name='robots' content='noindex,nofollow' />
-if ( '0' == get_option( 'blog_public' ) ){
-        echo("<meta name='robots' content='noindex,nofollow' />");
-}
 ?>
 
 </head>
