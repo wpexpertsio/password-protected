@@ -44,6 +44,9 @@ $shake_error_codes = array( 'empty_password', 'incorrect_password' );
 if ( $Password_Protected->errors->get_error_code() && in_array( $Password_Protected->errors->get_error_code(), $shake_error_codes ) )
 	add_action( 'password_protected_login_head', 'wp_shake_js', 12 );
 
+// Obey privacy setting
+add_action( 'password_protected_login_head', 'noindex' );
+
 /**
  * Support 3rd party plugins
  */
