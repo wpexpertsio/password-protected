@@ -99,10 +99,18 @@ class Password_Protected_Admin {
 			$this->options_group,
 			'password_protected'
 		);
+				add_settings_field(
+					'password_protected_template',
+					__( 'Override Template', 'password-protected' ),
+					array( $this, 'password_protected_template_field' ),
+					$this->options_group,
+					'password_protected'
+				);
  		register_setting( $this->options_group, 'password_protected_status', 'intval' );
  		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
  		register_setting( $this->options_group, 'password_protected_administrators', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
+		register_setting( $this->options_group, 'password_protected_template' );
  	}
 	
 	/**
@@ -151,6 +159,13 @@ class Password_Protected_Admin {
 	function password_protected_password_field() {
 		echo '<input type="password" name="password_protected_password[new]" id="password_protected_password_new" size="16" value="" autocomplete="off"> <span class="description">' . __( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'password-protected' ) . '</span><br>
 			<input type="password" name="password_protected_password[confirm]" id="password_protected_password_confirm" size="16" value="" autocomplete="off"> <span class="description">' . __( 'Type your new password again.', 'password-protected' ) . '</span>';
+	}
+	
+	/**
+	 * Override Login Template
+	 */ 
+	function password_protected_template_field() {
+		echo '<input type="text" name="password_protected_template" id="password_protected_template" size="16" value="'.get_option( 'password_protected_template' ).'" autocomplete="off"> <span class="description">' . __( 'To override the login template type in the relative path to your login.php in your theme.', 'password-protected' ) . '</span>';
 	}
 	
 	/**
