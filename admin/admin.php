@@ -15,6 +15,7 @@ class Password_Protected_Admin {
 		add_action( 'password_protected_help_tabs', array( $this, 'help_tabs' ), 5 );
 		add_action( 'admin_notices', array( $this, 'password_protected_admin_notices' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 4 );
+		add_filter( 'plugin_action_links_password-protected/password-protected.php', array( $this, 'plugin_action_links' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
 		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
@@ -190,7 +191,20 @@ class Password_Protected_Admin {
 		}
 		return $plugin_meta;
 	}
-	
+
+	/**
+	 * Plugin Action Links
+	 *
+	 * Adds settings link on the plugins page.
+	 *
+	 * @param   array  $actions  Plugin action links array.
+	 * @return  array            Plugin action links array.
+	 */
+	function plugin_action_links( $actions ) {
+		$actions[] = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=password-protected' ), __( 'Settings', 'password-protected' ) );
+		return $actions;
+	}
+
 	/**
 	 * Password Admin Notice
 	 * Warns the user if they have enabled password protection but not entered a password
