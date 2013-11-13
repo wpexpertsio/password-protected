@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
 Requires at least: 3.1
-Tested up to: 3.5.2
-Stable tag: 1.6
+Tested up to: 3.7.1
+Stable tag: 1.6.1
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -68,6 +68,9 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 1.6.1 =
+* Language updates by wp-translations.org (Arabic, Dutch, French, Persian, Russian).
 
 = 1.6 =
 * Robots.txt is now always accessible.
