@@ -2,9 +2,9 @@
 Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
-Requires at least: 3.1
-Tested up to: 3.7.1
-Stable tag: 1.6.1
+Requires at least: 3.2
+Tested up to: 3.8
+Stable tag: 1.6.2
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -69,6 +69,10 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 
 == Changelog ==
 
+= 1.6.2 =
+* Set login page not to index if privacy setting is on.
+* Allow redirection to a different URL when logging out using 'redirect_to' query and full URL.
+
 = 1.6.1 =
 * Language updates by wp-translations.org (Arabic, Dutch, French, Persian, Russian).
 
@@ -115,6 +119,9 @@ If you can, please [fork the code](https://github.com/benhuson/password-protecte
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 1.6.2 =
+Allow redirection to a different URL when logging out.
 
 = 1.6 =
 Added support for Uber Login Logo plugin.
