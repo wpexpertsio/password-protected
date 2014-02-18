@@ -214,7 +214,13 @@ class Password_Protected {
 
 		// Show login form
 		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
-			include( dirname( __FILE__ ) . '/theme/login.php' );
+			$default  = dirname( __FILE__ ) . '/theme/login.php';
+			$template = get_option('password_protected_template');
+			if ( $template ) {
+				$override = get_stylesheet_directory().'/'.$template;
+				$file     = file_exists($override) ? $override : $default;
+			}else $file = $default;
+			include( $file );
 			exit();
 		} else {
 			$query = array(
