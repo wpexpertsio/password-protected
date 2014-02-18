@@ -58,6 +58,7 @@ class Password_Protected {
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), 1 );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
+		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
 		if ( is_admin() ) {
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
 			$this->admin = new Password_Protected_Admin();
@@ -125,6 +126,15 @@ class Password_Protected {
 	 */
 	function allow_administrators( $bool ) {
 		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) )
+			return 0;
+		return $bool;
+	}
+	
+	/**
+	 * Allow Users
+	 */
+	function allow_users( $bool ) {
+		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_users' ) )
 			return 0;
 		return $bool;
 	}

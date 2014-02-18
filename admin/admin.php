@@ -104,6 +104,7 @@ class Password_Protected_Admin {
  		register_setting( $this->options_group, 'password_protected_status', 'intval' );
  		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
  		register_setting( $this->options_group, 'password_protected_administrators', 'intval' );
+ 		register_setting( $this->options_group, 'password_protected_users', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
  	}
 	
@@ -145,6 +146,7 @@ class Password_Protected_Admin {
 		echo '<input name="password_protected_status" id="password_protected_status" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_status' ), false ) . ' /> ' . __( 'Enabled', 'password-protected' );
 		echo '<input name="password_protected_feeds" id="password_protected_feeds" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_feeds' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow RSS Feeds', 'password-protected' );
 		echo '<input name="password_protected_administrators" id="password_protected_administrators" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_administrators' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Administrators', 'password-protected' );
+		echo '<input name="password_protected_users" id="password_protected_users" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_users' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Logged In Users', 'password-protected' );
 	}
 	
 	/**
@@ -217,8 +219,14 @@ class Password_Protected_Admin {
 			if ( (bool) $status && empty( $pwd ) ) {
 				echo '<div class="error"><p>' . __( 'You have enabled password protection but not yet set a password. Please set one below.', 'password-protected' ) . '</p></div>';
 			}
-			if ( current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) ) {
-				echo '<div class="error"><p>' . __( 'You have enabled password protection and allowed administrators - other users will still need to login to view the site.', 'password-protected' ) . '</p></div>';
+			if ( current_user_can( 'manage_options' ) && ( (bool) get_option( 'password_protected_administrators' ) || (bool) get_option( 'password_protected_users' ) ) ) {
+				if ( (bool) get_option( 'password_protected_administrators' ) && (bool) get_option( 'password_protected_users' ) ) {
+					echo '<div class="error"><p>' . __( 'You have enabled password protection and allowed administrators and logged in users - other users will still need to login to view the site.', 'password-protected' ) . '</p></div>';
+				} elseif ( (bool) get_option( 'password_protected_administrators' ) ) {
+					echo '<div class="error"><p>' . __( 'You have enabled password protection and allowed administrators - other users will still need to login to view the site.', 'password-protected' ) . '</p></div>';
+				} elseif ( (bool) get_option( 'password_protected_users' ) ) {
+					echo '<div class="error"><p>' . __( 'You have enabled password protection and allowed logged in users - other users will still need to login to view the site.', 'password-protected' ) . '</p></div>';
+				}
 			}
 		}
 	}
