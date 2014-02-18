@@ -3,7 +3,7 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
 Requires at least: 3.2
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: 1.6.2
 License: GPLv2 or later
 
