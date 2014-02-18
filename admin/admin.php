@@ -63,6 +63,7 @@ class Password_Protected_Admin {
 			'content' => __( '<p><strong>Enabled Checkbox</strong><br />Turn on/off password protection.</p>', 'password-protected' )
 				. __( '<p><strong>Allow RSS Feeds Checkbox</strong><br />RSS Feeds will be able to accessed even when the site is password proteced.</p>', 'password-protected' )
 				. __( '<p><strong>Allow Administrators Checkbox</strong><br />Administrators will not need to enter a password to view the site (providing they are logged in of course). You will also need to enable this option if you want administrators to be able to preview the site in the Theme Customizer.</p>', 'password-protected' )
+				. __( '<p><strong>Allow Logged In Users Checkbox</strong><br />Logged in users (including administrators) will not need to enter a password to view the site.</p>', 'password-protected' )
 				. __( '<p><strong>Password Fields</strong><br />To set a new password, enter it into both fields. You cannot set an `empty` password. To disable password protection uncheck the Enabled checkbox.</p>', 'password-protected' )
 		) );
 	}
