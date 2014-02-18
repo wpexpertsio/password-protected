@@ -41,11 +41,11 @@ global $Password_Protected;
 $Password_Protected = new Password_Protected();
 
 class Password_Protected {
-	
+
 	var $version = '1.6.2';
 	var $admin   = null;
 	var $errors  = null;
-	
+
 	/**
 	 * Constructor
 	 */
@@ -64,14 +64,14 @@ class Password_Protected {
 			$this->admin = new Password_Protected_Admin();
 		}
 	}
-	
+
 	/**
 	 * I18n
 	 */
 	function load_plugin_textdomain() {
 		load_plugin_textdomain( 'password-protected', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
-	
+
 	/**
 	 * Is Active?
 	 */
@@ -88,7 +88,7 @@ class Password_Protected {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Disable Feeds
 	 *
@@ -103,7 +103,7 @@ class Password_Protected {
 			add_action( 'do_feed_atom', array( $this, 'disable_feed' ), 1 );
 		}
 	}
-	
+
 	/**
 	 * Disable Feed
 	 * @todo Make Translatable
@@ -111,7 +111,7 @@ class Password_Protected {
 	function disable_feed() {
 		wp_die( sprintf( __( 'Feeds are not available for this site. Please visit the <a href="%s">website</a>.', 'password-protected' ), get_bloginfo( 'url' ) ) );
 	}
-	
+
 	/**
 	 * Allow Feeds
 	 */
@@ -120,7 +120,7 @@ class Password_Protected {
 			return 0;
 		return $bool;
 	}
-	
+
 	/**
 	 * Allow Administrators
 	 */
@@ -129,7 +129,7 @@ class Password_Protected {
 			return 0;
 		return $bool;
 	}
-	
+
 	/**
 	 * Allow Users
 	 */
@@ -166,7 +166,7 @@ class Password_Protected {
 				$this->errors->add( 'incorrect_password', __( 'Incorrect Password', 'password-protected' ) );
 			}
 		}
-		
+
 		// Log out
 		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
 			$this->logout();
@@ -184,7 +184,7 @@ class Password_Protected {
 			exit();
 		}
 	}
-	
+
 	/**
 	 * Maybe Show Login
 	 */
@@ -192,11 +192,11 @@ class Password_Protected {
 		// Don't show login if not enabled
 		if ( ! $this->is_active() )
 			return;
-		
+
 		// Logged in
 		if ( $this->validate_auth_cookie() )
 			return;
-		
+
 		// Show login form
 		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
 			include( dirname( __FILE__ ) . '/theme/login.php' );
@@ -210,7 +210,7 @@ class Password_Protected {
 			exit();
 		}
 	}
-	
+
 	/**
 	 * Get Site ID
 	 */
@@ -218,7 +218,7 @@ class Password_Protected {
 		global $blog_id;
 		return 'bid_' . apply_filters( 'password_protected_blog_id', $blog_id );
 	}
-	
+
 	/**
 	 * Logout
 	 */
@@ -226,7 +226,7 @@ class Password_Protected {
 		$this->clear_auth_cookie();
 		do_action( 'password_protected_logout' );
 	}
-	
+
 	/**
 	 * Validate Auth Cookie
 	 */
@@ -236,33 +236,33 @@ class Password_Protected {
 			return false;
 		}
 		extract( $cookie_elements, EXTR_OVERWRITE );
-		
+
 		$expired = $expiration;
-	
+
 		// Allow a grace period for POST and AJAX requests
 		if ( defined( 'DOING_AJAX' ) || 'POST' == $_SERVER['REQUEST_METHOD'] )
 			$expired += 3600;
-	
+
 		// Quick check to see if an honest cookie has expired
 		if ( $expired < time() ) {
 			do_action('password_protected_auth_cookie_expired', $cookie_elements);
 			return false;
 		}
-		
+
 		$pass = md5( get_option( 'password_protected_password' ) );
 		$pass_frag = substr( $pass, 8, 4 );
-	
+
 		$key = md5( $this->get_site_id() . $pass_frag . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key);
-		
+
 		if ( $hmac != $hash ) {
 			do_action( 'password_protected_auth_cookie_bad_hash', $cookie_elements );
 			return false;
 		}
-	
+
 		if ( $expiration < time() ) // AJAX/POST grace period set above
 			$GLOBALS['login_grace_period'] = 1;
-	
+
 		return true;
 	}
 
@@ -272,14 +272,14 @@ class Password_Protected {
 	function generate_auth_cookie( $expiration, $scheme = 'auth' ) {
 		$pass = md5( get_option( 'password_protected_password' ) );
 		$pass_frag = substr( $pass, 8, 4 );
-		
+
 		$key = md5( $this->get_site_id() . $pass_frag . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key );
 		$cookie = $this->get_site_id() . '|' . $expiration . '|' . $hash;
-	
+
 		return $cookie;
 	}
-	
+
 	/**
 	 * Parse Auth Cookie
 	 */
@@ -291,16 +291,16 @@ class Password_Protected {
 				return false;
 			$cookie = $_COOKIE[$cookie_name];
 		}
-	
+
 		$cookie_elements = explode( '|', $cookie );
 		if ( count( $cookie_elements ) != 3 )
 			return false;
-	
+
 		list( $site_id, $expiration, $hmac ) = $cookie_elements;
-	
+
 		return compact( 'site_id', 'expiration', 'hmac', 'scheme' );
 	}
-	
+
 	/**
 	 * Set Auth Cookie
 	 * @todo
@@ -312,18 +312,18 @@ class Password_Protected {
 			$expiration = time() + apply_filters( 'password_protected_auth_cookie_expiration', 172800, $remember );
 			$expire = 0;
 		}
-	
+
 		if ( '' === $secure )
 			$secure = is_ssl();
-	
+
 		$secure_password_protected_cookie = apply_filters( 'password_protected_secure_password_protected_cookie', false, $secure );
 		$password_protected_cookie = $this->generate_auth_cookie( $expiration, 'password_protected' );
-		
+
 		setcookie( $this->cookie_name(), $password_protected_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
 		if ( COOKIEPATH != SITECOOKIEPATH )
 			setcookie( $this->cookie_name(), $password_protected_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
 	}
-	
+
 	/**
 	 * Clear Auth Cookie
 	 */
@@ -331,20 +331,20 @@ class Password_Protected {
 		setcookie( $this->cookie_name(), ' ', time() - 31536000, COOKIEPATH, COOKIE_DOMAIN );
 		setcookie( $this->cookie_name(), ' ', time() - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN );
 	}
-	
+
 	/**
 	 * Cookie Name
 	 */
 	function cookie_name() {
 		return $this->get_site_id() . '_password_protected_auth';
 	}
-	
+
 	/**
 	 * Install
 	 */
 	function install() {
 		$old_version = get_option( 'password_protected_version' );
-		
+
 		// 1.1 - Upgrade to MD5
 		if ( empty( $old_version ) || version_compare( '1.1', $old_version ) ) {
 			$pwd = get_option( 'password_protected_password' );
@@ -353,7 +353,7 @@ class Password_Protected {
 				update_option( 'password_protected_password', $new_pwd );
 			} 
 		}
-		
+
 		update_option( 'password_protected_version', $this->version );
 	}
 
@@ -371,5 +371,3 @@ class Password_Protected {
 	}
 
 }
-
-?>

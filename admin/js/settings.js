@@ -1,6 +1,6 @@
 
 jQuery(document).ready( function($) {
-	
+
 	// Disable 'Allow Feeds' Checkbox
 	$('input#password_protected_status').change(function(e){
 		if ($(this).attr('checked') == 'checked') {

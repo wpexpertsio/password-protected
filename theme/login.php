@@ -94,11 +94,11 @@ do_action( 'password_protected_login_head' );
 <div id="login">
 	<h1><a href="<?php echo esc_url( apply_filters( 'password_proteced_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
 	<?php
-	
+
 	// Add message
 	$message = apply_filters( 'password_protected_login_message', '' );
 	if ( ! empty( $message ) ) echo $message . "\n";
-	
+
 	if ( $Password_Protected->errors->get_error_code() ) {
 		$errors = '';
 		$messages = '';
@@ -117,9 +117,9 @@ do_action( 'password_protected_login_head' );
 			echo '<p class="message">' . apply_filters( 'password_protected_login_messages', $messages ) . "</p>\n";
 	}
 	?>
-	
+
 	<?php do_action( 'password_protected_before_login_form' ); ?>
-	
+
 	<form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="post">
 		<p>
 			<label for="password_protected_pass"><?php _e( 'Password', 'password-protected' ) ?><br />
@@ -135,9 +135,9 @@ do_action( 'password_protected_login_head' );
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
 		</p>
 	</form>
-	
+
 	<?php do_action( 'password_protected_after_login_form' ); ?>
-	
+
 </div>
 
 <script type="text/javascript">

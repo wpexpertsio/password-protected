@@ -1,10 +1,10 @@
 <?php
 
 class Password_Protected_Admin {
-	
+
 	var $settings_page_id;
 	var $options_group = 'password-protected';
-	
+
 	/**
 	 * Constructor
 	 */
@@ -67,7 +67,7 @@ class Password_Protected_Admin {
 				. __( '<p><strong>Password Fields</strong><br />To set a new password, enter it into both fields. You cannot set an `empty` password. To disable password protection uncheck the Enabled checkbox.</p>', 'password-protected' )
 		) );
 	}
-	
+
 	/**
 	 * Admin Enqueue Scripts
 	 */
@@ -77,7 +77,7 @@ class Password_Protected_Admin {
 			wp_enqueue_script( 'password_protected_settings', PASSWORD_PROTECTED_URL . '/admin/js/settings.js', array( 'jquery' ) );
 		}
 	}
-	
+
 	/**
 	 * Settings API
 	 */
@@ -108,7 +108,7 @@ class Password_Protected_Admin {
  		register_setting( $this->options_group, 'password_protected_users', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
  	}
-	
+
 	/**
 	 * Sanitize Password Field Input
 	 */
@@ -131,7 +131,7 @@ class Password_Protected_Admin {
 		}
 		return $val;
 	}
-	
+
 	/**
 	 * Password Protected Section
 	 */
@@ -139,7 +139,7 @@ class Password_Protected_Admin {
 		echo '<p>' . __( 'Password protect your web site. Users will be asked to enter a password to view the site.', 'password-protected' ) . '<br />
 			' . __( 'For more information about Password Protected settings, view the "Help" tab at the top of this page.', 'password-protected' ) . '</p>';
 	}
-	
+
 	/**
 	 * Password Protection Status Field
 	 */
@@ -149,7 +149,7 @@ class Password_Protected_Admin {
 		echo '<input name="password_protected_administrators" id="password_protected_administrators" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_administrators' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Administrators', 'password-protected' );
 		echo '<input name="password_protected_users" id="password_protected_users" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_users' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Logged In Users', 'password-protected' );
 	}
-	
+
 	/**
 	 * Password Field
 	 */
@@ -157,7 +157,7 @@ class Password_Protected_Admin {
 		echo '<input type="password" name="password_protected_password[new]" id="password_protected_password_new" size="16" value="" autocomplete="off"> <span class="description">' . __( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'password-protected' ) . '</span><br>
 			<input type="password" name="password_protected_password[confirm]" id="password_protected_password_confirm" size="16" value="" autocomplete="off"> <span class="description">' . __( 'Type your new password again.', 'password-protected' ) . '</span>';
 	}
-	
+
 	/**
 	 * Pre-update 'password_protected_password' Option
 	 *
@@ -233,5 +233,3 @@ class Password_Protected_Admin {
 	}
 
 }
-
-?>

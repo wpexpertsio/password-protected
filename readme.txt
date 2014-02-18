@@ -24,7 +24,7 @@ Features include:
 * Works with the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin.
 
 > Please note, this plugin does not currently work with WP Engine hosting due to their page caching implementation.
-            
+
 == Installation ==
 
 To install and configure this plugin...
