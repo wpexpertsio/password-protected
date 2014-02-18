@@ -74,6 +74,8 @@ class Password_Protected {
 
 	/**
 	 * Is Active?
+	 *
+	 * @return  boolean  Is password protection active?
 	 */
 	function is_active() {
 
@@ -92,7 +94,7 @@ class Password_Protected {
 	/**
 	 * Disable Feeds
 	 *
-	 * @todo An option/filter to prevent disabling of feeds.
+	 * @todo  An option/filter to prevent disabling of feeds.
 	 */
 	function disable_feeds() {
 		if ( $this->is_active() ) {
@@ -106,7 +108,8 @@ class Password_Protected {
 
 	/**
 	 * Disable Feed
-	 * @todo Make Translatable
+	 *
+	 * @todo  Make Translatable
 	 */
 	function disable_feed() {
 		wp_die( sprintf( __( 'Feeds are not available for this site. Please visit the <a href="%s">website</a>.', 'password-protected' ), get_bloginfo( 'url' ) ) );
@@ -114,6 +117,9 @@ class Password_Protected {
 
 	/**
 	 * Allow Feeds
+	 *
+	 * @param   boolean  $bool  Allow feeds.
+	 * @return  boolean         True/false.
 	 */
 	function allow_feeds( $bool ) {
 		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) )
@@ -123,6 +129,9 @@ class Password_Protected {
 
 	/**
 	 * Allow Administrators
+	 *
+	 * @param   boolean  $bool  Allow administrators.
+	 * @return  boolean         True/false.
 	 */
 	function allow_administrators( $bool ) {
 		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) )
@@ -132,6 +141,9 @@ class Password_Protected {
 
 	/**
 	 * Allow Users
+	 *
+	 * @param   boolean  $bool  Allow administrators.
+	 * @return  boolean         True/false.
 	 */
 	function allow_users( $bool ) {
 		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_users' ) )
@@ -141,6 +153,9 @@ class Password_Protected {
 
 	/**
 	 * Encrypt Password
+	 *
+	 * @param  string  $password  Password.
+	 * @return string             Encrypted password.
 	 */
 	function encrypt_password( $password ) {
 		return md5( $password );
@@ -213,6 +228,8 @@ class Password_Protected {
 
 	/**
 	 * Get Site ID
+	 *
+	 * @return  string  Site ID.
 	 */
 	function get_site_id() {
 		global $blog_id;
@@ -229,6 +246,10 @@ class Password_Protected {
 
 	/**
 	 * Validate Auth Cookie
+	 *
+	 * @param   string   $cookie  Cookie string.
+	 * @param   string   $scheme  Cookie scheme.
+	 * @return  boolean           Validation successful?
 	 */
 	function validate_auth_cookie( $cookie = '', $scheme = '' ) {
 		if ( ! $cookie_elements = $this->parse_auth_cookie( $cookie, $scheme ) ) {
@@ -268,6 +289,10 @@ class Password_Protected {
 
 	/**
 	 * Generate Auth Cookie
+	 *
+	 * @param   int     $expiration  Expiration time in seconds.
+	 * @param   string  $scheme      Cookie scheme.
+	 * @return  string               Cookie.
 	 */
 	function generate_auth_cookie( $expiration, $scheme = 'auth' ) {
 		$pass = md5( get_option( 'password_protected_password' ) );
@@ -282,6 +307,10 @@ class Password_Protected {
 
 	/**
 	 * Parse Auth Cookie
+	 *
+	 * @param   string  $cookie  Cookie string.
+	 * @param   string  $scheme  Cookie scheme.
+	 * @return  string           Cookie string.
 	 */
 	function parse_auth_cookie( $cookie = '', $scheme = '' ) {
 		if ( empty( $cookie ) ) {
@@ -303,7 +332,11 @@ class Password_Protected {
 
 	/**
 	 * Set Auth Cookie
+	 *
 	 * @todo
+	 *
+	 * @param  boolean  $remember  Remember logged in.
+	 * @param  string   $secure    Secure cookie.
 	 */
 	function set_auth_cookie( $remember = false, $secure = '') {
 		if ( $remember ) {
@@ -334,6 +367,8 @@ class Password_Protected {
 
 	/**
 	 * Cookie Name
+	 *
+	 * @return  string  Cookie name.
 	 */
 	function cookie_name() {
 		return $this->get_site_id() . '_password_protected_auth';

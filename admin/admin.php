@@ -55,6 +55,8 @@ class Password_Protected_Admin {
 
 	/**
 	 * Help Tabs
+	 *
+	 * @param   object  $current_screen  Screen object.
 	 */
 	function help_tabs( $current_screen ) {
 		$current_screen->add_help_tab( array(
@@ -111,6 +113,9 @@ class Password_Protected_Admin {
 
 	/**
 	 * Sanitize Password Field Input
+	 *
+	 * @param   string  $val  Password.
+	 * @return  string        Sanitized password.
 	 */
 	function sanitize_password_protected_password( $val ) {
 		$old_val = get_option( 'password_protected_password' );
@@ -165,9 +170,9 @@ class Password_Protected_Admin {
 	 * Doing it in this way allows developers to intercept with an earlier filter if they
 	 * need to do something with the plaintext password.
 	 *
-	 * @param string $newvalue New Value.
-	 * @param string $oldvalue Old Value.
-	 * @return string Filtered new value.
+	 * @param   string  $newvalue  New Value.
+	 * @param   string  $oldvalue  Old Value.
+	 * @return  string             Filtered new value.
 	 */
 	function pre_update_option_password_protected_password( $newvalue, $oldvalue ) {
 		global $Password_Protected;
