@@ -17,7 +17,6 @@ class Password_Protected_Admin {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 4 );
 		add_filter( 'plugin_action_links_password-protected/password-protected.php', array( $this, 'plugin_action_links' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
-		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
@@ -68,16 +67,6 @@ class Password_Protected_Admin {
 				. __( '<p><strong>Allow Logged In Users Checkbox</strong><br />Logged in users (including administrators) will not need to enter a password to view the site.</p>', 'password-protected' )
 				. __( '<p><strong>Password Fields</strong><br />To set a new password, enter it into both fields. You cannot set an `empty` password. To disable password protection uncheck the Enabled checkbox.</p>', 'password-protected' )
 		) );
-	}
-
-	/**
-	 * Admin Enqueue Scripts
-	 */
-	function admin_enqueue_scripts() {
-		$current_screen = get_current_screen();
-		if ( 'settings_page_' . $this->options_group == $current_screen->id ) {
-			wp_enqueue_script( 'password_protected_settings', PASSWORD_PROTECTED_URL . '/admin/js/settings.js', array( 'jquery' ) );
-		}
 	}
 
 	/**
