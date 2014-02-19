@@ -92,7 +92,7 @@ do_action( 'password_protected_login_head' );
 <body class="login login-password-protected login-action-password-protected-login wp-core-ui">
 
 <div id="login">
-	<h1><a href="<?php echo esc_url( apply_filters( 'password_proteced_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+	<h1><a href="<?php echo esc_url( apply_filters( 'password_protected_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
 	<?php
 
 	// Add message
