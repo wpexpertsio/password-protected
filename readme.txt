@@ -25,6 +25,11 @@ Features include:
 
 > Please note, this plugin does not currently work with WP Engine hosting due to their page caching implementation.
 
+= Translations =
+
+If you would like to translate this plugin you can easily contribute via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/) - just signup for a free account.
+More instructions can be found at [wp-translations.org](http://wp-translations.org/translators-wp-translations/)
+
 == Installation ==
 
 To install and configure this plugin...
