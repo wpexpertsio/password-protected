@@ -69,8 +69,15 @@ if ( class_exists( 'CWS_Login_Logo_Plugin' ) ) {
 <title><?php echo apply_filters( 'password_protected_wp_title', get_bloginfo( 'name' ) ); ?></title>
 
 <?php
-wp_admin_css( 'wp-admin', true );
-wp_admin_css( 'colors-fresh', true );
+
+global $wp_version;
+
+if ( version_compare( $wp_version, '3.9-dev', '>=' ) ) {
+	wp_admin_css( 'login', true );
+} else {
+	wp_admin_css( 'wp-admin', true );
+	wp_admin_css( 'colors-fresh', true );
+}
 
 if ( $is_iphone ) {
 	?>
