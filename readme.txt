@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: password, protect, password protect, login
 Requires at least: 3.2
-Tested up to: 3.8.1
-Stable tag: 1.7
+Tested up to: 3.9
+Stable tag: 1.7.1
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -78,6 +78,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 
 == Changelog ==
 
+= 1.7.1 =
+* Fix login template compatibility for WordPress 3.9
+
 = 1.7 =
 * Added 'password_protected_theme_file' filter to allow custom login templates.
 * It's now really easy to contribute to the translation of this plugin via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/).
@@ -134,6 +137,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 1.7.1 =
+* Fix login template compatibility for WordPress 3.9
 
 = 1.7 =
 * Added 'password_protected_theme_file' filter and option to allow logged in users. Contribute to the translation of this plugin via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/).
