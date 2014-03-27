@@ -171,8 +171,10 @@ class Password_Protected {
 			// If correct password...
 			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 				$this->set_auth_cookie();
-				if ( ! empty( $_REQUEST['redirect_to'] ) ) {
-					$this->safe_redirect( $_REQUEST['redirect_to'] );
+				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
+				if ( ! empty( $redirect_to ) ) {
+					$this->safe_redirect( $redirect_to );
 					exit;
 				}
 			} else {
