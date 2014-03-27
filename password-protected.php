@@ -3,7 +3,7 @@
 /*
 Plugin Name: Password Protected
 Plugin URI: http://wordpress.org/extend/plugins/password-protected/
-Description: A very simple way to quickly password protect your WordPress site with a single password. Integrates seamlessly into your WordPress privacy settings.
+Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work on WP Engine or with some caching setups.
 Version: 1.7.1
 Author: Ben Huson
 Text Domain: password-protected
@@ -408,6 +408,24 @@ class Password_Protected {
 		$location = wp_sanitize_redirect( $location );
 		$location = wp_validate_redirect( $location, home_url() );
 		wp_redirect( $location, $status );
+	}
+
+	/**
+	 * Is Plugin Supported?
+	 *
+	 * Check to see if there are any known reasons why this plugin may not work in
+	 * the user's hosting environment.
+	 *
+	 * @return  boolean
+	 */
+	static function is_plugin_supported() {
+
+		// WP Engine
+		if ( class_exists( 'WPE_API', false ) ) {
+			return new WP_Error( 'PASSWORD_PROTECTED_SUPPORT', __( 'The Password Protected plugin does not work with WP Engine hosting. Please disable it.', 'password-protected' ) );
+		}
+
+		return true;
 	}
 
 }

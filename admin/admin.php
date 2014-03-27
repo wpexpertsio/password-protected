@@ -221,6 +221,15 @@ class Password_Protected_Admin {
 	function password_protected_admin_notices(){
 		global $Password_Protected;
 
+		// Check Support
+		$screens = $this->plugin_screen_ids( array( 'dashboard', 'plugins' ) );
+		if ( $this->is_current_screen( $screens ) ) {
+			$supported = $Password_Protected->is_plugin_supported();
+			if ( is_wp_error( $supported ) ) {
+				echo $this->admin_error_display( $supported->get_error_message( $supported->get_error_code() ) );
+			}
+		}
+
 		// Settings
 		if ( $this->is_current_screen( $this->plugin_screen_ids() ) ) {
 			$status = get_option( 'password_protected_status' );
