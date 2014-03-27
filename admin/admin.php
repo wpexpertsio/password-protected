@@ -219,23 +219,76 @@ class Password_Protected_Admin {
 	 * Warns the user if they have enabled password protection but not entered a password
 	 */
 	function password_protected_admin_notices(){
-		$current_screen = get_current_screen();
-		if ( $current_screen->id == 'options-' . $this->options_group ) {
+		global $Password_Protected;
+
+		// Settings
+		if ( $this->is_current_screen( $this->plugin_screen_ids() ) ) {
 			$status = get_option( 'password_protected_status' );
 			$pwd = get_option( 'password_protected_password' );
 			if ( (bool) $status && empty( $pwd ) ) {
-				echo '<div class="error"><p>' . __( 'You have enabled password protection but not yet set a password. Please set one below.', 'password-protected' ) . '</p></div>';
+				echo $this->admin_error_display( __( 'You have enabled password protection but not yet set a password. Please set one below.', 'password-protected' ) );
 			}
 			if ( current_user_can( 'manage_options' ) && ( (bool) get_option( 'password_protected_administrators' ) || (bool) get_option( 'password_protected_users' ) ) ) {
 				if ( (bool) get_option( 'password_protected_administrators' ) && (bool) get_option( 'password_protected_users' ) ) {
-					echo '<div class="error"><p>' . __( 'You have enabled password protection and allowed administrators and logged in users - other users will still need to login to view the site.', 'password-protected' ) . '</p></div>';
+					echo $this->admin_error_display( __( 'You have enabled password protection and allowed administrators and logged in users - other users will still need to enter a password to view the site.', 'password-protected' ) );
 				} elseif ( (bool) get_option( 'password_protected_administrators' ) ) {
-					echo '<div class="error"><p>' . __( 'You have enabled password protection and allowed administrators - other users will still need to login to view the site.', 'password-protected' ) . '</p></div>';
+					echo $this->admin_error_display( __( 'You have enabled password protection and allowed administrators - other users will still need to enter a password to view the site.', 'password-protected' ) );
 				} elseif ( (bool) get_option( 'password_protected_users' ) ) {
-					echo '<div class="error"><p>' . __( 'You have enabled password protection and allowed logged in users - other users will still need to login to view the site.', 'password-protected' ) . '</p></div>';
+					echo $this->admin_error_display( __( 'You have enabled password protection and allowed logged in users - other users will still need to enter a password to view the site.', 'password-protected' ) );
 				}
 			}
 		}
+	}
+
+	/**
+	 * Admin Error Display
+	 *
+	 * Returns a string wrapped in HTML to display an admin error.
+	 *
+	 * @param   string  $string  Error string.
+	 * @return  string           HTML error.
+	 */
+	function admin_error_display( $string ) {
+		return '<div class="error"><p>' .  $string . '</p></div>';
+	}
+
+	/**
+	 * Is Current Screen
+	 *
+	 * Checks wether the admin is displaying a specific screen.
+	 *
+	 * @param   string|array  $screen_id  Admin screen ID(s).
+	 * @return  boolean 
+	 */
+	function is_current_screen( $screen_id ) {
+		if ( function_exists( 'get_current_screen' ) ) {
+			$current_screen = get_current_screen();
+			if ( ! is_array( $screen_id ) ) {
+				$screen_id = array( $screen_id );
+			}
+			if ( in_array( $current_screen->id, $screen_id ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Plugin Screen IDs
+	 *
+	 * @param   string|array  $screen_id  Additional screen IDs to add to the returned array.
+	 * @return  array                     Screen IDs.
+	 */
+	function plugin_screen_ids( $screen_id = '' ) {
+		$screen_ids = array( 'options-' . $this->options_group, 'settings_page_' . $this->options_group );
+		if ( ! empty( $screen_id ) ) {
+			if ( is_array( $screen_id ) ) {
+				$screen_ids = array_merge( $screen_ids, $screen_id );
+			} else {
+				$screen_ids[] = $screen_id;
+			}
+		}
+		return $screen_ids;
 	}
 
 }
