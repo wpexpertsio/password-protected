@@ -62,6 +62,10 @@ You can also submit suggested enhancements if you like.
 = How can I contribute? =
 If you can, please [fork the code](https://github.com/benhuson/password-protected) and submit a pull request via GitHub. If you're not comfortable using Git, then please just submit it to the issues link above.
 
+= How can I translate it? =
+Join our WP-Translations Community on [Transifex](https://www.transifex.com/projects/p/password-protected/ "Password Protected WP-Translations Project").
+More info at [WP-Translations.org](http://wp-translations.org/ "The New WordPress Translation Community")
+
 == Screenshots ==
 
 1. Login page perfectly mimicks the WordPress login.
