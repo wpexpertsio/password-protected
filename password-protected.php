@@ -80,12 +80,14 @@ class Password_Protected {
 	function is_active() {
 
 		// Always allow access to robots.txt
-		if ( is_robots() )
+		if ( is_robots() ) {
 			return false;
+		}
 
 		if ( (bool) get_option( 'password_protected_status' ) ) {
-			if ( ! defined( 'DONOTCACHEPAGE' ) )
+			if ( ! defined( 'DONOTCACHEPAGE' ) ) {
 				define( 'DONOTCACHEPAGE', true );
+			}
 			return true;
 		}
 		return false;
@@ -122,8 +124,9 @@ class Password_Protected {
 	 * @return  boolean         True/false.
 	 */
 	function allow_feeds( $bool ) {
-		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) )
+		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) ) {
 			return 0;
+		}
 		return $bool;
 	}
 
@@ -134,8 +137,9 @@ class Password_Protected {
 	 * @return  boolean         True/false.
 	 */
 	function allow_administrators( $bool ) {
-		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) )
+		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) ) {
 			return 0;
+		}
 		return $bool;
 	}
 
@@ -146,8 +150,9 @@ class Password_Protected {
 	 * @return  boolean         True/false.
 	 */
 	function allow_users( $bool ) {
-		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_users' ) )
+		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_users' ) ) {
 			return 0;
+		}
 		return $bool;
 	}
 
@@ -206,13 +211,16 @@ class Password_Protected {
 	 * Maybe Show Login
 	 */
 	function maybe_show_login() {
+
 		// Don't show login if not enabled
-		if ( ! $this->is_active() )
+		if ( ! $this->is_active() ) {
 			return;
+		}
 
 		// Logged in
-		if ( $this->validate_auth_cookie() )
+		if ( $this->validate_auth_cookie() ) {
 			return;
+		}
 
 		// Show login form
 		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
@@ -268,8 +276,9 @@ class Password_Protected {
 		$expired = $expiration;
 
 		// Allow a grace period for POST and AJAX requests
-		if ( defined( 'DOING_AJAX' ) || 'POST' == $_SERVER['REQUEST_METHOD'] )
+		if ( defined( 'DOING_AJAX' ) || 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 			$expired += 3600;
+		}
 
 		// Quick check to see if an honest cookie has expired
 		if ( $expired < time() ) {
@@ -288,8 +297,9 @@ class Password_Protected {
 			return false;
 		}
 
-		if ( $expiration < time() ) // AJAX/POST grace period set above
+		if ( $expiration < time() ) { // AJAX/POST grace period set above
 			$GLOBALS['login_grace_period'] = 1;
+		}
 
 		return true;
 	}
@@ -323,14 +333,16 @@ class Password_Protected {
 		if ( empty( $cookie ) ) {
 			$cookie_name = $this->cookie_name();
 	
-			if ( empty( $_COOKIE[$cookie_name] ) )
+			if ( empty( $_COOKIE[$cookie_name] ) ) {
 				return false;
+			}
 			$cookie = $_COOKIE[$cookie_name];
 		}
 
 		$cookie_elements = explode( '|', $cookie );
-		if ( count( $cookie_elements ) != 3 )
+		if ( count( $cookie_elements ) != 3 ) {
 			return false;
+		}
 
 		list( $site_id, $expiration, $hmac ) = $cookie_elements;
 
@@ -353,15 +365,17 @@ class Password_Protected {
 			$expire = 0;
 		}
 
-		if ( '' === $secure )
+		if ( '' === $secure ) {
 			$secure = is_ssl();
+		}
 
 		$secure_password_protected_cookie = apply_filters( 'password_protected_secure_password_protected_cookie', false, $secure );
 		$password_protected_cookie = $this->generate_auth_cookie( $expiration, 'password_protected' );
 
 		setcookie( $this->cookie_name(), $password_protected_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
-		if ( COOKIEPATH != SITECOOKIEPATH )
+		if ( COOKIEPATH != SITECOOKIEPATH ) {
 			setcookie( $this->cookie_name(), $password_protected_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
+		}
 	}
 
 	/**
