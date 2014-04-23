@@ -53,6 +53,7 @@ class Password_Protected {
 		$this->errors = new WP_Error();
 		register_activation_hook( __FILE__, array( &$this, 'install' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'disable_caching' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), 1 );
@@ -73,6 +74,15 @@ class Password_Protected {
 	}
 
 	/**
+	 * Disable Page Caching
+	 */
+	function disable_caching() {
+		if ( $this->is_active() && ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}	
+	}
+
+	/**
 	 * Is Active?
 	 *
 	 * @return  boolean  Is password protection active?
@@ -86,9 +96,6 @@ class Password_Protected {
 		}
 
 		if ( (bool) get_option( 'password_protected_status' ) ) {
-			if ( ! defined( 'DONOTCACHEPAGE' ) ) {
-				define( 'DONOTCACHEPAGE', true );
-			}
 			return true;
 		}
 		return false;
