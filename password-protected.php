@@ -78,9 +78,10 @@ class Password_Protected {
 	 * @return  boolean  Is password protection active?
 	 */
 	function is_active() {
+		global $wp_query;
 
 		// Always allow access to robots.txt
-		if ( is_robots() ) {
+		if ( isset( $wp_query ) && is_robots() ) {
 			return false;
 		}
 
