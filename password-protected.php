@@ -7,7 +7,7 @@ Description: A very simple way to quickly password protect your WordPress site w
 Version: 1.7.1
 Author: Ben Huson
 Text Domain: password-protected
-Author URI: http://www.benhuson.co.uk/
+Author URI: http://github.com/benhuson/password-protected/
 License: GPLv2
 */
 
