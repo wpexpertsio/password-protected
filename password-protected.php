@@ -289,7 +289,7 @@ class Password_Protected {
 		}
 
 		// Quick check to see if an honest cookie has expired
-		if ( $expired < time() ) {
+		if ( $expired < current_time( 'timestamp' ) ) {
 			do_action('password_protected_auth_cookie_expired', $cookie_elements);
 			return false;
 		}
@@ -305,7 +305,7 @@ class Password_Protected {
 			return false;
 		}
 
-		if ( $expiration < time() ) { // AJAX/POST grace period set above
+		if ( $expiration < current_time( 'timestamp' ) ) { // AJAX/POST grace period set above
 			$GLOBALS['login_grace_period'] = 1;
 		}
 
@@ -367,9 +367,9 @@ class Password_Protected {
 	 */
 	function set_auth_cookie( $remember = false, $secure = '') {
 		if ( $remember ) {
-			$expiration = $expire = time() + apply_filters( 'password_protected_auth_cookie_expiration', 1209600, $remember );
+			$expiration = $expire = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 1209600, $remember );
 		} else {
-			$expiration = time() + apply_filters( 'password_protected_auth_cookie_expiration', 172800, $remember );
+			$expiration = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 172800, $remember );
 			$expire = 0;
 		}
 
@@ -390,8 +390,8 @@ class Password_Protected {
 	 * Clear Auth Cookie
 	 */
 	function clear_auth_cookie() {
-		setcookie( $this->cookie_name(), ' ', time() - 31536000, COOKIEPATH, COOKIE_DOMAIN );
-		setcookie( $this->cookie_name(), ' ', time() - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN );
+		setcookie( $this->cookie_name(), ' ', current_time( 'timestamp' ) - 31536000, COOKIEPATH, COOKIE_DOMAIN );
+		setcookie( $this->cookie_name(), ' ', current_time( 'timestamp' ) - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN );
 	}
 
 	/**
