@@ -56,7 +56,7 @@ class Password_Protected {
 		add_action( 'init', array( $this, 'disable_caching' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
-		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), 1 );
+		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), -1 );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
