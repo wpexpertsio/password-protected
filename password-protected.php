@@ -240,12 +240,18 @@ class Password_Protected {
 			include( $theme_file );
 			exit();
 		} else {
-			$query = array(
-				'password-protected' => 'login',
-				'redirect_to' => urlencode( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] )
-			);
-			wp_redirect( add_query_arg( $query, home_url() ) );
+
+			$redirect_to = add_query_arg( 'password-protected', 'login', home_url() );
+
+			// URL to redirect back to after login
+			$redirect_to_url = apply_filters( 'password_protected_login_redirect_url', ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			if ( ! empty( $redirect_to_url ) ) {
+				$redirect_to = add_query_arg( 'redirect_to', urlencode( $redirect_to_url ), $redirect_to );
+			}
+
+			wp_redirect( $redirect_to );
 			exit();
+
 		}
 	}
 
