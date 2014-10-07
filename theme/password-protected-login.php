@@ -5,7 +5,7 @@
  * http://core.trac.wordpress.org/browser/trunk/wp-login.php?rev=19414
  */
 
-global $Password_Protected, $error, $is_iphone;
+global $wp_version, $Password_Protected, $error, $is_iphone;
 
 /**
  * WP Shake JS
@@ -38,7 +38,7 @@ if ( SITECOOKIEPATH != COOKIEPATH ) {
 }
 
 // If cookies are disabled we can't log in even with a valid password.
-if ( isset( $_POST['testcookie'] ) && empty( $_COOKIE[TEST_COOKIE] ) ) {
+if ( isset( $_POST['testcookie'] ) && empty( $_COOKIE[ TEST_COOKIE ] ) ) {
 	$Password_Protected->errors->add( 'test_cookie', __( "<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href='http://www.google.com/cookies.html'>enable cookies</a> to use WordPress.", 'password-protected' ) );
 }
 
@@ -61,8 +61,6 @@ add_action( 'password_protected_login_head', 'noindex' );
 
 <?php
 
-global $wp_version;
-
 if ( version_compare( $wp_version, '3.9-dev', '>=' ) ) {
 	wp_admin_css( 'login', true );
 } else {
@@ -84,6 +82,7 @@ if ( $is_iphone ) {
 
 do_action( 'login_enqueue_scripts' );
 do_action( 'password_protected_login_head' );
+
 ?>
 
 </head>
