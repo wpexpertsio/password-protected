@@ -1,9 +1,9 @@
 === Password Protected ===
 Contributors: husobj
 Tags: password, protect, password protect, login
-Requires at least: 3.2
-Tested up to: 3.9
-Stable tag: 1.7.2
+Requires at least: 3.5
+Tested up to: 4.0
+Stable tag: 1.8
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -77,6 +77,14 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 
 == Changelog ==
 
+= 1.8 =
+* Support for adding "password-protected-login.php" in theme directory.
+* Allow filtering of the 'redirect to' URL via the 'password_protected_login_redirect_url' filter.
+* Added 'password_protected_login_messages' action to output errors and messages in template.
+* Use current_time( 'timestamp' ) instead of time() to take into account site timezone.
+* Check login earlier in the template_redirect action.
+* Updated translations.
+
 = 1.7.2 =
 * Added 'password_protected_login_redirect' filter.
 * Fix always allow access to robots.txt.
@@ -141,6 +149,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 1.8 =
+Support for adding "password-protected-login.php" in theme directory and allow filtering of the 'redirect to' URL via the 'password_protected_login_redirect_url' filter.
 
 = 1.7.2 =
 Added 'password_protected_login_redirect' filter.
