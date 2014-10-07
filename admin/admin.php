@@ -150,12 +150,12 @@ class Password_Protected_Admin {
 				return $old_val;
 			} elseif ( $val['new'] == $val['confirm'] ) {
 				add_settings_error( 'password_protected_password', 'password_protected_password', __( 'New password saved.', 'password-protected' ), 'updated' );
-				return sanitize_text_field( $val['new'] );
+				return $val['new'];
 			}
 			return get_option( 'password_protected_password' );
 		}
 
-		return sanitize_text_field( $val );
+		return $val;
 
 	}
 
