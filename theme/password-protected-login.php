@@ -104,36 +104,8 @@ do_action( 'password_protected_login_head' );
 
 <div id="login">
 	<h1><a href="<?php echo esc_url( apply_filters( 'password_protected_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-	<?php
 
-	// Add message
-	$message = apply_filters( 'password_protected_login_message', '' );
-	if ( ! empty( $message ) ) {
-		echo $message . "\n";
-	}
-
-	if ( $Password_Protected->errors->get_error_code() ) {
-		$errors = '';
-		$messages = '';
-		foreach ( $Password_Protected->errors->get_error_codes() as $code ) {
-			$severity = $Password_Protected->errors->get_error_data( $code );
-			foreach ( $Password_Protected->errors->get_error_messages( $code ) as $error ) {
-				if ( 'message' == $severity ) {
-					$messages .= '	' . $error . "<br />\n";
-				} else {
-					$errors .= '	' . $error . "<br />\n";
-				}
-			}
-		}
-		if ( ! empty( $errors ) ) {
-			echo '<div id="login_error">' . apply_filters( 'password_protected_login_errors', $errors ) . "</div>\n";
-		}
-		if ( ! empty( $messages ) ) {
-			echo '<p class="message">' . apply_filters( 'password_protected_login_messages', $messages ) . "</p>\n";
-		}
-	}
-	?>
-
+	<?php do_action( 'password_protected_login_messages' ); ?>
 	<?php do_action( 'password_protected_before_login_form' ); ?>
 
 	<form name="loginform" id="loginform" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="post">

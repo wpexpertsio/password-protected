@@ -50,8 +50,11 @@ class Password_Protected {
 	 * Constructor
 	 */
 	function Password_Protected() {
+
 		$this->errors = new WP_Error();
+
 		register_activation_hook( __FILE__, array( &$this, 'install' ) );
+
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'init', array( $this, 'disable_caching' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
@@ -60,10 +63,13 @@ class Password_Protected {
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
+		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
+
 		if ( is_admin() ) {
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
 			$this->admin = new Password_Protected_Admin();
 		}
+
 	}
 
 	/**
@@ -433,6 +439,45 @@ class Password_Protected {
 		}
 
 		update_option( 'password_protected_version', $this->version );
+	}
+
+	/**
+	 * Login Messages
+	 * Outputs messages and errors in the login template.
+	 */
+	public function login_messages() {
+
+		// Add message
+		$message = apply_filters( 'password_protected_login_message', '' );
+		if ( ! empty( $message ) ) {
+			echo $message . "\n";
+		}
+
+		if ( $this->errors->get_error_code() ) {
+
+			$errors = '';
+			$messages = '';
+
+			foreach ( $this->errors->get_error_codes() as $code ) {
+				$severity = $this->errors->get_error_data( $code );
+				foreach ( $this->errors->get_error_messages( $code ) as $error ) {
+					if ( 'message' == $severity ) {
+						$messages .= '	' . $error . "<br />\n";
+					} else {
+						$errors .= '	' . $error . "<br />\n";
+					}
+				}
+			}
+
+			if ( ! empty( $errors ) ) {
+				echo '<div id="login_error">' . apply_filters( 'password_protected_login_errors', $errors ) . "</div>\n";
+			}
+			if ( ! empty( $messages ) ) {
+				echo '<p class="message">' . apply_filters( 'password_protected_login_messages', $messages ) . "</p>\n";
+			}
+
+		}
+
 	}
 
 	/**
