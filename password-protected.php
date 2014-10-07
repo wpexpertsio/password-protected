@@ -232,13 +232,21 @@ class Password_Protected {
 
 		// Show login form
 		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
-			$default_theme_file = dirname( __FILE__ ) . '/theme/password-protected-login.php';
+
+			$default_theme_file = locate_template( array( 'password-protected-login.php' ) );
+
+			if ( empty( $default_theme_file ) ) {
+				$default_theme_file = dirname( __FILE__ ) . '/theme/password-protected-login.php';
+			}
+
 			$theme_file = apply_filters( 'password_protected_theme_file', $default_theme_file );
 			if ( ! file_exists( $theme_file ) ) {
 				$theme_file = $default_theme_file;
 			}
-			include( $theme_file );
+
+			load_template( $theme_file );
 			exit();
+
 		} else {
 
 			$redirect_to = add_query_arg( 'password-protected', 'login', home_url() );
