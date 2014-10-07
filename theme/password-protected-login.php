@@ -51,19 +51,6 @@ if ( $Password_Protected->errors->get_error_code() && in_array( $Password_Protec
 // Obey privacy setting
 add_action( 'password_protected_login_head', 'noindex' );
 
-/**
- * Support 3rd party plugins
- */
-if ( class_exists( 'CWS_Login_Logo_Plugin' ) ) {
-	// Add support for Mark Jaquith's Login Logo plugin
-	// http://wordpress.org/extend/plugins/login-logo/
-	add_action( 'password_protected_login_head', array( new CWS_Login_Logo_Plugin, 'login_head' ) );
-} elseif ( class_exists( 'UberLoginLogo' ) ) {
-	// Add support for Uber Login Logo plugin
-	// http://wordpress.org/plugins/uber-login-logo/
-	 add_action( 'password_protected_login_head', array( 'UberLoginLogo', 'replaceLoginLogo' ) );
-}
-
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>

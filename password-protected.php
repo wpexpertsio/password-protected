@@ -63,6 +63,7 @@ class Password_Protected {
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
+		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 
 		if ( is_admin() ) {
@@ -439,6 +440,30 @@ class Password_Protected {
 		}
 
 		update_option( 'password_protected_version', $this->version );
+	}
+
+	/**
+	 * Compat
+	 *
+	 * Support for 3rd party plugins:
+	 *
+	 * - Login Logo       http://wordpress.org/extend/plugins/login-logo/
+	 * - Uber Login Logo  http://wordpress.org/plugins/uber-login-logo/
+	 */
+	public function compat() {
+
+		if ( class_exists( 'CWS_Login_Logo_Plugin' ) ) {
+
+			// Add support for Mark Jaquith's Login Logo plugin
+			add_action( 'password_protected_login_head', array( new CWS_Login_Logo_Plugin, 'login_head' ) );
+
+		} elseif ( class_exists( 'UberLoginLogo' ) ) {
+
+			// Add support for Uber Login Logo plugin
+			add_action( 'password_protected_login_head', array( 'UberLoginLogo', 'replaceLoginLogo' ) );
+
+		}
+
 	}
 
 	/**
