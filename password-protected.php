@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Password Protected
-Plugin URI: http://wordpress.org/extend/plugins/password-protected/
+Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work on WP Engine or with some caching setups.
 Version: 1.7.2
 Author: Ben Huson
