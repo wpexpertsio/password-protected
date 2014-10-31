@@ -56,6 +56,9 @@ class Password_Protected {
 		register_activation_hook( __FILE__, array( &$this, 'install' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+
+		add_filter( 'password_protected_is_active', array( $this, 'allow_ip_addresses' ) );
+
 		add_action( 'init', array( $this, 'disable_caching' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
@@ -190,6 +193,37 @@ class Password_Protected {
 		}
 
 		return $bool;
+
+	}
+
+	/**
+	 * Allow IP Addresses
+	 *
+	 * If user has a valid email address, return false to disable password protection.
+	 *
+	 * @param   boolean  $bool  Allow IP addresses.
+	 * @return  boolean         True/false.
+	 */
+	function allow_ip_addresses( $bool ) {
+
+		$ip_addresses = $this->get_allowed_ip_addresses();
+
+		if ( in_array( $_SERVER['REMOTE_ADDR'], $ip_addresses ) ) {
+			$bool = false;
+		}
+
+		return $bool;
+
+	}
+
+	/**
+	 * Get Allowed IP Addresses
+	 *
+	 * @return  array  IP addresses.
+	 */
+	function get_allowed_ip_addresses() {
+
+		return explode( "\n", get_option( 'password_protected_allowed_ip_addresses' ) );
 
 	}
 

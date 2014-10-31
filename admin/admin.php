@@ -121,11 +121,20 @@ class Password_Protected_Admin {
 			'password_protected'
 		);
 
+		add_settings_field(
+			'password_protected_allowed_ip_addresses',
+			__( 'Allow IP Addresses', 'password-protected' ),
+			array( $this, 'password_protected_allowed_ip_addresses_field' ),
+			$this->options_group,
+			'password_protected'
+		);
+
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
 		register_setting( $this->options_group, 'password_protected_administrators', 'intval' );
 		register_setting( $this->options_group, 'password_protected_users', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
+		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
 
 	}
 
@@ -154,6 +163,25 @@ class Password_Protected_Admin {
 			}
 			return get_option( 'password_protected_password' );
 		}
+
+		return $val;
+
+	}
+
+	/**
+	 * Sanitize IP Addresses
+	 *
+	 * @param   string  $val  IP addresses.
+	 * @return  string        Sanitized IP addresses.
+	 */
+	function sanitize_ip_addresses( $val ) {
+
+		$ip_addresses = explode( "\n", $val );
+		$ip_addresses = array_map( 'sanitize_text_field', $ip_addresses );
+		$ip_addresses = array_map( 'trim', $ip_addresses );
+		$ip_addresses = array_filter( $ip_addresses );
+
+		$val = implode( "\n", $ip_addresses );
 
 		return $val;
 
@@ -196,6 +224,16 @@ class Password_Protected_Admin {
 
 		echo '<input type="password" name="password_protected_password[new]" id="password_protected_password_new" size="16" value="" autocomplete="off"> <span class="description">' . __( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'password-protected' ) . '</span><br>
 			<input type="password" name="password_protected_password[confirm]" id="password_protected_password_confirm" size="16" value="" autocomplete="off"> <span class="description">' . __( 'Type your new password again.', 'password-protected' ) . '</span>';
+
+	}
+
+	/**
+	 * Allowed IP Addresses Field
+	 */
+	function password_protected_allowed_ip_addresses_field() {
+
+		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" class="regular-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
+		echo '<p class="description">' . __( 'Enter one IP address per line', 'password-protected' ) .'</p>';
 
 	}
 
