@@ -188,7 +188,7 @@ class Password_Protected {
 	 */
 	function allow_users( $bool ) {
 
-		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_users' ) ) {
+		if ( ! is_admin() && is_user_logged_in() && (bool) get_option( 'password_protected_users' ) ) {
 			return 0;
 		}
 
