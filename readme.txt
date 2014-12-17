@@ -3,7 +3,7 @@ Contributors: husobj
 Tags: password, protect, password protect, login
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.8
+Stable tag: 1.9
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -76,6 +76,11 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 1.9 =
+* Fixed "Allow Users" functionality with is_user_logged_in(). Props PatRaven.
+* Added option for allowed IP addresses which can bypass the password protection.
+* Added 'password_protected_is_active' filter.
 
 = 1.8 =
 * Support for adding "password-protected-login.php" in theme directory.
