@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
 define( 'PASSWORD_PROTECTED_PERMALINK', '/login' ); // login page lives at this URI
+define( 'PASSWORD_PROTECTED_DO_REDIRECT', false ); // allow redirection to root after successful login
 define( 'PASSWORD_PROTECTED_SUBDIR', '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) );
 define( 'PASSWORD_PROTECTED_URL', plugins_url( PASSWORD_PROTECTED_SUBDIR ) );
 define( 'PASSWORD_PROTECTED_DIR', plugin_dir_path( __FILE__ ) );
@@ -166,29 +167,35 @@ class Password_Protected {
 	 * @return  boolean  Get URL for the password protection login page
 	 */
 	function get_login_page_url() {
-	  $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	  
-		// optional URL to redirect back to after login
-		$redirect_to = apply_filters( 'password_protected_login_redirect_url', $current_url );
-		
-		if ( empty( $redirect_to ) ) {
-      $redirect_to = remove_query_arg( array( 'password-protected', 'redirect_to' ), $current_url );
-		}
+		$query = array();
 
-		$query = array(
-			'redirect_to' => urlencode( $redirect_to )
-		);
-		
 		if (defined('PASSWORD_PROTECTED_PERMALINK')) {
-      $root_url = PASSWORD_PROTECTED_PERMALINK;
+      $login_url = PASSWORD_PROTECTED_PERMALINK;
 	  } else {
-      $root_url = home_url();
+      $login_url = home_url();
       $query['password-protected'] = 'login';
 		}
 
-    $redirect_to = add_query_arg( $query, $root_url );
+	  if (PASSWORD_PROTECTED_DO_REDIRECT) {
+  	  $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
-    return $redirect_to;
+  		// optional URL to redirect back to after login
+  		$redirect_to = apply_filters( 'password_protected_login_redirect_url', $current_url );
+
+  		if ( empty( $redirect_to ) ) {
+        $redirect_to = remove_query_arg( array( 'password-protected', 'redirect_to' ), $current_url );
+  		}
+
+  		if ( !empty( $redirect_to ) ) {
+    		$query['redirect_to'] = urlencode( $redirect_to );
+      }
+	  }
+
+    if (!empty($query)) {
+      $login_url = add_query_arg( $query, $login_url );
+    }
+
+    return $login_url;
 	}
 
 	/**
@@ -343,6 +350,9 @@ class Password_Protected {
 
 				if ( ! empty( $redirect_to ) ) {
 					$this->safe_redirect( $redirect_to );
+					exit;
+				} else {
+					$this->safe_redirect( '/' );
 					exit;
 				}
 
