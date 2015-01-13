@@ -62,13 +62,13 @@ class Password_Protected {
 
 		add_action( 'init', array( $this, 'disable_caching' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
+		add_action( 'init', array( $this, 'compat' ) );
+    add_action( 'init', array( $this, 'password_protected_rewrites_init') );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), -1 );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
-		add_action( 'init', array( $this, 'compat' ) );
-    add_action('init', array( $this, 'password_protected_rewrites_init') );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 
 		if ( is_admin() ) {
@@ -143,7 +143,7 @@ class Password_Protected {
 	    $path = explode("?", $_SERVER['REQUEST_URI']);
       $is_login_page = PASSWORD_PROTECTED_PERMALINK == reset($path);
     } else {
-      $is_login_page = isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'login'; // @FIXME
+      $is_login_page = isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'login';
 	  }
     
     return $is_login_page;
@@ -316,6 +316,21 @@ class Password_Protected {
 	function maybe_process_login() {
 
 		if ( $this->is_active() && isset( $_REQUEST['password_protected_pwd'] ) ) {
+
+  		if ( $this->is_logout_page() ) {
+  			$this->logout();
+
+  			if ( isset( $_REQUEST['redirect_to'] ) ) {
+  				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
+  				wp_redirect( $redirect_to );
+  				exit();
+  			}
+
+        $redirect_to = $this->get_login_page_url();
+  			wp_redirect( $redirect_to );
+  			exit();
+  		}
+
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
 			$pwd = get_option( 'password_protected_password' );
 
@@ -340,22 +355,6 @@ class Password_Protected {
 			}
 
 		}
-
-		// Log out
-		if ( $this->is_logout_page() ) {
-			$this->logout();
-
-			if ( isset( $_REQUEST['redirect_to'] ) ) {
-				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
-				wp_redirect( $redirect_to );
-				exit();
-			}
-
-      $redirect_to = $this->get_login_page_url();
-			wp_redirect( $redirect_to );
-			exit();
-		}
-
 	}
 
 	/**
