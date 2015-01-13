@@ -1,5 +1,5 @@
 === Password Protected ===
-Contributors: husobj
+Contributors: husobj, klokie
 Tags: password, protect, password protect, login
 Requires at least: 3.5
 Tested up to: 4.1
@@ -17,6 +17,8 @@ This plugin only protects your WordPress content. It **does not protect and imag
 Features include:
 
 * Password protect your WordPress site with a single password.
+* Option to assign a permalink URI to the login form, rather than including a long query string.
+* Option to redirect after successful login.
 * Option to allow access to feeds.
 * Option to allow administrators access without entering password.
 * Works with Mark Jaquith's [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin.

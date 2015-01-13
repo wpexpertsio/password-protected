@@ -1,13 +1,13 @@
 <?php
 
 /*
-Plugin Name: Password Protected
+Plugin Name: Password Protected (MODIFIED)
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work on WP Engine or with some caching setups.
 Version: 1.9
 Author: Ben Huson
 Text Domain: password-protected
-Author URI: http://github.com/benhuson/password-protected/
+Author URI: https://github.com/Flip-Flop-Interactive/password-protected
 License: GPLv2
 */
 
@@ -170,7 +170,7 @@ class Password_Protected {
 		$query = array();
 
 		if (defined('PASSWORD_PROTECTED_PERMALINK')) {
-      $login_url = PASSWORD_PROTECTED_PERMALINK;
+      $login_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . PASSWORD_PROTECTED_PERMALINK;
 	  } else {
       $login_url = home_url();
       $query['password-protected'] = 'login';
