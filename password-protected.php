@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * @todo Remember me
  */
 
+define( 'PASSWORD_PROTECTED_PERMALINK', '/login' ); // login page lives at this URI
 define( 'PASSWORD_PROTECTED_SUBDIR', '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) );
 define( 'PASSWORD_PROTECTED_URL', plugins_url( PASSWORD_PROTECTED_SUBDIR ) );
 define( 'PASSWORD_PROTECTED_DIR', plugin_dir_path( __FILE__ ) );
@@ -67,6 +68,7 @@ class Password_Protected {
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
 		add_action( 'init', array( $this, 'compat' ) );
+    add_action('init', array( $this, 'password_protected_rewrites_init') );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 
 		if ( is_admin() ) {
@@ -75,6 +77,17 @@ class Password_Protected {
 		}
 
 	}
+
+  /**
+  * rewrite routes
+  */
+  function password_protected_rewrites_init() {
+    add_rewrite_rule(
+      'login/$',
+      'index.php?password-protected=login',
+      'top'
+    );
+  }
 
 	/**
 	 * I18n
@@ -118,6 +131,64 @@ class Password_Protected {
 
 		return apply_filters( 'password_protected_is_active', $is_active );
 
+	}
+
+	/**
+	 * Is Login Page ?
+	 *
+	 * @return  boolean  Is this the password protection login page?
+	 */
+	function is_login_page() {
+	  if (defined('PASSWORD_PROTECTED_PERMALINK')) {
+	    $path = explode("?", $_SERVER['REQUEST_URI']);
+      $is_login_page = PASSWORD_PROTECTED_PERMALINK == reset($path);
+    } else {
+      $is_login_page = isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'login'; // @FIXME
+	  }
+    
+    return $is_login_page;
+	}
+	
+	/**
+	 * Is Logout Page ?
+	 *
+	 * @return  boolean  Is this the password protection logout page?
+	 */
+	function is_logout_page() {
+    $is_logout_page = isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout';
+    
+    return $is_logout_page;
+	}
+	
+	/**
+	 * Get Login Page URL
+	 *
+	 * @return  boolean  Get URL for the password protection login page
+	 */
+	function get_login_page_url() {
+	  $current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	  
+		// optional URL to redirect back to after login
+		$redirect_to = apply_filters( 'password_protected_login_redirect_url', $current_url );
+		
+		if ( empty( $redirect_to ) ) {
+      $redirect_to = remove_query_arg( array( 'password-protected', 'redirect_to' ), $current_url );
+		}
+
+		$query = array(
+			'redirect_to' => urlencode( $redirect_to )
+		);
+		
+		if (defined('PASSWORD_PROTECTED_PERMALINK')) {
+      $root_url = PASSWORD_PROTECTED_PERMALINK;
+	  } else {
+      $root_url = home_url();
+      $query['password-protected'] = 'login';
+		}
+
+    $redirect_to = add_query_arg( $query, $root_url );
+
+    return $redirect_to;
 	}
 
 	/**
@@ -271,7 +342,7 @@ class Password_Protected {
 		}
 
 		// Log out
-		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
+		if ( $this->is_logout_page() ) {
 			$this->logout();
 
 			if ( isset( $_REQUEST['redirect_to'] ) ) {
@@ -280,15 +351,9 @@ class Password_Protected {
 				exit();
 			}
 
-			$redirect_to = remove_query_arg( array( 'password-protected', 'redirect_to' ), ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-			$query = array(
-				'password-protected' => 'login',
-				'redirect_to' => urlencode( $redirect_to )
-			);
-
-			wp_redirect( add_query_arg( $query, home_url() ) );
+      $redirect_to = $this->get_login_page_url();
+			wp_redirect( $redirect_to );
 			exit();
-
 		}
 
 	}
@@ -309,7 +374,7 @@ class Password_Protected {
 		}
 
 		// Show login form
-		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
+		if ( $this->is_login_page() ) {
 
 			$default_theme_file = locate_template( array( 'password-protected-login.php' ) );
 
@@ -327,17 +392,10 @@ class Password_Protected {
 
 		} else {
 
-			$redirect_to = add_query_arg( 'password-protected', 'login', home_url() );
-
-			// URL to redirect back to after login
-			$redirect_to_url = apply_filters( 'password_protected_login_redirect_url', ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-			if ( ! empty( $redirect_to_url ) ) {
-				$redirect_to = add_query_arg( 'redirect_to', urlencode( $redirect_to_url ), $redirect_to );
-			}
+      $redirect_to = $this->get_login_page_url();
 
 			wp_redirect( $redirect_to );
 			exit();
-
 		}
 	}
 
