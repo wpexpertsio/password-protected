@@ -84,7 +84,7 @@ class Password_Protected {
   */
   function password_protected_rewrites_init() {
     add_rewrite_rule(
-      'login/$',
+      'login$',
       'index.php?password-protected=login',
       'top'
     );
