@@ -322,12 +322,12 @@ class Password_Protected {
 
   			if ( isset( $_REQUEST['redirect_to'] ) ) {
   				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
-  				wp_redirect( $redirect_to );
+  				$this->safe_redirect( $redirect_to );
   				exit();
   			}
 
         $redirect_to = $this->get_login_page_url();
-  			wp_redirect( $redirect_to );
+  			$this->safe_redirect( $redirect_to );
   			exit();
   		}
 
@@ -393,7 +393,7 @@ class Password_Protected {
 
       $redirect_to = $this->get_login_page_url();
 
-			wp_redirect( $redirect_to );
+			$this->safe_redirect( $redirect_to );
 			exit();
 		}
 	}
