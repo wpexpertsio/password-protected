@@ -68,6 +68,14 @@ if ( version_compare( $wp_version, '3.9-dev', '>=' ) ) {
 	wp_admin_css( 'colors-fresh', true );
 }
 
+?>
+
+<style type="text/css" media="screen">
+#login_error, .login .message, #loginform { margin-bottom: 20px; }
+</style>
+
+<?php
+
 if ( $is_iphone ) {
 	?>
 	<meta name="viewport" content="width=320; initial-scale=0.9; maximum-scale=1.0; user-scalable=0;" />
