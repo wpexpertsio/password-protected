@@ -68,6 +68,7 @@ class Password_Protected {
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
 		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
+		add_action( 'login_enqueue_scripts', array( $this, 'load_theme_stylesheet' ), 5 );
 
 		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
 
@@ -666,6 +667,40 @@ class Password_Protected {
 			}
 			if ( ! empty( $messages ) ) {
 				echo '<p class="message">' . apply_filters( 'password_protected_login_messages', $messages ) . "</p>\n";
+			}
+
+		}
+
+	}
+
+	/**
+	 * Load Theme Stylesheet
+	 *
+	 * Check wether a 'password-protected-login.css' stylesheet exists in your theme
+	 * and if so loads it.
+	 * 
+	 * Works with child themes.
+	 *
+	 * Possible to specify a different file in the theme folder via the
+	 * 'password_protected_stylesheet_file' filter (allows for theme subfolders).
+	 */
+	function load_theme_stylesheet() {
+
+		$filename = apply_filters( 'password_protected_stylesheet_file', 'password-protected-login.css' );
+
+		$located = locate_template( $filename );
+
+		if ( ! empty( $located ) ) {
+
+			$stylesheet_directory = trailingslashit( get_stylesheet_directory() );
+			$template_directory = trailingslashit( get_template_directory() );
+
+			$link_format = '<link rel="stylesheet" id="password-protected-login" href="%s" type="text/css" media="all">';
+
+			if ( $stylesheet_directory == substr( $located, 0, strlen( $stylesheet_directory ) ) ) {
+				printf( $link_format, get_stylesheet_directory_uri() . '/' . $filename );
+			} else if ( $template_directory == substr( $located, 0, strlen( $template_directory ) ) ) {
+				printf( $link_format, get_template_directory_uri() . '/' . $filename );
 			}
 
 		}
