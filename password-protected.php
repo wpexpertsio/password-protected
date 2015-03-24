@@ -375,6 +375,49 @@ class Password_Protected {
 	}
 
 	/**
+	 * Logout URL
+	 *
+	 * @param   string  $redirect_to  Optional. Redirect URL.
+	 * @return  string                Logout URL.
+	 */
+	function logout_url( $redirect_to = '' ) {
+
+		$query = array(
+			'password-protected' => 'logout',
+			'redirect_to'        => esc_url_raw( $redirect_to )
+		);
+
+		if ( empty( $query['redirect_to'] ) ) {
+			unset( $query['redirect_to'] );
+		}
+
+		return add_query_arg( $query, home_url() );
+
+	}
+
+	/**
+	 * Logout Link
+	 *
+	 * @param   array   $args  Link args.
+	 * @return  string         HTML link tag.
+	 */
+	function logout_link( $args = null ) {
+
+		// Only show if user is logged in
+		if ( ! $this->is_user_logged_in() ) {
+			return '';
+		}
+
+		$args = wp_parse_args( $args, array(
+			'redirect_to' => '',
+			'text'        => __( 'Logout', 'password-protected' )
+		) );
+
+		return sprintf( '<a href="%s">%s</a>', esc_url( $this->logout_url( $args['redirect_to'] ) ), esc_html( $args['text'] ) );
+
+	}
+
+	/**
 	 * Validate Auth Cookie
 	 *
 	 * @param   string   $cookie  Cookie string.
