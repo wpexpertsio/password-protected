@@ -294,6 +294,17 @@ class Password_Protected {
 	}
 
 	/**
+	 * Is User Logged In?
+	 *
+	 * @return  boolean
+	 */
+	function is_user_logged_in() {
+
+		return $this->is_active() && $this->validate_auth_cookie();
+
+	}
+
+	/**
 	 * Maybe Show Login
 	 */
 	function maybe_show_login() {
@@ -304,7 +315,7 @@ class Password_Protected {
 		}
 
 		// Logged in
-		if ( $this->validate_auth_cookie() ) {
+		if ( $this->is_user_logged_in() ) {
 			return;
 		}
 
