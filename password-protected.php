@@ -69,6 +69,8 @@ class Password_Protected {
 		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 
+		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
+
 		if ( is_admin() ) {
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
 			$this->admin = new Password_Protected_Admin();
@@ -413,7 +415,28 @@ class Password_Protected {
 			'text'        => __( 'Logout', 'password-protected' )
 		) );
 
+		if ( empty( $args['text'] ) ) {
+			$args['text'] = __( 'Logout', 'password-protected' );
+		}
+
 		return sprintf( '<a href="%s">%s</a>', esc_url( $this->logout_url( $args['redirect_to'] ) ), esc_html( $args['text'] ) );
+
+	}
+
+	/**
+	 * Logout Link Shortcode
+	 *
+	 * @param   array   $args  Link args.
+	 * @return  string         HTML link tag.
+	 */
+	function logout_link_shortcode( $atts, $content = null ) {
+
+		$atts = shortcode_atts( array(
+			'redirect_to' => '',
+			'text'        => $content
+		), $atts, 'logout_link_shortcode' );
+
+		return $this->logout_link( $atts );
 
 	}
 
