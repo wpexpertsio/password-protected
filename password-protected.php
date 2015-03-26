@@ -119,7 +119,13 @@ class Password_Protected {
 			$is_active = false;
 		}
 
-		return apply_filters( 'password_protected_is_active', $is_active );
+		$is_active = apply_filters( 'password_protected_is_active', $is_active );
+
+		if ( isset( $_GET['password-protected'] ) ) {
+			$is_active = true;
+		}
+
+		return $is_active;
 
 	}
 
