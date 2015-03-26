@@ -275,21 +275,16 @@ class Password_Protected {
 
 		// Log out
 		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
+
 			$this->logout();
 
 			if ( isset( $_REQUEST['redirect_to'] ) ) {
 				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
-				wp_redirect( $redirect_to );
-				exit();
+			} else {
+				$redirect_to = home_url( '/' );
 			}
 
-			$redirect_to = remove_query_arg( array( 'password-protected', 'redirect_to' ), ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-			$query = array(
-				'password-protected' => 'login',
-				'redirect_to' => urlencode( $redirect_to )
-			);
-
-			wp_redirect( add_query_arg( $query, home_url() ) );
+			wp_redirect( $redirect_to );
 			exit();
 
 		}
