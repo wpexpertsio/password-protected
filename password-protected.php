@@ -695,12 +695,10 @@ class Password_Protected {
 			$stylesheet_directory = trailingslashit( get_stylesheet_directory() );
 			$template_directory = trailingslashit( get_template_directory() );
 
-			$link_format = '<link rel="stylesheet" id="password-protected-login" href="%s" type="text/css" media="all">';
-
 			if ( $stylesheet_directory == substr( $located, 0, strlen( $stylesheet_directory ) ) ) {
-				printf( $link_format, get_stylesheet_directory_uri() . '/' . $filename );
+				wp_enqueue_style( 'password-protected-login', get_stylesheet_directory_uri() . '/' . $filename );
 			} else if ( $template_directory == substr( $located, 0, strlen( $template_directory ) ) ) {
-				printf( $link_format, get_template_directory_uri() . '/' . $filename );
+				wp_enqueue_style( 'password-protected-login', get_template_directory_uri() . '/' . $filename );
 			}
 
 		}
