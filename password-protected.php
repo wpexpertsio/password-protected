@@ -368,6 +368,17 @@ class Password_Protected {
 	}
 
 	/**
+	 * Login URL
+	 *
+	 * @return  string  Login URL.
+	 */
+	function login_url() {
+
+		return add_query_arg( 'password-protected', 'login', home_url( '/' ) );
+
+	}
+
+	/**
 	 * Logout
 	 */
 	function logout() {
