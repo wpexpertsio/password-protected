@@ -2,8 +2,8 @@
 Contributors: husobj
 Tags: password, protect, password protect, login
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 1.9
+Tested up to: 4.1.1
+Stable tag: 2.0
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -76,6 +76,14 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 2.0 =
+* Added [password_protected_logout_link](https://github.com/benhuson/password-protected/wiki/password_protected_logout_link-Shortcode) shortcode.
+* Load 'password-protected-login.css' in theme folder if it exists.
+* Added [password_protected_stylesheet_file](https://github.com/benhuson/password-protected/wiki/password_protected_stylesheet_file) filter to specify alternate stylesheet location.
+* Added is_user_logged_in(), login_url(), logout_url() and logout_link() methods.
+* Better handling of login/out redirects when protection is not active on home page.
+* Added Basque, Czech, Greek, Lithuanian and Norwegian translations.
 
 = 1.9 =
 * Fixed "Allow Users" functionality with is_user_logged_in(). Props PatRaven.
@@ -154,6 +162,12 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.0 =
+Added 'password_protected_logout_link' shortcode and use 'password-protected-login.css' in theme folder if it exists.
+
+= 1.9 =
+Fixed "Allow Users" functionality and added option to allowed IP addresses which can bypass the password protection.
 
 = 1.8 =
 Support for adding "password-protected-login.php" in theme directory and allow filtering of the 'redirect to' URL via the 'password_protected_login_redirect_url' filter.
