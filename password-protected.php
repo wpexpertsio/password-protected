@@ -60,6 +60,7 @@ class Password_Protected {
 		add_filter( 'password_protected_is_active', array( $this, 'allow_ip_addresses' ) );
 
 		add_action( 'init', array( $this, 'disable_caching' ), 1 );
+		add_action( 'init', array( $this, 'maybe_process_logout' ), 1 );
 		add_action( 'init', array( $this, 'maybe_process_login' ), 1 );
 		add_action( 'wp', array( $this, 'disable_feeds' ) );
 		add_action( 'template_redirect', array( $this, 'maybe_show_login' ), -1 );
@@ -249,6 +250,28 @@ class Password_Protected {
 	}
 
 	/**
+	 * Maybe Process Logout
+	 */
+	function maybe_process_logout() {
+
+		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
+
+			$this->logout();
+
+			if ( isset( $_REQUEST['redirect_to'] ) ) {
+				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
+			} else {
+				$redirect_to = home_url( '/' );
+			}
+
+			wp_redirect( $redirect_to );
+			exit();
+
+		}
+
+	}
+
+	/**
 	 * Maybe Process Login
 	 */
 	function maybe_process_login() {
@@ -276,22 +299,6 @@ class Password_Protected {
 				$this->errors->add( 'incorrect_password', __( 'Incorrect Password', 'password-protected' ) );
 
 			}
-
-		}
-
-		// Log out
-		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
-
-			$this->logout();
-
-			if ( isset( $_REQUEST['redirect_to'] ) ) {
-				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
-			} else {
-				$redirect_to = home_url( '/' );
-			}
-
-			wp_redirect( $redirect_to );
-			exit();
 
 		}
 
