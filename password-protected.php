@@ -461,6 +461,17 @@ class Password_Protected {
 	}
 
 	/**
+	 * Get Hashed Password
+	 *
+	 * @return  string  Hashed password.
+	 */
+	function get_hashed_password() {
+
+		return md5( get_option( 'password_protected_password' ) . wp_salt() );
+
+	}
+
+	/**
 	 * Validate Auth Cookie
 	 *
 	 * @param   string   $cookie  Cookie string.
@@ -489,10 +500,7 @@ class Password_Protected {
 			return false;
 		}
 
-		$pass = md5( get_option( 'password_protected_password' ) );
-		$pass_frag = substr( $pass, 8, 4 );
-
-		$key = md5( $this->get_site_id() . $pass_frag . '|' . $expiration );
+		$key = md5( $this->get_site_id() . $this->get_hashed_password() . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key);
 
 		if ( $hmac != $hash ) {
@@ -517,10 +525,7 @@ class Password_Protected {
 	 */
 	function generate_auth_cookie( $expiration, $scheme = 'auth' ) {
 
-		$pass = md5( get_option( 'password_protected_password' ) );
-		$pass_frag = substr( $pass, 8, 4 );
-
-		$key = md5( $this->get_site_id() . $pass_frag . '|' . $expiration );
+		$key = md5( $this->get_site_id() . $this->get_hashed_password() . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key );
 		$cookie = $this->get_site_id() . '|' . $expiration . '|' . $hash;
 
