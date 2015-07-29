@@ -78,7 +78,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = 2.0.1 =
-* Security fix: Use a more complex password hash for cookie key. Props Marcin Bury.
+* Security fix: Use a more complex password hash for cookie key. Props Marcin Bury, [Securitum](http://securitum.pl).
 * Split logout functionality into separate function.
 
 = 2.0 =
