@@ -179,11 +179,24 @@ class Password_Protected_Admin {
 		$ip_addresses = explode( "\n", $val );
 		$ip_addresses = array_map( 'sanitize_text_field', $ip_addresses );
 		$ip_addresses = array_map( 'trim', $ip_addresses );
+		$ip_addresses = array_map( array( $this, 'validate_ip_address' ), $ip_addresses );
 		$ip_addresses = array_filter( $ip_addresses );
 
 		$val = implode( "\n", $ip_addresses );
 
 		return $val;
+
+	}
+
+	/**
+	 * Validate IP Address
+	 *
+	 * @param   string  $ip_address  IP Address.
+	 * @return  string               Validated IP Address.
+	 */
+	private function validate_ip_address( $ip_address ) {
+
+		return filter_var( $ip_address, FILTER_VALIDATE_IP );
 
 	}
 
