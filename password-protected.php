@@ -264,7 +264,7 @@ class Password_Protected {
 				$redirect_to = home_url( '/' );
 			}
 
-			wp_redirect( $redirect_to );
+			$this->safe_redirect( $redirect_to );
 			exit();
 
 		}
