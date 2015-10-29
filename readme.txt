@@ -2,8 +2,8 @@
 Contributors: husobj
 Tags: password, protect, password protect, login
 Requires at least: 3.5
-Tested up to: 4.2.3
-Stable tag: 2.0.1
+Tested up to: 4.3.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -59,6 +59,9 @@ You must be an administrator (have the manage_options capability) and in the Pas
 Just add a "password-protected=logout" query to your URL.
 eg. http://www.example.com/?password-protected=logout
 
+= How can I redirect to a different domain name when logging out? =
+If passing a redirect URL using 'redirect_to' when logging out you need you may need to use the [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) filter to allow redirecting to an external domain.
+
 = Where can I report bugs and issues? =
 Please log issues and bugs on the plugin's [GitHub page](https://github.com/benhuson/password-protected/issues).
 You can also submit suggested enhancements if you like.
@@ -76,6 +79,10 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 2.0.2 =
+* Only redirect to [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) when logging out.
+* Check allowed IP addresses are valid when saving.
 
 = 2.0.1 =
 * Security fix: Use a more complex password hash for cookie key. Props Marcin Bury, [Securitum](http://securitum.pl).
@@ -166,6 +173,12 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.0.2 =
+Only redirect to [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) when logging out.
+
+= 2.0.1 =
+Security fix: Use a more complex password hash for cookie key.
 
 = 2.0 =
 Added 'password_protected_logout_link' shortcode and use 'password-protected-login.css' in theme folder if it exists.
