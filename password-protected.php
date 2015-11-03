@@ -49,7 +49,7 @@ class Password_Protected {
 	/**
 	 * Constructor
 	 */
-	function Password_Protected() {
+	public function __construct() {
 
 		$this->errors = new WP_Error();
 
@@ -83,7 +83,7 @@ class Password_Protected {
 	/**
 	 * I18n
 	 */
-	function load_plugin_textdomain() {
+	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain( 'password-protected', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
@@ -92,7 +92,7 @@ class Password_Protected {
 	/**
 	 * Disable Page Caching
 	 */
-	function disable_caching() {
+	public function disable_caching() {
 
 		if ( $this->is_active() && ! defined( 'DONOTCACHEPAGE' ) ) {
 			define( 'DONOTCACHEPAGE', true );
@@ -105,7 +105,7 @@ class Password_Protected {
 	 *
 	 * @return  boolean  Is password protection active?
 	 */
-	function is_active() {
+	public function is_active() {
 
 		global $wp_query;
 
@@ -135,7 +135,7 @@ class Password_Protected {
 	 *
 	 * @todo  An option/filter to prevent disabling of feeds.
 	 */
-	function disable_feeds() {
+	public function disable_feeds() {
 
 		if ( $this->is_active() ) {
 			add_action( 'do_feed', array( $this, 'disable_feed' ), 1 );
@@ -152,7 +152,7 @@ class Password_Protected {
 	 *
 	 * @todo  Make Translatable
 	 */
-	function disable_feed() {
+	public function disable_feed() {
 
 		wp_die( sprintf( __( 'Feeds are not available for this site. Please visit the <a href="%s">website</a>.', 'password-protected' ), get_bloginfo( 'url' ) ) );
 
@@ -164,7 +164,7 @@ class Password_Protected {
 	 * @param   boolean  $bool  Allow feeds.
 	 * @return  boolean         True/false.
 	 */
-	function allow_feeds( $bool ) {
+	public function allow_feeds( $bool ) {
 
 		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) ) {
 			return 0;
@@ -180,7 +180,7 @@ class Password_Protected {
 	 * @param   boolean  $bool  Allow administrators.
 	 * @return  boolean         True/false.
 	 */
-	function allow_administrators( $bool ) {
+	public function allow_administrators( $bool ) {
 
 		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) ) {
 			return 0;
@@ -196,7 +196,7 @@ class Password_Protected {
 	 * @param   boolean  $bool  Allow administrators.
 	 * @return  boolean         True/false.
 	 */
-	function allow_users( $bool ) {
+	public function allow_users( $bool ) {
 
 		if ( ! is_admin() && is_user_logged_in() && (bool) get_option( 'password_protected_users' ) ) {
 			return 0;
@@ -214,7 +214,7 @@ class Password_Protected {
 	 * @param   boolean  $bool  Allow IP addresses.
 	 * @return  boolean         True/false.
 	 */
-	function allow_ip_addresses( $bool ) {
+	public function allow_ip_addresses( $bool ) {
 
 		$ip_addresses = $this->get_allowed_ip_addresses();
 
@@ -231,7 +231,7 @@ class Password_Protected {
 	 *
 	 * @return  array  IP addresses.
 	 */
-	function get_allowed_ip_addresses() {
+	public function get_allowed_ip_addresses() {
 
 		return explode( "\n", get_option( 'password_protected_allowed_ip_addresses' ) );
 
@@ -243,7 +243,7 @@ class Password_Protected {
 	 * @param  string  $password  Password.
 	 * @return string             Encrypted password.
 	 */
-	function encrypt_password( $password ) {
+	public function encrypt_password( $password ) {
 
 		return md5( $password );
 
@@ -252,7 +252,7 @@ class Password_Protected {
 	/**
 	 * Maybe Process Logout
 	 */
-	function maybe_process_logout() {
+	public function maybe_process_logout() {
 
 		if ( isset( $_REQUEST['password-protected'] ) && $_REQUEST['password-protected'] == 'logout' ) {
 
@@ -274,7 +274,7 @@ class Password_Protected {
 	/**
 	 * Maybe Process Login
 	 */
-	function maybe_process_login() {
+	public function maybe_process_login() {
 
 		if ( $this->is_active() && isset( $_REQUEST['password_protected_pwd'] ) ) {
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
@@ -309,7 +309,7 @@ class Password_Protected {
 	 *
 	 * @return  boolean
 	 */
-	function is_user_logged_in() {
+	public function is_user_logged_in() {
 
 		return $this->is_active() && $this->validate_auth_cookie();
 
@@ -318,7 +318,7 @@ class Password_Protected {
 	/**
 	 * Maybe Show Login
 	 */
-	function maybe_show_login() {
+	public function maybe_show_login() {
 
 		// Don't show login if not enabled
 		if ( ! $this->is_active() ) {
@@ -368,7 +368,7 @@ class Password_Protected {
 	 *
 	 * @return  string  Site ID.
 	 */
-	function get_site_id() {
+	public function get_site_id() {
 
 		global $blog_id;
 		return 'bid_' . apply_filters( 'password_protected_blog_id', $blog_id );
@@ -380,7 +380,7 @@ class Password_Protected {
 	 *
 	 * @return  string  Login URL.
 	 */
-	function login_url() {
+	public function login_url() {
 
 		return add_query_arg( 'password-protected', 'login', home_url( '/' ) );
 
@@ -389,7 +389,7 @@ class Password_Protected {
 	/**
 	 * Logout
 	 */
-	function logout() {
+	public function logout() {
 
 		$this->clear_auth_cookie();
 		do_action( 'password_protected_logout' );
@@ -402,7 +402,7 @@ class Password_Protected {
 	 * @param   string  $redirect_to  Optional. Redirect URL.
 	 * @return  string                Logout URL.
 	 */
-	function logout_url( $redirect_to = '' ) {
+	public function logout_url( $redirect_to = '' ) {
 
 		$query = array(
 			'password-protected' => 'logout',
@@ -423,7 +423,7 @@ class Password_Protected {
 	 * @param   array   $args  Link args.
 	 * @return  string         HTML link tag.
 	 */
-	function logout_link( $args = null ) {
+	public function logout_link( $args = null ) {
 
 		// Only show if user is logged in
 		if ( ! $this->is_user_logged_in() ) {
@@ -449,7 +449,7 @@ class Password_Protected {
 	 * @param   array   $args  Link args.
 	 * @return  string         HTML link tag.
 	 */
-	function logout_link_shortcode( $atts, $content = null ) {
+	public function logout_link_shortcode( $atts, $content = null ) {
 
 		$atts = shortcode_atts( array(
 			'redirect_to' => '',
@@ -465,7 +465,7 @@ class Password_Protected {
 	 *
 	 * @return  string  Hashed password.
 	 */
-	function get_hashed_password() {
+	public function get_hashed_password() {
 
 		return md5( get_option( 'password_protected_password' ) . wp_salt() );
 
@@ -478,7 +478,7 @@ class Password_Protected {
 	 * @param   string   $scheme  Cookie scheme.
 	 * @return  boolean           Validation successful?
 	 */
-	function validate_auth_cookie( $cookie = '', $scheme = '' ) {
+	public function validate_auth_cookie( $cookie = '', $scheme = '' ) {
 
 		if ( ! $cookie_elements = $this->parse_auth_cookie( $cookie, $scheme ) ) {
 			do_action( 'password_protected_auth_cookie_malformed', $cookie, $scheme );
@@ -523,7 +523,7 @@ class Password_Protected {
 	 * @param   string  $scheme      Cookie scheme.
 	 * @return  string               Cookie.
 	 */
-	function generate_auth_cookie( $expiration, $scheme = 'auth' ) {
+	public function generate_auth_cookie( $expiration, $scheme = 'auth' ) {
 
 		$key = md5( $this->get_site_id() . $this->get_hashed_password() . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key );
@@ -540,7 +540,7 @@ class Password_Protected {
 	 * @param   string  $scheme  Cookie scheme.
 	 * @return  string           Cookie string.
 	 */
-	function parse_auth_cookie( $cookie = '', $scheme = '' ) {
+	public function parse_auth_cookie( $cookie = '', $scheme = '' ) {
 
 		if ( empty( $cookie ) ) {
 			$cookie_name = $this->cookie_name();
@@ -570,7 +570,7 @@ class Password_Protected {
 	 * @param  boolean  $remember  Remember logged in.
 	 * @param  string   $secure    Secure cookie.
 	 */
-	function set_auth_cookie( $remember = false, $secure = '') {
+	public function set_auth_cookie( $remember = false, $secure = '') {
 
 		if ( $remember ) {
 			$expiration = $expire = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 1209600, $remember );
@@ -596,7 +596,7 @@ class Password_Protected {
 	/**
 	 * Clear Auth Cookie
 	 */
-	function clear_auth_cookie() {
+	public function clear_auth_cookie() {
 
 		setcookie( $this->cookie_name(), ' ', current_time( 'timestamp' ) - 31536000, COOKIEPATH, COOKIE_DOMAIN );
 		setcookie( $this->cookie_name(), ' ', current_time( 'timestamp' ) - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN );
@@ -608,7 +608,7 @@ class Password_Protected {
 	 *
 	 * @return  string  Cookie name.
 	 */
-	function cookie_name() {
+	public function cookie_name() {
 
 		return $this->get_site_id() . '_password_protected_auth';
 
@@ -617,7 +617,7 @@ class Password_Protected {
 	/**
 	 * Install
 	 */
-	function install() {
+	public function install() {
 
 		$old_version = get_option( 'password_protected_version' );
 
@@ -708,7 +708,7 @@ class Password_Protected {
 	 * Possible to specify a different file in the theme folder via the
 	 * 'password_protected_stylesheet_file' filter (allows for theme subfolders).
 	 */
-	function load_theme_stylesheet() {
+	public function load_theme_stylesheet() {
 
 		$filename = apply_filters( 'password_protected_stylesheet_file', 'password-protected-login.css' );
 
@@ -736,7 +736,7 @@ class Password_Protected {
 	 * If invalid will redirect to ...
 	 * Based on the WordPress wp_safe_redirect() function.
 	 */
-	function safe_redirect( $location, $status = 302 ) {
+	public function safe_redirect( $location, $status = 302 ) {
 
 		$location = wp_sanitize_redirect( $location );
 		$location = wp_validate_redirect( $location, home_url() );

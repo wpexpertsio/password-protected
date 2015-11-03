@@ -8,7 +8,7 @@ class Password_Protected_Admin {
 	/**
 	 * Constructor
 	 */
-	function Password_Protected_Admin() {
+	public function __construct() {
 
 		global $wp_version;
 
@@ -25,7 +25,7 @@ class Password_Protected_Admin {
 	/**
 	 * Admin Menu
 	 */
-	function admin_menu() {
+	public function admin_menu() {
 
 		$this->settings_page_id = add_options_page( __( 'Password Protected', 'password-protected' ), __( 'Password Protected', 'password-protected' ), 'manage_options', 'password-protected', array( $this, 'settings_page' ) );
 		add_action( 'load-' . $this->settings_page_id, array( $this, 'add_help_tabs' ), 20 );
@@ -35,7 +35,7 @@ class Password_Protected_Admin {
 	/**
 	 * Settings Page
 	 */
-	function settings_page() {
+	public function settings_page() {
 		?>
 
 		<div class="wrap">
@@ -56,7 +56,7 @@ class Password_Protected_Admin {
 	/**
 	 * Add Help Tabs
 	 */
-	function add_help_tabs() {
+	public function add_help_tabs() {
 
 		global $wp_version;
 
@@ -73,7 +73,7 @@ class Password_Protected_Admin {
 	 *
 	 * @param  object  $current_screen  Screen object.
 	 */
-	function help_tabs( $current_screen ) {
+	public function help_tabs( $current_screen ) {
 
 		$current_screen->add_help_tab( array(
 			'id'      => 'PASSWORD_PROTECTED_SETTINGS',
@@ -88,7 +88,7 @@ class Password_Protected_Admin {
 	/**
 	 * Settings API
 	 */
-	function password_protected_settings() {
+	public function password_protected_settings() {
 
 		add_settings_section(
 			'password_protected',
@@ -144,7 +144,7 @@ class Password_Protected_Admin {
 	 * @param   string  $val  Password.
 	 * @return  string        Sanitized password.
 	 */
-	function sanitize_password_protected_password( $val ) {
+	public function sanitize_password_protected_password( $val ) {
 
 		$old_val = get_option( 'password_protected_password' );
 
@@ -174,7 +174,7 @@ class Password_Protected_Admin {
 	 * @param   string  $val  IP addresses.
 	 * @return  string        Sanitized IP addresses.
 	 */
-	function sanitize_ip_addresses( $val ) {
+	public function sanitize_ip_addresses( $val ) {
 
 		$ip_addresses = explode( "\n", $val );
 		$ip_addresses = array_map( 'sanitize_text_field', $ip_addresses );
@@ -203,7 +203,7 @@ class Password_Protected_Admin {
 	/**
 	 * Password Protected Section
 	 */
-	function password_protected_settings_section() {
+	public function password_protected_settings_section() {
 
 		echo '<p>' . __( 'Password protect your web site. Users will be asked to enter a password to view the site.', 'password-protected' ) . '<br />
 			' . __( 'For more information about Password Protected settings, view the "Help" tab at the top of this page.', 'password-protected' ) . '</p>';
@@ -213,7 +213,7 @@ class Password_Protected_Admin {
 	/**
 	 * Password Protection Status Field
 	 */
-	function password_protected_status_field() {
+	public function password_protected_status_field() {
 
 		echo '<label><input name="password_protected_status" id="password_protected_status" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_status' ), false ) . ' /> ' . __( 'Enabled', 'password-protected' ) . '</label>';
 
@@ -222,7 +222,7 @@ class Password_Protected_Admin {
 	/**
 	 * Password Protection Permissions Field
 	 */
-	function password_protected_permissions_field() {
+	public function password_protected_permissions_field() {
 
 		echo '<label><input name="password_protected_administrators" id="password_protected_administrators" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_administrators' ), false ) . ' /> ' . __( 'Allow Administrators', 'password-protected' ) . '</label>';
 		echo '<label><input name="password_protected_users" id="password_protected_users" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_users' ), false ) . ' style="margin-left: 20px;" /> ' . __( 'Allow Logged In Users', 'password-protected' ) . '</label>';
@@ -233,7 +233,7 @@ class Password_Protected_Admin {
 	/**
 	 * Password Field
 	 */
-	function password_protected_password_field() {
+	public function password_protected_password_field() {
 
 		echo '<input type="password" name="password_protected_password[new]" id="password_protected_password_new" size="16" value="" autocomplete="off"> <span class="description">' . __( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'password-protected' ) . '</span><br>
 			<input type="password" name="password_protected_password[confirm]" id="password_protected_password_confirm" size="16" value="" autocomplete="off"> <span class="description">' . __( 'Type your new password again.', 'password-protected' ) . '</span>';
@@ -243,7 +243,7 @@ class Password_Protected_Admin {
 	/**
 	 * Allowed IP Addresses Field
 	 */
-	function password_protected_allowed_ip_addresses_field() {
+	public function password_protected_allowed_ip_addresses_field() {
 
 		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" class="large-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
 		echo '<p class="description">' . __( 'Enter one IP address per line', 'password-protected' ) .'</p>';
@@ -261,7 +261,7 @@ class Password_Protected_Admin {
 	 * @param   string  $oldvalue  Old Value.
 	 * @return  string             Filtered new value.
 	 */
-	function pre_update_option_password_protected_password( $newvalue, $oldvalue ) {
+	public function pre_update_option_password_protected_password( $newvalue, $oldvalue ) {
 
 		global $Password_Protected;
 
@@ -284,7 +284,7 @@ class Password_Protected_Admin {
 	 * @param   string  $status       Plugin status.
 	 * @return  array                 Plugin meta array.
 	 */
-	function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
+	public function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
 
 		if ( 'password-protected/password-protected.php' == $plugin_file ) {
 			$plugin_meta[] = sprintf( '<a href="%s">%s</a>', __( 'http://github.com/benhuson/password-protected', 'password-protected' ), __( 'GitHub', 'password-protected' ) );
@@ -303,7 +303,7 @@ class Password_Protected_Admin {
 	 * @param   array  $actions  Plugin action links array.
 	 * @return  array            Plugin action links array.
 	 */
-	function plugin_action_links( $actions ) {
+	public function plugin_action_links( $actions ) {
 
 		$actions[] = sprintf( '<a href="%s">%s</a>', admin_url( 'options-general.php?page=password-protected' ), __( 'Settings', 'password-protected' ) );
 		return $actions;
@@ -314,7 +314,7 @@ class Password_Protected_Admin {
 	 * Password Admin Notice
 	 * Warns the user if they have enabled password protection but not entered a password
 	 */
-	function password_protected_admin_notices() {
+	public function password_protected_admin_notices() {
 
 		global $Password_Protected;
 
@@ -358,7 +358,7 @@ class Password_Protected_Admin {
 	 * @param   string  $string  Error string.
 	 * @return  string           HTML error.
 	 */
-	function admin_error_display( $string ) {
+	private function admin_error_display( $string ) {
 
 		return '<div class="error"><p>' .  $string . '</p></div>';
 
@@ -372,7 +372,7 @@ class Password_Protected_Admin {
 	 * @param   string|array  $screen_id  Admin screen ID(s).
 	 * @return  boolean 
 	 */
-	function is_current_screen( $screen_id ) {
+	public function is_current_screen( $screen_id ) {
 
 		if ( function_exists( 'get_current_screen' ) ) {
 			$current_screen = get_current_screen();
@@ -394,7 +394,7 @@ class Password_Protected_Admin {
 	 * @param   string|array  $screen_id  Additional screen IDs to add to the returned array.
 	 * @return  array                     Screen IDs.
 	 */
-	function plugin_screen_ids( $screen_id = '' ) {
+	public function plugin_screen_ids( $screen_id = '' ) {
 
 		$screen_ids = array( 'options-' . $this->options_group, 'settings_page_' . $this->options_group );
 
