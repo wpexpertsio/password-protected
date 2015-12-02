@@ -38,33 +38,33 @@ If you are upgrading manually via FTP rather that through the WordPress automati
 Frequently Asked Questions
 --------------------------
 
-__How can I change the Wordpress logo to a different image?__
+__How can I change the Wordpress logo to a different image?__  
 Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith or the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin. This will change the logo on your password entry page AND also your admin login page.
 
-__How can I enable feeds while the site is password protected?__
+__How can I enable feeds while the site is password protected?__  
 In the settings, check the 'Allow Feeds' checkbox.
 
-__Can I prevent administrators having to enter password?__
+__Can I prevent administrators having to enter password?__  
 In the settings, check the 'Allow Administrators' checkbox.
 
-__I cannot preview my changes in the Theme Customizer__
+__I cannot preview my changes in the Theme Customizer__  
 You must be an administrator (have the manage_options capability) and in the Password Protected settings, check the 'Allow Administrators' checkbox.
 
-__How can I log out?__
+__How can I log out?__  
 Just add a "password-protected=logout" query to your URL.
 eg. http://www.example.com/?password-protected=logout
 
-__How can I redirect to a different domain name when logging out?__
+__How can I redirect to a different domain name when logging out?__  
 If passing a redirect URL using 'redirect_to' when logging out you need you may need to use the [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) filter to allow redirecting to an external domain.
 
-__Where can I report bugs and issues?__
+__Where can I report bugs and issues?__  
 Please log issues and bugs on the plugin's [GitHub page](https://github.com/benhuson/password-protected/issues).
 You can also submit suggested enhancements if you like.
 
-__How can I contribute?__
+__How can I contribute?__  
 If you can, please [fork the code](https://github.com/benhuson/password-protected) and submit a pull request via GitHub. If you're not comfortable using Git, then please just submit it to the issues link above.
 
-__How can I translate this plugin?__
+__How can I translate this plugin?__  
 If you would like to translate this plugin you can easily contribute via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/) - just signup for a free account.
 More instructions can be found at [wp-translations.org](http://wp-translations.org/translators-wp-translations/)
 
