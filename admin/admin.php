@@ -246,7 +246,7 @@ class Password_Protected_Admin {
 	public function password_protected_allowed_ip_addresses_field() {
 
 		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" class="large-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
-		echo '<p class="description">' . __( 'Enter one IP address per line', 'password-protected' ) .'</p>';
+		echo '<p class="description">' . esc_html__( 'Enter one IP address per line.', 'password-protected' ) . ' ' . esc_html( sprintf( __( 'Your IP is address %s.', 'password-protected' ), $_SERVER['REMOTE_ADDR'] ) ) . '</p>';
 
 	}
 
