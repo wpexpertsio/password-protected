@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 3.5
-Tested up to: 4.3.1
 Stable tag: 2.0.2
+Tested up to: 4.4.2
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
