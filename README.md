@@ -71,6 +71,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
+### 2.0.3
+Show user's IP address beside "Allow IP Addresses" admin setting. Declare methods as public or private and use PHP5 constructors.
+
 ### 2.0.2
 Only redirect to [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) when logging out.
 

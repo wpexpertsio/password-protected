@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 3.5
-Stable tag: 2.0.2
 Tested up to: 4.4.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -82,7 +82,11 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+
+= 2.0.3 =
 * Declare methods as public or private and use PHP5 constructors.
+* Show user's IP address beside "Allow IP Addresses" admin setting.
+* Add CHANGELOG.md and README.md
 
 = 2.0.2 =
 * Check allowed IP addresses are valid when saving.
@@ -177,6 +181,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.0.3 =
+Show user's IP address beside "Allow IP Addresses" admin setting. Declare methods as public or private and use PHP5 constructors.
 
 = 2.0.2 =
 Only redirect to [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) when logging out.

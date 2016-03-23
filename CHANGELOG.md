@@ -4,6 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.3] - 2015-03-23
+
+### Added
+- Show user's IP address beside "Allow IP Addresses" admin setting.
+- Add CHANGELOG.md and README.md
+
 ### Changed
 - Declare methods as public or private and use PHP5 constructors.
 
@@ -163,7 +169,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
-[Unreleased]: https://github.com/benhuson/password-protected/compare/2.0.2...HEAD
+[Unreleased]: https://github.com/benhuson/password-protected/compare/2.0.3...HEAD
+[2.0.3]: https://github.com/benhuson/password-protected/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/benhuson/password-protected/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/benhuson/password-protected/compare/2.0...2.0.1
 [2.0]: https://github.com/benhuson/password-protected/compare/1.9...2.0
