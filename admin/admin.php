@@ -128,6 +128,14 @@ class Password_Protected_Admin {
 			$this->options_group,
 			'password_protected'
 		);
+		
+		add_settings_field(
+			'password_protected_unprotected_pages',
+			__( 'Unprotected Pages', 'password-protected' ),
+			array( $this, 'password_protected_unprotected_pages_field' ),
+			$this->options_group,
+			'password_protected'
+		);
 
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
@@ -135,6 +143,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_users', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
+		register_setting( $this->options_group, 'password_protected_unprotected_pages', array( $this, 'sanitize_pages' ) );
 
 	}
 
@@ -199,6 +208,25 @@ class Password_Protected_Admin {
 		return filter_var( $ip_address, FILTER_VALIDATE_IP );
 
 	}
+	
+	/**
+	 * Sanitize Pages
+	 *
+	 * @param   string  $val  List of page IDs, one per line
+	 * @return  string        Sanitized list of pages.
+	 */
+	public function sanitize_pages( $val ) {
+		
+		$page_ids = explode( "\n", $val );
+		$page_ids = array_map( 'sanitize_text_field', $page_ids );
+		$page_ids = array_map( 'trim', $page_ids );
+		$page_ids = array_filter( $page_ids );
+
+		$val = implode( "\n", $page_ids );
+
+		return $val;
+		
+	}
 
 	/**
 	 * Password Protected Section
@@ -247,6 +275,16 @@ class Password_Protected_Admin {
 
 		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" class="large-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
 		echo '<p class="description">' . esc_html__( 'Enter one IP address per line.', 'password-protected' ) . ' ' . esc_html( sprintf( __( 'Your IP is address %s.', 'password-protected' ), $_SERVER['REMOTE_ADDR'] ) ) . '</p>';
+
+	}
+	
+	/**
+	 * Unprotected Pages Field
+	 */
+	public function password_protected_unprotected_pages_field() {
+
+		echo '<textarea name="password_protected_unprotected_pages" id="password_protected_unprotected_pages" rows="3" class="large-text" />' . get_option( 'password_protected_unprotected_pages' ) . '</textarea>';
+		echo '<p class="description">' . esc_html__( 'Enter one Page/Post ID per line.', 'password-protected' ) . '</p>';
 
 	}
 

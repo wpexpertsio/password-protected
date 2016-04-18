@@ -329,6 +329,14 @@ class Password_Protected {
 		if ( $this->is_user_logged_in() ) {
 			return;
 		}
+		
+		$ppup_val = get_option( 'password_protected_unprotected_pages' );
+		if($ppup_val !== false && strlen(trim($ppup_val)) > 0) {
+			$unprotected_page_ids = explode( "\n", $ppup_val );
+			if( is_array($unprotected_page_ids) && is_page( $unprotected_page_ids ) ) {
+				return;
+			}
+		}
 
 		// Show login form
 		if ( isset( $_REQUEST['password-protected'] ) && 'login' == $_REQUEST['password-protected'] ) {
