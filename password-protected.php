@@ -330,9 +330,12 @@ class Password_Protected {
 			return;
 		}
 		
-		$unprotected_pages = explode( "\n", get_option( 'password_protected_unprotected_pages' ) );
-		if( is_page( $unprotected_pages ) ) {
-			return;
+		$ppup_val = get_option( 'password_protected_unprotected_pages' );
+		if($ppup_val !== false && strlen(trim($ppup_val)) > 0) {
+			$unprotected_page_ids = explode( "\n", $ppup_val );
+			if( is_array($unprotected_page_ids) && is_page( $unprotected_page_ids ) ) {
+				return;
+			}
 		}
 
 		// Show login form
