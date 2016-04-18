@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Option to specify page/post IDs to always allow viewing (unprotect)
+
 ## [2.0.3] - 2015-03-23
 
 ### Added
