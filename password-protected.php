@@ -236,6 +236,17 @@ class Password_Protected {
 		return explode( "\n", get_option( 'password_protected_allowed_ip_addresses' ) );
 
 	}
+	
+	/**
+	 * Allow the remember me function
+	 *
+	 * @return  boolean         True/false.
+	 */
+	public function allow_remember_me() {
+		
+		return (bool) get_option( 'password_protected_allow_remember_me' );
+		
+	}
 
 	/**
 	 * Encrypt Password
@@ -283,7 +294,13 @@ class Password_Protected {
 			// If correct password...
 			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 
-				$this->set_auth_cookie();
+				$remember = isset ( $_REQUEST['password_protected_rememberme'] ) ? boolval( $_REQUEST['password_protected_rememberme'] ) : false;
+				if ( ! $this->allow_remember_me() )
+				{
+					$remember = false;
+				}
+			
+				$this->set_auth_cookie( $remember );
 				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
 
@@ -573,7 +590,7 @@ class Password_Protected {
 	public function set_auth_cookie( $remember = false, $secure = '') {
 
 		if ( $remember ) {
-			$expiration = $expire = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 1209600, $remember );
+			$expiration = $expire = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', get_option('password_protected_remember_me_lifetime', 14) * 86400, $remember );
 		} else {
 			$expiration = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 172800, $remember );
 			$expire = 0;

@@ -136,6 +136,14 @@ class Password_Protected_Admin {
 			$this->options_group,
 			'password_protected'
 		);
+		
+		add_settings_field(
+			'password_protected_remember_me_lifetime',
+			__( 'Remember for this many days', 'password-protected' ),
+			array( $this, 'password_protected_remember_me_lifetime_field' ),
+			$this->options_group,
+			'password_protected'
+		);
 
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
@@ -144,6 +152,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
 		register_setting( $this->options_group, 'password_protected_allow_remember_me', 'boolval' );
+		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
 		
 	}
 
@@ -264,7 +273,16 @@ class Password_Protected_Admin {
 	 */
 	public function password_protected_allow_remember_me_field() {
 		
-		echo '<label><input name="password_protected_allow_remember_me" id="password_protected_allow_remember_me" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_allow_remember_me' ), false ) . ' /> ' . __( 'Allow Remember me', 'password-protected' ) . '</label>';
+		echo '<label><input name="password_protected_allow_remember_me" id="password_protected_allow_remember_me" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_allow_remember_me' ), false ) . ' /></label>';
+		
+	}
+	
+	/**
+	 * Remember Me lifetime field
+	 */
+	public function password_protected_remember_me_lifetime_field() {
+		
+		echo '<label><input name="password_protected_remember_me_lifetime" id="password_protected_remember_me_lifetime" type="number" value="' . get_option( 'password_protected_remember_me_lifetime', 14 ) . '" /></label>';
 		
 	}
 
