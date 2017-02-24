@@ -128,6 +128,14 @@ class Password_Protected_Admin {
 			$this->options_group,
 			'password_protected'
 		);
+		
+		add_settings_field(
+			'password_protected_allow_remember_me',
+			__( 'Allow Remember me', 'password-protected' ),
+			array( $this, 'password_protected_allow_remember_me_field' ),
+			$this->options_group,
+			'password_protected'
+		);
 
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
@@ -135,7 +143,8 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_users', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
-
+		register_setting( $this->options_group, 'password_protected_allow_remember_me', 'boolval' );
+		
 	}
 
 	/**
@@ -248,6 +257,15 @@ class Password_Protected_Admin {
 		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" class="large-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
 		echo '<p class="description">' . esc_html__( 'Enter one IP address per line.', 'password-protected' ) . ' ' . esc_html( sprintf( __( 'Your IP is address %s.', 'password-protected' ), $_SERVER['REMOTE_ADDR'] ) ) . '</p>';
 
+	}
+	
+	/**
+	 * Remember Me Field
+	 */
+	public function password_protected_allow_remember_me_field() {
+		
+		echo '<label><input name="password_protected_allow_remember_me" id="password_protected_allow_remember_me" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_allow_remember_me' ), false ) . ' /> ' . __( 'Allow Remember me', 'password-protected' ) . '</label>';
+		
 	}
 
 	/**
