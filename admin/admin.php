@@ -257,6 +257,18 @@ class Password_Protected_Admin {
 	 */
 	public function password_protected_settings_compat() {
 
+		// WP Engine Hosting
+		if ( ( function_exists( 'is_wpe' ) && is_wpe() ) || ( function_exists( 'is_wpe_snapshot' ) && is_wpe_snapshot() ) ) {
+
+			add_settings_section(
+				'password_protected_compat_wp_engine',
+				'WP Engine Hosting',
+				array( $this, 'password_protected_settings_compat_wp_engine' ),
+				'password-protected-compat'
+			);
+
+		}
+
 		// W3 Total Cache
 		if ( defined( 'W3TC' ) && W3TC ) {
 
@@ -268,6 +280,20 @@ class Password_Protected_Admin {
 			);
 
 		}
+
+	}
+
+	/**
+	 * WP Engine Hosting
+	 */
+	public function password_protected_settings_compat_wp_engine() {
+
+		global $Password_Protected;
+
+		echo '<p>' . __( 'We have detected your site may be running on WP Engine hosting.', 'password-protected' ) . '<br />
+			' . __( 'In order for Password Protected to work with WP Engine\'s caching configuration you must ask them to disable caching for the Password Protected cookie:', 'password-protected' ) . '</p>';
+
+		echo '<p><code>' . esc_html( $Password_Protected->cookie_name() ) . '</code></p>';
 
 	}
 
