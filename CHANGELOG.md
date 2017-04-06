@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Update caching notes for WP Engine and W3 Total Cache plugin.
+
 ## [2.0.3] - 2015-03-23
 
 ### Added

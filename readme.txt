@@ -82,6 +82,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+* Update caching notes for WP Engine and W3 Total Cache plugin.
 
 = 2.0.3 =
 * Declare methods as public or private and use PHP5 constructors.
