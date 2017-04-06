@@ -755,11 +755,6 @@ class Password_Protected {
 	 */
 	static function is_plugin_supported() {
 
-		// WP Engine
-		if ( class_exists( 'WPE_API', false ) ) {
-			return new WP_Error( 'PASSWORD_PROTECTED_SUPPORT', __( 'The Password Protected plugin does not work with WP Engine hosting. Please disable it.', 'password-protected' ) );
-		}
-
 		return true;
 
 	}
