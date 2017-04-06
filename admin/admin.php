@@ -261,7 +261,7 @@ class Password_Protected_Admin {
 		if ( defined( 'W3TC' ) && W3TC ) {
 
 			add_settings_section(
-				'password_protected_compat',
+				'password_protected_compat_w3_total_cache',
 				'W3 Total Cache',
 				array( $this, 'password_protected_settings_compat_w3_total_cache' ),
 				'password-protected-compat'
