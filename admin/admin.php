@@ -13,6 +13,7 @@ class Password_Protected_Admin {
 		global $wp_version;
 
 		add_action( 'admin_init', array( $this, 'password_protected_settings' ), 5 );
+		add_action( 'admin_init', array( $this, 'password_protected_settings_compat' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'password_protected_help_tabs', array( $this, 'help_tabs' ), 5 );
 		add_action( 'admin_notices', array( $this, 'password_protected_admin_notices' ) );
@@ -48,6 +49,7 @@ class Password_Protected_Admin {
 				?>
 				<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e( 'Save Changes' ) ?>"></p>
 			</form>
+			<?php do_settings_sections( 'password-protected-compat' ); ?>
 		</div>
 
 		<?php
@@ -247,6 +249,41 @@ class Password_Protected_Admin {
 
 		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" class="large-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
 		echo '<p class="description">' . esc_html__( 'Enter one IP address per line.', 'password-protected' ) . ' ' . esc_html( sprintf( __( 'Your IP is address %s.', 'password-protected' ), $_SERVER['REMOTE_ADDR'] ) ) . '</p>';
+
+	}
+
+	/**
+	 * Settings Compatibility
+	 */
+	public function password_protected_settings_compat() {
+
+		// W3 Total Cache
+		if ( defined( 'W3TC' ) && W3TC ) {
+
+			add_settings_section(
+				'password_protected_compat_w3_total_cache',
+				'W3 Total Cache',
+				array( $this, 'password_protected_settings_compat_w3_total_cache' ),
+				'password-protected-compat'
+			);
+
+		}
+
+	}
+
+	/**
+	 * W3 Total Cache Compatibility
+	 */
+	public function password_protected_settings_compat_w3_total_cache() {
+
+		global $Password_Protected;
+
+		echo '<p>' . __( 'It looks like you may be using the W3 Total Cache plugin.', 'password-protected' ) . '<br />
+			' . __( 'In order for Password Protected to work with W3 Total Cache you must disable caching when the Password Protected cookie is set.', 'password-protected' ) . '<br />
+			' . sprintf( __( 'You can adjust the cookie settings for W3 Total Cache under <a href="%s">Performance > Page Cache > Advanced > Rejected Cookies</a>.', 'password-protected' ), admin_url( '/admin.php?page=w3tc_pgcache#advanced' ) ) . '<br />
+			' . __( 'Caching should be disabled for the cookie:', 'password-protected' ) . '</p>';
+
+		echo '<p><input type="text" value="' . esc_attr( $Password_Protected->cookie_name() ) . '" class="regular-text code" /></p>';
 
 	}
 
