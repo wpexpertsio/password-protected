@@ -15,7 +15,7 @@ License: GPLv2
 Copyright 2012 Ben Huson (email : ben@thewhiteroom.net)
 
 This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License, version 2, as 
+it under the terms of the GNU General Public License, version 2, as
 published by the Free Software Foundation.
 
 This program is distributed in the hope that it will be useful,
@@ -96,7 +96,7 @@ class Password_Protected {
 
 		if ( $this->is_active() && ! defined( 'DONOTCACHEPAGE' ) ) {
 			define( 'DONOTCACHEPAGE', true );
-		}	
+		}
 
 	}
 
@@ -544,7 +544,7 @@ class Password_Protected {
 
 		if ( empty( $cookie ) ) {
 			$cookie_name = $this->cookie_name();
-	
+
 			if ( empty( $_COOKIE[$cookie_name] ) ) {
 				return false;
 			}
@@ -627,7 +627,7 @@ class Password_Protected {
 			if ( ! empty( $pwd ) ) {
 				$new_pwd = $this->encrypt_password( $pwd );
 				update_option( 'password_protected_password', $new_pwd );
-			} 
+			}
 		}
 
 		update_option( 'password_protected_version', $this->version );
@@ -702,7 +702,7 @@ class Password_Protected {
 	 *
 	 * Check wether a 'password-protected-login.css' stylesheet exists in your theme
 	 * and if so loads it.
-	 * 
+	 *
 	 * Works with child themes.
 	 *
 	 * Possible to specify a different file in the theme folder via the
