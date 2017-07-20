@@ -48,6 +48,7 @@ class Password_Protected_Admin {
 				?>
 				<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e( 'Save Changes' ) ?>"></p>
 			</form>
+			<?php do_settings_sections( 'password-protected-compat' ); ?>
 		</div>
 
 		<?php

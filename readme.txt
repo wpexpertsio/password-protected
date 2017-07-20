@@ -23,7 +23,7 @@ Features include:
 * Works with Mark Jaquith's [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin.
 * Works with the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin.
 
-> Please note, this plugin does not currently work with WP Engine hosting due to their page caching implementation.
+> Please note, this plugin works by setting a cookie to allow access to the site. If you are using a caching plugin or web hosting such as WP Engine that has in-built caching, you will need to configure the caching service to be disabled if the Password Protected cookie is set.
 
 = Translations =
 
@@ -82,6 +82,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+* Update caching notes for WP Engine and W3 Total Cache plugin.
 
 = 2.0.3 =
 * Declare methods as public or private and use PHP5 constructors.

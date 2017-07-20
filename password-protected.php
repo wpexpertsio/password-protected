@@ -3,7 +3,7 @@
 /*
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
-Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work on WP Engine or with some caching setups.
+Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
 Version: 2.0.3
 Author: Ben Huson
 Text Domain: password-protected
@@ -74,8 +74,13 @@ class Password_Protected {
 		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
 
 		if ( is_admin() ) {
+
+			include_once( dirname( __FILE__ ) . '/admin/admin-caching.php' );
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
+
+			$this->admin_caching = new Password_Protected_Admin_Caching( $this );
 			$this->admin = new Password_Protected_Admin();
+
 		}
 
 	}
@@ -754,11 +759,6 @@ class Password_Protected {
 	 * @return  boolean
 	 */
 	static function is_plugin_supported() {
-
-		// WP Engine
-		if ( class_exists( 'WPE_API', false ) ) {
-			return new WP_Error( 'PASSWORD_PROTECTED_SUPPORT', __( 'The Password Protected plugin does not work with WP Engine hosting. Please disable it.', 'password-protected' ) );
-		}
 
 		return true;
 
