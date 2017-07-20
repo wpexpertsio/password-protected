@@ -8,11 +8,20 @@
 class Password_Protected_Admin_Caching {
 
 	/**
+	 * Plugin
+	 *
+	 * @var  Password_Protected|null
+	 */
+	private $plugin = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @internal  Private. This class should only be instantiated once by the plugin.
 	 */
-	public function __construct() {
+	public function __construct( $plugin ) {
+
+		$this->plugin = $plugin;
 
 		add_action( 'admin_init', array( $this, 'cache_settings_info' ) );
 
@@ -76,8 +85,6 @@ class Password_Protected_Admin_Caching {
 	 */
 	public function section_caching() {
 
-		global $Password_Protected;
-
 		echo '<p>' . __( 'Password Protected does not always work well with sites that use caching.', 'password-protected' ) . '<br />
 			' . __( 'If your site uses a caching plugin or yur web hosting uses server-side caching, you may need to configure your setup to disable caching for the Password Protected cookie:', 'password-protected' ) . '</p>';
 
@@ -88,9 +95,7 @@ class Password_Protected_Admin_Caching {
 	 */
 	public function field_cookies() {
 
-		global $Password_Protected;
-
-		echo '<p><input type="text" value="' . esc_attr( $Password_Protected->cookie_name() ) . '" class="regular-text code" /></p>';
+		echo '<p><input type="text" value="' . esc_attr( $this->plugin->cookie_name() ) . '" class="regular-text code" /></p>';
 
 	}
 
@@ -98,8 +103,6 @@ class Password_Protected_Admin_Caching {
 	 * WP Engine Hosting
 	 */
 	public function field_wp_engine() {
-
-		global $Password_Protected;
 
 		echo '<p>' . __( 'We have detected your site may be running on WP Engine hosting.', 'password-protected' ) . '<br />
 			' . __( 'In order for Password Protected to work with WP Engine\'s caching configuration you must ask them to disable caching for the Password Protected cookie.', 'password-protected' ) . '</p>';
@@ -110,8 +113,6 @@ class Password_Protected_Admin_Caching {
 	 * W3 Total Cache Compatibility
 	 */
 	public function field_w3_total_cache() {
-
-		global $Password_Protected;
 
 		echo '<p>' . __( 'It looks like you may be using the W3 Total Cache plugin?', 'password-protected' ) . '<br />
 			' . __( 'In order for Password Protected to work with W3 Total Cache you must disable caching when the Password Protected cookie is set.', 'password-protected' ) . ' 
