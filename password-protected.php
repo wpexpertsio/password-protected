@@ -74,8 +74,13 @@ class Password_Protected {
 		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
 
 		if ( is_admin() ) {
+
+			include_once( dirname( __FILE__ ) . '/admin/admin-caching.php' );
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
+
+			$this->admin_caching = new Password_Protected_Admin_Caching();
 			$this->admin = new Password_Protected_Admin();
+
 		}
 
 	}
