@@ -53,7 +53,7 @@ class Password_Protected_Admin_Caching {
 		);
 
 		// WP Engine Hosting
-		if ( ( function_exists( 'is_wpe' ) && is_wpe() ) || ( function_exists( 'is_wpe_snapshot' ) && is_wpe_snapshot() ) ) {
+		if ( $this->test_wp_engine() ) {
 
 			add_settings_field(
 				'password_protected_compat_caching_wp_engine',
@@ -66,7 +66,7 @@ class Password_Protected_Admin_Caching {
 		}
 
 		// W3 Total Cache
-		if ( defined( 'W3TC' ) && W3TC ) {
+		if ( $this->test_w3_total_cache() ) {
 
 			add_settings_field(
 				'password_protected_compat_caching_w3_total_cache',
@@ -110,13 +110,35 @@ class Password_Protected_Admin_Caching {
 	}
 
 	/**
-	 * W3 Total Cache Compatibility
+	 * W3 Total Cache Plugin
 	 */
 	public function field_w3_total_cache() {
 
 		echo '<p>' . __( 'It looks like you may be using the W3 Total Cache plugin?', 'password-protected' ) . '<br />
 			' . __( 'In order for Password Protected to work with W3 Total Cache you must disable caching when the Password Protected cookie is set.', 'password-protected' ) . ' 
 			' . sprintf( __( 'You can adjust the cookie settings for W3 Total Cache under <a href="%s">Performance > Page Cache > Advanced > Rejected Cookies</a>.', 'password-protected' ), admin_url( '/admin.php?page=w3tc_pgcache#advanced' ) ) . '</p>';
+
+	}
+
+	/**
+	 * Test: WP Engine
+	 *
+	 * @return  boolean
+	 */
+	private function test_wp_engine() {
+
+		return ( function_exists( 'is_wpe' ) && is_wpe() ) || ( function_exists( 'is_wpe_snapshot' ) && is_wpe_snapshot() );
+
+	}
+
+	/**
+	 * Test: W3 Total Cache
+	 *
+	 * @return  boolean
+	 */
+	private function test_w3_total_cache() {
+
+		return defined( 'W3TC' ) && W3TC;
 
 	}
 
