@@ -3,7 +3,7 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 3.5
-Tested up to: 4.4.2
+Tested up to: 4.8
 Stable tag: 2.0.3
 License: GPLv2 or later
 
