@@ -3,6 +3,8 @@
 /**
  * @package     Password Protected
  * @subpackage  Admin Caching
+ *
+ * @since  2.1
  */
 
 class Password_Protected_Admin_Caching {
@@ -10,12 +12,16 @@ class Password_Protected_Admin_Caching {
 	/**
 	 * Plugin
 	 *
+	 * @since  2.1
+	 *
 	 * @var  Password_Protected|null
 	 */
 	private $plugin = null;
 
 	/**
 	 * Constructor
+	 *
+	 * @since  2.1
 	 *
 	 * @internal  Private. This class should only be instantiated once by the plugin.
 	 */
@@ -32,6 +38,8 @@ class Password_Protected_Admin_Caching {
 	 *
 	 * Displays information on the settings page for helping
 	 * to configure Password Protected to work with caching setups.
+	 *
+	 * @since  2.1
 	 */
 	public function cache_settings_info() {
 
@@ -82,6 +90,8 @@ class Password_Protected_Admin_Caching {
 
 	/**
 	 * Caching Section
+	 *
+	 * @since  2.1
 	 */
 	public function section_caching() {
 
@@ -92,6 +102,8 @@ class Password_Protected_Admin_Caching {
 
 	/**
 	 * Password Protection Status Field
+	 *
+	 * @since  2.1
 	 */
 	public function field_cookies() {
 
@@ -101,6 +113,8 @@ class Password_Protected_Admin_Caching {
 
 	/**
 	 * WP Engine Hosting
+	 *
+	 * @since  2.1
 	 */
 	public function field_wp_engine() {
 
@@ -111,6 +125,8 @@ class Password_Protected_Admin_Caching {
 
 	/**
 	 * W3 Total Cache Plugin
+	 *
+	 * @since  2.1
 	 */
 	public function field_w3_total_cache() {
 
@@ -123,6 +139,8 @@ class Password_Protected_Admin_Caching {
 	/**
 	 * Test: WP Engine
 	 *
+	 * @since  2.1
+	 *
 	 * @return  boolean
 	 */
 	private function test_wp_engine() {
@@ -133,6 +151,8 @@ class Password_Protected_Admin_Caching {
 
 	/**
 	 * Test: W3 Total Cache
+	 *
+	 * @since  2.1
 	 *
 	 * @return  boolean
 	 */
