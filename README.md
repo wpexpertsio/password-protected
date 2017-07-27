@@ -71,6 +71,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
+### 2.1
+Update caching notes for WP Engine and W3 Total Cache plugin.
+
 ### 2.0.3
 Show user's IP address beside "Allow IP Addresses" admin setting. Declare methods as public or private and use PHP5 constructors.
 
