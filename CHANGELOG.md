@@ -176,7 +176,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 [Unreleased]: https://github.com/benhuson/password-protected/compare/2.1...HEAD
-[2.0.3]: https://github.com/benhuson/password-protected/compare/2.0.3...2.1
+[2.1]: https://github.com/benhuson/password-protected/compare/2.0.3...2.1
 [2.0.3]: https://github.com/benhuson/password-protected/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/benhuson/password-protected/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/benhuson/password-protected/compare/2.0...2.0.1
