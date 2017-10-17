@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 3.5
-Tested up to: 4.4.2
-Stable tag: 2.0.3
+Tested up to: 4.8
+Stable tag: 2.1
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -23,7 +23,7 @@ Features include:
 * Works with Mark Jaquith's [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin.
 * Works with the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin.
 
-> Please note, this plugin does not currently work with WP Engine hosting due to their page caching implementation.
+> Please note, this plugin works by setting a cookie to allow access to the site. If you are using a caching plugin or web hosting such as WP Engine that has in-built caching, you will need to configure the caching service to be disabled if the Password Protected cookie is set.
 
 = Translations =
 
@@ -82,6 +82,10 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+
+= 2.1 =
+* Update caching notes for WP Engine and W3 Total Cache plugin.
+* Tested up to WordPress 4.8
 
 = 2.0.3 =
 * Declare methods as public or private and use PHP5 constructors.
@@ -181,6 +185,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.1 =
+Update caching notes for WP Engine and W3 Total Cache plugin.
 
 = 2.0.3 =
 Show user's IP address beside "Allow IP Addresses" admin setting. Declare methods as public or private and use PHP5 constructors.
