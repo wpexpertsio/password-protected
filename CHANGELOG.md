@@ -4,8 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.1] - 2017-07-27
+
 ### Added
 - Update caching notes for WP Engine and W3 Total Cache plugin.
+- Tested up to WordPress 4.8
 
 ## [2.0.3] - 2015-03-23
 
@@ -172,7 +175,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
-[Unreleased]: https://github.com/benhuson/password-protected/compare/2.0.3...HEAD
+[Unreleased]: https://github.com/benhuson/password-protected/compare/2.1...HEAD
+[2.0.3]: https://github.com/benhuson/password-protected/compare/2.0.3...2.1
 [2.0.3]: https://github.com/benhuson/password-protected/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/benhuson/password-protected/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/benhuson/password-protected/compare/2.0...2.0.1

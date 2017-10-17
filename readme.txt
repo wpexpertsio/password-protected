@@ -4,7 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: password, protect, password protect, login
 Requires at least: 3.5
 Tested up to: 4.8
-Stable tag: 2.0.3
+Requires PHP: 5.6
+Stable tag: 2.1
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -82,7 +83,10 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+
+= 2.1 =
 * Update caching notes for WP Engine and W3 Total Cache plugin.
+* Tested up to WordPress 4.8
 
 = 2.0.3 =
 * Declare methods as public or private and use PHP5 constructors.
@@ -182,6 +186,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.1 =
+Update caching notes for WP Engine and W3 Total Cache plugin.
 
 = 2.0.3 =
 Show user's IP address beside "Allow IP Addresses" admin setting. Declare methods as public or private and use PHP5 constructors.
