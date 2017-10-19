@@ -768,15 +768,18 @@ class Password_Protected {
 	/**
 	 * Check whether a given request has permissions
 	 *
-	 * @param  WP_REST_Request $access Full details about the request.
-	 * @return WP_Error|boolean
+	 * @param   WP_REST_Request   $access  Full details about the request.
+	 * @return  WP_Error|boolean
 	 */
-	function only_allow_logged_in_rest_access( $access ) {
-		// Check if User is logged in
+	public function only_allow_logged_in_rest_access( $access ) {
+
+		// If user is not logged in
 		if ( ! $this->is_user_logged_in() ) {
-			return new WP_Error('rest_cannot_access', __('Only authenticated users can access the REST API.', 'disable-json-api'), array('status' => rest_authorization_required_code()));
+			return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'disable-json-api' ), array( 'status' => rest_authorization_required_code() ) );
 		}
-		// user is logged in proceed
+
 		return $access;
+
 	}
+
 }
