@@ -39,22 +39,46 @@ class Admin_Bar {
 
 		if ( self::allow_current_user() ) {
 
-			if ( (bool) get_option( 'password_protected_status' ) ) {
-				$title = __( 'Password Protection is enabled.', 'password-protected' );
-			} else {
-				$title = __( 'Password Protection is disabled.', 'password-protected' );
-			}
-
 			$wp_admin_bar->add_menu( array(
 				'id'     => 'password_protected',
 				'title'  => __( '', 'password-protected' ),
-				'href'   => current_user_can( 'manage_options' ) ? admin_url( 'options-general.php?page=password-protected' ) : '',
+				'href'   => self::get_toolbar_item_url(),
 				'meta'   => array(
-					'title' => $title
+					'title' => self::get_toolbar_item_title()
 				)
 			) );
 
 		}
+
+	}
+
+	/**
+	 * Get Toolbar Item URL
+	 *
+	 * @return  string
+	 */
+	private static function get_toolbar_item_url() {
+
+		if ( current_user_can( 'manage_options' ) ) {
+			return admin_url( 'options-general.php?page=password-protected' );
+		}
+
+		return '';
+
+	}
+
+	/**
+	 * Get Toolbar Item Title
+	 *
+	 * @return  string
+	 */
+	private static function get_toolbar_item_title() {
+
+		if ( (bool) get_option( 'password_protected_status' ) ) {
+			return __( 'Password Protection is enabled.', 'password-protected' );
+		}
+
+		return __( 'Password Protection is disabled.', 'password-protected' );
 
 	}
 
