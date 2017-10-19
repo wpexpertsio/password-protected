@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- REST API access disabled if password not entered.
+- Admin option to allow REST API access.
+
 ## [2.1] - 2017-07-27
 
 ### Added

@@ -71,6 +71,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
+### Unreleased
+Disable REST API access (admin option to allow).
+
 ### 2.1
 Update caching notes for WP Engine and W3 Total Cache plugin.
 
