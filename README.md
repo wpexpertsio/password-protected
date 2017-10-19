@@ -72,7 +72,7 @@ Upgrade Notice
 --------------
 
 ### Unreleased
-Disable REST API access (admin option to allow).
+Added admin bar icon to indicate wether password protection is enabled/disabled and disable REST API access (admin option to allow).
 
 ### 2.1
 Update caching notes for WP Engine and W3 Total Cache plugin.

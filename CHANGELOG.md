@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Admin bar icon to indicate wether password protection is enabled/disabled.
 - REST API access disabled if password not entered.
 - Admin option to allow REST API access.
 

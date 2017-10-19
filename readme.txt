@@ -83,6 +83,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+* Added admin bar icon to indicate wether password protection is enabled/disabled.
 * REST API access disabled if password not entered.
 * Admin option to allow REST API access.
 
@@ -190,7 +191,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Upgrade Notice ==
 
 = Unreleased =
-Disable REST API access (admin option to allow).
+Added admin bar icon to indicate wether password protection is enabled/disabled and disable REST API access (admin option to allow).
 
 = 2.1 =
 Update caching notes for WP Engine and W3 Total Cache plugin.
