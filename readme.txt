@@ -83,6 +83,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+* Added admin bar icon to indicate wether password protection is enabled/disabled.
 
 = 2.1 =
 * Update caching notes for WP Engine and W3 Total Cache plugin.
@@ -186,6 +187,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= Unreleased =
+Added admin bar icon to indicate wether password protection is enabled/disabled.
 
 = 2.1 =
 Update caching notes for WP Engine and W3 Total Cache plugin.

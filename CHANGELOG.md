@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Admin bar icon to indicate wether password protection is enabled/disabled.
+
 ## [2.1] - 2017-07-27
 
 ### Added
