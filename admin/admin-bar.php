@@ -74,7 +74,7 @@ class Admin_Bar {
 	 */
 	private static function get_toolbar_item_title() {
 
-		if ( (bool) get_option( 'password_protected_status' ) ) {
+		if ( self::is_enabled() ) {
 			return __( 'Password Protection is enabled.', 'password-protected' );
 		}
 
@@ -91,11 +91,11 @@ class Admin_Bar {
 
 		if ( self::allow_current_user() ) {
 
-			if ( (bool) get_option( 'password_protected_status' ) ) {
-				$icon = '\f160';
+			if ( self::is_enabled() ) {
+				$icon = '\f160';  // Locked
 				$background = '#C00';
 			} else {
-				$icon = '\f528';
+				$icon = '\f528';  // Unlocked
 				$background = 'transparent';
 			}
 
@@ -120,6 +120,17 @@ class Admin_Bar {
 	private static function allow_current_user() {
 
 		return is_user_logged_in();
+
+	}
+
+	/**
+	 * Is Enabled
+	 *
+	 * @return  boolean
+	 */
+	private static function is_enabled() {
+
+		return (bool) get_option( 'password_protected_status' );
 
 	}
 
