@@ -371,7 +371,7 @@ class Password_Protected_Admin {
 	 * Checks wether the admin is displaying a specific screen.
 	 *
 	 * @param   string|array  $screen_id  Admin screen ID(s).
-	 * @return  boolean 
+	 * @return  boolean
 	 */
 	public function is_current_screen( $screen_id ) {
 
