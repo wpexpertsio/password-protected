@@ -48,7 +48,7 @@ class Admin_Bar {
 			$wp_admin_bar->add_menu( array(
 				'id'     => 'password_protected',
 				'title'  => __( '', 'password-protected' ),
-				'href'   => admin_url( 'options-general.php?page=password-protected' ),
+				'href'   => current_user_can( 'manage_options' ) ? admin_url( 'options-general.php?page=password-protected' ) : '',
 				'meta'   => array(
 					'title' => $title
 				)
