@@ -67,6 +67,7 @@ class Password_Protected {
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
+		add_filter( 'rest_authentication_errors', array( $this, 'only_allow_logged_in_rest_access' ) );
 		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_theme_stylesheet' ), 5 );
@@ -761,6 +762,23 @@ class Password_Protected {
 	static function is_plugin_supported() {
 
 		return true;
+
+	}
+
+	/**
+	 * Check whether a given request has permissions
+	 *
+	 * @param   WP_REST_Request   $access  Full details about the request.
+	 * @return  WP_Error|boolean
+	 */
+	public function only_allow_logged_in_rest_access( $access ) {
+
+		// If user is not logged in
+		if ( ! $this->is_user_logged_in() && ! (bool) get_option( 'password_protected_rest' ) ) {die();
+			return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'password-protected' ), array( 'status' => rest_authorization_required_code() ) );
+		}
+
+		return $access;
 
 	}
 
