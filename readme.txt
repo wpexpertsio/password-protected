@@ -83,6 +83,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 == Changelog ==
 
 = Unreleased =
+* Option to show "Remember me" checkbox. Props [Christian Güdel](https://github.com/cguedel).
 
 = 2.1 =
 * Update caching notes for WP Engine and W3 Total Cache plugin.

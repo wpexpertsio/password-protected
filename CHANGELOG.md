@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Option to show "Remember me" checkbox. Props [Christian Güdel](https://github.com/cguedel).
+
 ## [2.1] - 2017-07-27
 
 ### Added
