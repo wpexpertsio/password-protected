@@ -249,7 +249,7 @@ class Password_Protected {
 	 */
 	public function allow_remember_me() {
 		
-		return (bool) get_option( 'password_protected_allow_remember_me' );
+		return (bool) get_option( 'password_protected_remember_me' );
 		
 	}
 

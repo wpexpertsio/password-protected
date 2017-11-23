@@ -131,9 +131,9 @@ class Password_Protected_Admin {
 		);
 		
 		add_settings_field(
-			'password_protected_allow_remember_me',
+			'password_protected_remember_me',
 			__( 'Allow Remember me', 'password-protected' ),
-			array( $this, 'password_protected_allow_remember_me_field' ),
+			array( $this, 'password_protected_remember_me_field' ),
 			$this->options_group,
 			'password_protected'
 		);
@@ -152,7 +152,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_users', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
-		register_setting( $this->options_group, 'password_protected_allow_remember_me', 'boolval' );
+		register_setting( $this->options_group, 'password_protected_remember_me', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
 		
 	}
@@ -272,10 +272,10 @@ class Password_Protected_Admin {
 	/**
 	 * Remember Me Field
 	 */
-	public function password_protected_allow_remember_me_field() {
-		
-		echo '<label><input name="password_protected_allow_remember_me" id="password_protected_allow_remember_me" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_allow_remember_me' ), false ) . ' /></label>';
-		
+	public function password_protected_remember_me_field() {
+
+		echo '<label><input name="password_protected_remember_me" id="password_protected_remember_me" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_remember_me' ), false ) . ' /></label>';
+
 	}
 	
 	/**
