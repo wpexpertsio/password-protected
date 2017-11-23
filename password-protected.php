@@ -241,16 +241,16 @@ class Password_Protected {
 		return explode( "\n", get_option( 'password_protected_allowed_ip_addresses' ) );
 
 	}
-	
+
 	/**
 	 * Allow the remember me function
 	 *
-	 * @return  boolean         True/false.
+	 * @return. boolean
 	 */
 	public function allow_remember_me() {
-		
+
 		return (bool) get_option( 'password_protected_remember_me' );
-		
+
 	}
 
 	/**
@@ -300,11 +300,11 @@ class Password_Protected {
 			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 
 				$remember = isset ( $_REQUEST['password_protected_rememberme'] ) ? boolval( $_REQUEST['password_protected_rememberme'] ) : false;
-				if ( ! $this->allow_remember_me() )
-				{
+
+				if ( ! $this->allow_remember_me() ) {
 					$remember = false;
 				}
-			
+
 				$this->set_auth_cookie( $remember );
 				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
@@ -565,15 +565,19 @@ class Password_Protected {
 	public function parse_auth_cookie( $cookie = '', $scheme = '' ) {
 
 		if ( empty( $cookie ) ) {
+
 			$cookie_name = $this->cookie_name();
 
-			if ( empty( $_COOKIE[$cookie_name] ) ) {
+			if ( empty( $_COOKIE[ $cookie_name ] ) ) {
 				return false;
 			}
-			$cookie = $_COOKIE[$cookie_name];
+
+			$cookie = $_COOKIE[ $cookie_name ];
+
 		}
 
 		$cookie_elements = explode( '|', $cookie );
+
 		if ( count( $cookie_elements ) != 3 ) {
 			return false;
 		}
@@ -701,9 +705,9 @@ class Password_Protected {
 				$severity = $this->errors->get_error_data( $code );
 				foreach ( $this->errors->get_error_messages( $code ) as $error ) {
 					if ( 'message' == $severity ) {
-						$messages .= '	' . $error . "<br />\n";
+						$messages .= $error . '<br />';
 					} else {
-						$errors .= '	' . $error . "<br />\n";
+						$errors .= $error . '<br />';
 					}
 				}
 			}
