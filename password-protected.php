@@ -246,6 +246,17 @@ class Password_Protected {
 	}
 
 	/**
+	 * Allow the remember me function
+	 *
+	 * @return. boolean
+	 */
+	public function allow_remember_me() {
+
+		return (bool) get_option( 'password_protected_remember_me' );
+
+	}
+
+	/**
 	 * Encrypt Password
 	 *
 	 * @param  string  $password  Password.
@@ -291,7 +302,13 @@ class Password_Protected {
 			// If correct password...
 			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 
-				$this->set_auth_cookie();
+				$remember = isset( $_REQUEST['password_protected_rememberme'] ) ? boolval( $_REQUEST['password_protected_rememberme'] ) : false;
+
+				if ( ! $this->allow_remember_me() ) {
+					$remember = false;
+				}
+
+				$this->set_auth_cookie( $remember );
 				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
 
@@ -551,15 +568,19 @@ class Password_Protected {
 	public function parse_auth_cookie( $cookie = '', $scheme = '' ) {
 
 		if ( empty( $cookie ) ) {
+
 			$cookie_name = $this->cookie_name();
 
-			if ( empty( $_COOKIE[$cookie_name] ) ) {
+			if ( empty( $_COOKIE[ $cookie_name ] ) ) {
 				return false;
 			}
-			$cookie = $_COOKIE[$cookie_name];
+
+			$cookie = $_COOKIE[ $cookie_name ];
+
 		}
 
 		$cookie_elements = explode( '|', $cookie );
+
 		if ( count( $cookie_elements ) != 3 ) {
 			return false;
 		}
@@ -581,9 +602,11 @@ class Password_Protected {
 	public function set_auth_cookie( $remember = false, $secure = '') {
 
 		if ( $remember ) {
-			$expiration = $expire = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 1209600, $remember );
+			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', get_option( 'password_protected_remember_me_lifetime', 14 ) * DAY_IN_SECONDS, $remember );
+			$expiration = $expire = current_time( 'timestamp' ) + $expiration_time;
 		} else {
-			$expiration = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 172800, $remember );
+			$expiration_time + apply_filters( 'password_protected_auth_cookie_expiration', DAY_IN_SECONDS * 20, $remember );
+			$expiration = current_time( 'timestamp' ) + $expiration_time;
 			$expire = 0;
 		}
 
@@ -687,9 +710,9 @@ class Password_Protected {
 				$severity = $this->errors->get_error_data( $code );
 				foreach ( $this->errors->get_error_messages( $code ) as $error ) {
 					if ( 'message' == $severity ) {
-						$messages .= '	' . $error . "<br />\n";
+						$messages .= $error . '<br />';
 					} else {
-						$errors .= '	' . $error . "<br />\n";
+						$errors .= $error . '<br />';
 					}
 				}
 			}

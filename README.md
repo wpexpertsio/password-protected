@@ -72,7 +72,7 @@ Upgrade Notice
 --------------
 
 ### Unreleased
-Added admin bar icon to indicate wether password protection is enabled/disabled and disable REST API access (admin option to allow).
+Added admin bar icon to indicate wether password protection is enabled/disabled. Options to enable REST API access and show "Remember me" checkbox.
 
 ### 2.1
 Update caching notes for WP Engine and W3 Total Cache plugin.

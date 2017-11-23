@@ -84,6 +84,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 
 = Unreleased =
 * Added admin bar icon to indicate wether password protection is enabled/disabled.
+* Option to show "Remember me" checkbox. Props [Christian Güdel](https://github.com/cguedel).
 * REST API access disabled if password not entered.
 * Admin option to allow REST API access.
 

@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Admin bar icon to indicate wether password protection is enabled/disabled.
+- Option to show "Remember me" checkbox. Props [Christian Güdel](https://github.com/cguedel).
 - REST API access disabled if password not entered.
 - Admin option to allow REST API access.
 
