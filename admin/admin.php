@@ -291,7 +291,7 @@ class Password_Protected_Admin {
 
 		if ( 'password-protected/password-protected.php' == $plugin_file ) {
 			$plugin_meta[] = sprintf( '<a href="%s">%s</a>', __( 'http://github.com/benhuson/password-protected', 'password-protected' ), __( 'GitHub', 'password-protected' ) );
-			$plugin_meta[] = sprintf( '<a href="%s">%s</a>', __( 'https://www.transifex.com/projects/p/password-protected/resource/password-protected/', 'password-protected' ), __( 'Translate', 'password-protected' ) );
+			$plugin_meta[] = sprintf( '<a href="%s">%s</a>', __( 'https://translate.wordpress.org/projects/wp-plugins/password-protected', 'password-protected' ), __( 'Translate', 'password-protected' ) );
 		}
 
 		return $plugin_meta;
