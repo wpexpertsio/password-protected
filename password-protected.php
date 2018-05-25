@@ -286,7 +286,7 @@ class Password_Protected {
 			$pwd = get_option( 'password_protected_password' );
 
 			// If correct password...
-			if ( ( $this->encrypt_password( $password_protected_pwd ) == $pwd && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
+			if ( ( hash_equals( $pwd, $this->encrypt_password( $password_protected_pwd ) ) && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 
 				$this->set_auth_cookie();
 				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
