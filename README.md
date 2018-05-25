@@ -71,7 +71,7 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
-### Unreleased
+### 2.2
 Added admin bar icon to indicate wether password protection is enabled/disabled. Options to enable REST API access and show "Remember me" checkbox.
 
 ### 2.1
