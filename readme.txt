@@ -2,10 +2,10 @@
 Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
-Requires at least: 3.5
-Tested up to: 4.8
+Requires at least: 3.9
+Tested up to: 4.9.6
 Requires PHP: 5.6
-Stable tag: 2.1
+Stable tag: 2.2
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -82,7 +82,12 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 
 == Changelog ==
 
-= Unreleased =
+= 2.2 =
+* Added admin bar icon to indicate wether password protection is enabled/disabled.
+* Option to show "Remember me" checkbox. Props [Christian Güdel](https://github.com/cguedel).
+* REST API access disabled if password not entered.
+* Admin option to allow REST API access.
+* More robust checking of password hashes.
 
 = 2.1 =
 * Update caching notes for WP Engine and W3 Total Cache plugin.
@@ -186,6 +191,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.2 =
+Added admin bar icon to indicate wether password protection is enabled/disabled and disable REST API access (admin option to allow).
 
 = 2.1 =
 Update caching notes for WP Engine and W3 Total Cache plugin.

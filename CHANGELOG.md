@@ -4,6 +4,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2] - 2018-05-25
+
+### Added
+- Admin bar icon to indicate wether password protection is enabled/disabled.
+- Option to show "Remember me" checkbox. Props [Christian Güdel](https://github.com/cguedel).
+- REST API access disabled if password not entered.
+- Admin option to allow REST API access.
+
+### Security
+- More robust checking of password hashes.
+
 ## [2.1] - 2017-07-27
 
 ### Added
@@ -175,7 +186,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
-[Unreleased]: https://github.com/benhuson/password-protected/compare/2.1...HEAD
+[Unreleased]: https://github.com/benhuson/password-protected/compare/2.2...HEAD
+[2.2]: https://github.com/benhuson/password-protected/compare/2.1...2.2
 [2.1]: https://github.com/benhuson/password-protected/compare/2.0.3...2.1
 [2.0.3]: https://github.com/benhuson/password-protected/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/benhuson/password-protected/compare/2.0.1...2.0.2

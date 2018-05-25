@@ -107,9 +107,13 @@ do_action( 'password_protected_login_head' );
 			<label for="password_protected_pass"><?php _e( 'Password', 'password-protected' ) ?><br />
 			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>
 		</p>
-		<!--
-		<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90"<?php checked( ! empty( $_POST['rememberme'] ) ); ?> /> <?php esc_attr_e( 'Remember Me', 'password-protected' ); ?></label></p>
-		-->
+
+		<?php if ( $Password_Protected->allow_remember_me() ) : ?>
+			<p class="forgetmenot">
+				<label for="password_protected_rememberme"><input name="password_protected_rememberme" type="checkbox" id="password_protected_rememberme" value="1" tabindex="90" /> <?php esc_attr_e( 'Remember Me', 'password-protected' ); ?></label>
+			</p>
+		<?php endif; ?>
+
 		<p class="submit">
 			<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In', 'password-protected' ); ?>" tabindex="100" />
 			<input type="hidden" name="testcookie" value="1" />

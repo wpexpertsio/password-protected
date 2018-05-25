@@ -96,7 +96,7 @@ class Password_Protected_Admin_Caching {
 	public function section_caching() {
 
 		echo '<p>' . __( 'Password Protected does not always work well with sites that use caching.', 'password-protected' ) . '<br />
-			' . __( 'If your site uses a caching plugin or yur web hosting uses server-side caching, you may need to configure your setup to disable caching for the Password Protected cookie:', 'password-protected' ) . '</p>';
+			' . __( 'If your site uses a caching plugin or your web hosting uses server-side caching, you may need to configure your setup to disable caching for the Password Protected cookie:', 'password-protected' ) . '</p>';
 
 	}
 

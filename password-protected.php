@@ -4,7 +4,7 @@
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
-Version: 2.1
+Version: 2.2
 Author: Ben Huson
 Text Domain: password-protected
 Author URI: http://github.com/benhuson/password-protected/
@@ -42,7 +42,7 @@ $Password_Protected = new Password_Protected();
 
 class Password_Protected {
 
-	var $version = '2.1';
+	var $version = '2.2';
 	var $admin   = null;
 	var $errors  = null;
 
@@ -67,11 +67,14 @@ class Password_Protected {
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
+		add_filter( 'rest_authentication_errors', array( $this, 'only_allow_logged_in_rest_access' ) );
 		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_theme_stylesheet' ), 5 );
 
 		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
+
+		include_once( dirname( __FILE__ ) . '/admin/admin-bar.php' );
 
 		if ( is_admin() ) {
 
@@ -243,6 +246,17 @@ class Password_Protected {
 	}
 
 	/**
+	 * Allow the remember me function
+	 *
+	 * @return. boolean
+	 */
+	public function allow_remember_me() {
+
+		return (bool) get_option( 'password_protected_remember_me' );
+
+	}
+
+	/**
 	 * Encrypt Password
 	 *
 	 * @param  string  $password  Password.
@@ -288,7 +302,13 @@ class Password_Protected {
 			// If correct password...
 			if ( ( hash_equals( $pwd, $this->encrypt_password( $password_protected_pwd ) ) && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
 
-				$this->set_auth_cookie();
+				$remember = isset( $_REQUEST['password_protected_rememberme'] ) ? boolval( $_REQUEST['password_protected_rememberme'] ) : false;
+
+				if ( ! $this->allow_remember_me() ) {
+					$remember = false;
+				}
+
+				$this->set_auth_cookie( $remember );
 				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
 
@@ -548,15 +568,19 @@ class Password_Protected {
 	public function parse_auth_cookie( $cookie = '', $scheme = '' ) {
 
 		if ( empty( $cookie ) ) {
+
 			$cookie_name = $this->cookie_name();
 
-			if ( empty( $_COOKIE[$cookie_name] ) ) {
+			if ( empty( $_COOKIE[ $cookie_name ] ) ) {
 				return false;
 			}
-			$cookie = $_COOKIE[$cookie_name];
+
+			$cookie = $_COOKIE[ $cookie_name ];
+
 		}
 
 		$cookie_elements = explode( '|', $cookie );
+
 		if ( count( $cookie_elements ) != 3 ) {
 			return false;
 		}
@@ -578,9 +602,11 @@ class Password_Protected {
 	public function set_auth_cookie( $remember = false, $secure = '') {
 
 		if ( $remember ) {
-			$expiration = $expire = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 1209600, $remember );
+			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', get_option( 'password_protected_remember_me_lifetime', 14 ) * DAY_IN_SECONDS, $remember );
+			$expiration = $expire = current_time( 'timestamp' ) + $expiration_time;
 		} else {
-			$expiration = current_time( 'timestamp' ) + apply_filters( 'password_protected_auth_cookie_expiration', 172800, $remember );
+			$expiration_time + apply_filters( 'password_protected_auth_cookie_expiration', DAY_IN_SECONDS * 20, $remember );
+			$expiration = current_time( 'timestamp' ) + $expiration_time;
 			$expire = 0;
 		}
 
@@ -684,9 +710,9 @@ class Password_Protected {
 				$severity = $this->errors->get_error_data( $code );
 				foreach ( $this->errors->get_error_messages( $code ) as $error ) {
 					if ( 'message' == $severity ) {
-						$messages .= '	' . $error . "<br />\n";
+						$messages .= $error . '<br />';
 					} else {
-						$errors .= '	' . $error . "<br />\n";
+						$errors .= $error . '<br />';
 					}
 				}
 			}
@@ -761,6 +787,23 @@ class Password_Protected {
 	static function is_plugin_supported() {
 
 		return true;
+
+	}
+
+	/**
+	 * Check whether a given request has permissions
+	 *
+	 * @param   WP_REST_Request   $access  Full details about the request.
+	 * @return  WP_Error|boolean
+	 */
+	public function only_allow_logged_in_rest_access( $access ) {
+
+		// If user is not logged in
+		if ( ! $this->is_user_logged_in() && ! (bool) get_option( 'password_protected_rest' ) ) {die();
+			return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'password-protected' ), array( 'status' => rest_authorization_required_code() ) );
+		}
+
+		return $access;
 
 	}
 
