@@ -605,7 +605,7 @@ class Password_Protected {
 			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', get_option( 'password_protected_remember_me_lifetime', 14 ) * DAY_IN_SECONDS, $remember );
 			$expiration = $expire = current_time( 'timestamp' ) + $expiration_time;
 		} else {
-			$expiration_time + apply_filters( 'password_protected_auth_cookie_expiration', DAY_IN_SECONDS * 20, $remember );
+			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', DAY_IN_SECONDS * 20, $remember );
 			$expiration = current_time( 'timestamp' ) + $expiration_time;
 			$expire = 0;
 		}
