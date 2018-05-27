@@ -71,6 +71,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
+### 2.2.1
+Fixed PHP error when calculating cookie expiration date.
+
 ### 2.2
 Added admin bar icon to indicate wether password protection is enabled/disabled. Options to enable REST API access and show "Remember me" checkbox.
 
