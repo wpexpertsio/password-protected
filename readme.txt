@@ -5,7 +5,7 @@ Tags: password, protect, password protect, login
 Requires at least: 3.9
 Tested up to: 4.9.6
 Requires PHP: 5.6
-Stable tag: 2.2
+Stable tag: 2.2.1
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -81,6 +81,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 2.2.1 =
+* Fixed PHP error when calculating cookie expiration date.
 
 = 2.2 =
 * Added admin bar icon to indicate wether password protection is enabled/disabled.
