@@ -93,7 +93,7 @@ class Admin_Bar {
 
 			if ( self::is_enabled() ) {
 				$icon = '\f160';  // Locked
-				$background = '#C00';
+				$background = '#46b450';
 			} else {
 				$icon = '\f528';  // Unlocked
 				$background = 'transparent';
