@@ -793,6 +793,9 @@ class Password_Protected {
 	/**
 	 * Check whether a given request has permissions
 	 *
+	 * Always allow logged in users who require REST API for Gutenberg
+	 * and other admin/plugin compatibility.
+	 *
 	 * @param   WP_REST_Request   $access  Full details about the request.
 	 * @return  WP_Error|boolean
 	 */
