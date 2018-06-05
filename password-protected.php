@@ -4,7 +4,7 @@
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
-Version: 2.2.1
+Version: 2.2.2
 Author: Ben Huson
 Text Domain: password-protected
 Author URI: http://github.com/benhuson/password-protected/
@@ -42,7 +42,7 @@ $Password_Protected = new Password_Protected();
 
 class Password_Protected {
 
-	var $version = '2.2.1';
+	var $version = '2.2.2';
 	var $admin   = null;
 	var $errors  = null;
 
@@ -793,13 +793,16 @@ class Password_Protected {
 	/**
 	 * Check whether a given request has permissions
 	 *
+	 * Always allow logged in users who require REST API for Gutenberg
+	 * and other admin/plugin compatibility.
+	 *
 	 * @param   WP_REST_Request   $access  Full details about the request.
 	 * @return  WP_Error|boolean
 	 */
 	public function only_allow_logged_in_rest_access( $access ) {
 
 		// If user is not logged in
-		if ( ! $this->is_user_logged_in() && ! (bool) get_option( 'password_protected_rest' ) ) {die();
+		if ( ! $this->is_user_logged_in() && ! is_user_logged_in() && ! (bool) get_option( 'password_protected_rest' ) ) {
 			return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'password-protected' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
