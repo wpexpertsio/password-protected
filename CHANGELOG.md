@@ -4,6 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.2] - 2018-05-29
+
+### Changed
+- Change locked admin bar icon to green.
+
+### Fixed
+- Fix REST option and always allow access to REST API for logged in users.
+
 ## [2.2.1] - 2018-05-27
 
 ### Fixed
@@ -191,7 +199,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
-[Unreleased]: https://github.com/benhuson/password-protected/compare/2.2.1...HEAD
+[Unreleased]: https://github.com/benhuson/password-protected/compare/2.2.2...HEAD
+[2.2.2]: https://github.com/benhuson/password-protected/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/benhuson/password-protected/compare/2.2...2.2.1
 [2.2]: https://github.com/benhuson/password-protected/compare/2.1...2.2
 [2.1]: https://github.com/benhuson/password-protected/compare/2.0.3...2.1
