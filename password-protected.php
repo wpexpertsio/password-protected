@@ -215,18 +215,19 @@ class Password_Protected {
 	}
 
 	/**
-	 * Allow IP Addresses
+	 * Allow IP Addresses and Hosts
 	 *
-	 * If user has a valid email address, return false to disable password protection.
+	 * If user has a valid IP address or host, return false to disable password protection.
 	 *
-	 * @param   boolean  $bool  Allow IP addresses.
-	 * @return  boolean         True/false.
+	 * @param   boolean  $bool  Allow IP addresses or hostnames.
+	 * @return  boolean
 	 */
 	public function allow_ip_addresses( $bool ) {
 
 		$ip_addresses = $this->get_allowed_ip_addresses();
+		$hosts = array_map( 'gethostbyname', $ip_addresses );
 
-		if ( in_array( $_SERVER['REMOTE_ADDR'], $ip_addresses ) ) {
+		if ( in_array( $_SERVER['REMOTE_ADDR'], $ip_addresses ) || in_array( $_SERVER['REMOTE_ADDR'], $hosts ) ) {
 			$bool = false;
 		}
 

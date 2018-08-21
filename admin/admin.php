@@ -216,7 +216,27 @@ class Password_Protected_Admin {
 	 */
 	private function validate_ip_address( $ip_address ) {
 
-		return filter_var( $ip_address, FILTER_VALIDATE_IP );
+		$valid = filter_var( $ip_address, FILTER_VALIDATE_IP );
+	
+		if ( ( false === $ip_address || empty( $valid ) ) && $this->is_valid_domain_name( $ip_address ) ) {
+			$valid = $ip_address;
+		}
+
+		return $valid;
+
+	}
+
+	/**
+	 * Is Valid Domain Name?
+	 *
+	 * @param   string   $domain_name  Domain name to check.
+	 * @return  boolean
+	 */
+	private function is_valid_domain_name( $domain_name ) {
+
+		return ( preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain_name )  // Valid chars check
+			&& preg_match( "/^.{1,253}$/", $domain_name )                                           // Overall length check
+			&& preg_match( "/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain_name ) );                     // Length of each label
 
 	}
 
