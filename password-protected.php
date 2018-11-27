@@ -345,13 +345,15 @@ class Password_Protected {
 	 */
 	public function maybe_show_login() {
 
-		// Don't show login if not enabled
-		if ( ! $this->is_active() ) {
-			return;
-		}
+		// Filter for adding exceptions.
+		$show_login = apply_filters( 'password_protected_show_login', $this->is_active() );
 
 		// Logged in
-		if ( $this->is_user_logged_in() ) {
+		if ( $this->is_user_logged_in() )  {
+			$show_login = false;
+		}
+
+		if ( ! $show_login ) {
 			return;
 		}
 
