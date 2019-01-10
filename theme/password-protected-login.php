@@ -28,6 +28,17 @@ if ( ! function_exists( 'wp_shake_js' ) ) {
 	}
 }
 
+/**
+ * @since 3.7.0
+ */
+if ( ! function_exists( 'wp_login_viewport_meta' ) ) {
+	function wp_login_viewport_meta() {
+		?>
+		<meta name="viewport" content="width=device-width" />
+		<?php
+	}
+}
+
 nocache_headers();
 header( 'Content-Type: ' . get_bloginfo( 'html_type' ) . '; charset=' . get_bloginfo( 'charset' ) );
 
@@ -50,6 +61,8 @@ if ( $Password_Protected->errors->get_error_code() && in_array( $Password_Protec
 
 // Obey privacy setting
 add_action( 'password_protected_login_head', 'wp_no_robots' );
+
+add_action( 'password_protected_login_head', 'wp_login_viewport_meta' );
 
 ?>
 <!DOCTYPE html>
