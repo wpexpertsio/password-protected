@@ -54,7 +54,7 @@ class Password_Protected_Admin_Caching {
 		// Cookies
 		add_settings_field(
 			'password_protected_compat_caching_cookie',
-			__( 'Cookies', 'password-protected' ),
+			__( 'Cookie Name', 'password-protected' ),
 			array( $this, 'field_cookies' ),
 			'password-protected-compat',
 			'password_protected_compat_caching'
@@ -96,7 +96,7 @@ class Password_Protected_Admin_Caching {
 	public function section_caching() {
 
 		echo '<p>' . __( 'Password Protected does not always work well with sites that use caching.', 'password-protected' ) . '<br />
-			' . __( 'If your site uses a caching plugin or your web hosting uses server-side caching, you may need to configure your setup to disable caching for the Password Protected cookie:', 'password-protected' ) . '</p>';
+			' . __( 'If your site uses a caching plugin or your web hosting uses server-side caching, you may need to configure your caching setup to disable caching for the Password Protected cookie:', 'password-protected' ) . '</p>';
 
 	}
 
@@ -107,7 +107,7 @@ class Password_Protected_Admin_Caching {
 	 */
 	public function field_cookies() {
 
-		echo '<p><input type="text" value="' . esc_attr( $this->plugin->cookie_name() ) . '" class="regular-text code" /></p>';
+		echo '<p><code>' . esc_html( $this->plugin->cookie_name() ) . '</code></p>';
 
 	}
 
