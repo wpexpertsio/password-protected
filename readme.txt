@@ -5,7 +5,7 @@ Tags: password, protect, password protect, login
 Requires at least: 3.9
 Tested up to: 4.9.6
 Requires PHP: 5.6
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -81,6 +81,13 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 2.2.3 =
+- Restrict REST-API-access only if password protection is active.
+- Added viewport meta tag to login page.
+- Added `password_protected_show_login` filter.
+- Cookie name is not editable in the admin so display just for reference.
+- Use default WordPress text domain for “Remember Me” and “Log In” buttons.
 
 = 2.2.2 =
 - Change locked admin bar icon to green.
@@ -198,6 +205,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.2.3 =
+Restrict REST-API-access only if password protection is active. Added viewport meta tag to login page.
 
 = 2.2.2 =
 Fix REST option and always allow access to REST API for logged in users. Change locked admin bar icon to green.

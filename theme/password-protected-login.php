@@ -28,6 +28,17 @@ if ( ! function_exists( 'wp_shake_js' ) ) {
 	}
 }
 
+/**
+ * @since 3.7.0
+ */
+if ( ! function_exists( 'wp_login_viewport_meta' ) ) {
+	function wp_login_viewport_meta() {
+		?>
+		<meta name="viewport" content="width=device-width" />
+		<?php
+	}
+}
+
 nocache_headers();
 header( 'Content-Type: ' . get_bloginfo( 'html_type' ) . '; charset=' . get_bloginfo( 'charset' ) );
 
@@ -49,7 +60,9 @@ if ( $Password_Protected->errors->get_error_code() && in_array( $Password_Protec
 }
 
 // Obey privacy setting
-add_action( 'password_protected_login_head', 'noindex' );
+add_action( 'password_protected_login_head', 'wp_no_robots' );
+
+add_action( 'password_protected_login_head', 'wp_login_viewport_meta' );
 
 ?>
 <!DOCTYPE html>
@@ -110,12 +123,12 @@ do_action( 'password_protected_login_head' );
 
 		<?php if ( $Password_Protected->allow_remember_me() ) : ?>
 			<p class="forgetmenot">
-				<label for="password_protected_rememberme"><input name="password_protected_rememberme" type="checkbox" id="password_protected_rememberme" value="1" tabindex="90" /> <?php esc_attr_e( 'Remember Me', 'password-protected' ); ?></label>
+				<label for="password_protected_rememberme"><input name="password_protected_rememberme" type="checkbox" id="password_protected_rememberme" value="1" tabindex="90" /> <?php esc_attr_e( 'Remember Me' ); ?></label>
 			</p>
 		<?php endif; ?>
 
 		<p class="submit">
-			<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In', 'password-protected' ); ?>" tabindex="100" />
+			<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In' ); ?>" tabindex="100" />
 			<input type="hidden" name="testcookie" value="1" />
 			<input type="hidden" name="password-protected" value="login" />
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />

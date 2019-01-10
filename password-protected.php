@@ -4,7 +4,7 @@
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
-Version: 2.2.2
+Version: 2.2.3
 Author: Ben Huson
 Text Domain: password-protected
 Author URI: http://github.com/benhuson/password-protected/
@@ -42,7 +42,7 @@ $Password_Protected = new Password_Protected();
 
 class Password_Protected {
 
-	var $version = '2.2.2';
+	var $version = '2.2.3';
 	var $admin   = null;
 	var $errors  = null;
 
@@ -345,13 +345,15 @@ class Password_Protected {
 	 */
 	public function maybe_show_login() {
 
-		// Don't show login if not enabled
-		if ( ! $this->is_active() ) {
-			return;
-		}
+		// Filter for adding exceptions.
+		$show_login = apply_filters( 'password_protected_show_login', $this->is_active() );
 
 		// Logged in
-		if ( $this->is_user_logged_in() ) {
+		if ( $this->is_user_logged_in() )  {
+			$show_login = false;
+		}
+
+		if ( ! $show_login ) {
 			return;
 		}
 
@@ -802,7 +804,7 @@ class Password_Protected {
 	public function only_allow_logged_in_rest_access( $access ) {
 
 		// If user is not logged in
-		if ( ! $this->is_user_logged_in() && ! is_user_logged_in() && ! (bool) get_option( 'password_protected_rest' ) ) {
+		if ( $this->is_active() && ! $this->is_user_logged_in() && ! is_user_logged_in() && ! (bool) get_option( 'password_protected_rest' ) ) {
 			return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'password-protected' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 

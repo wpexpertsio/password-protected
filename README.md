@@ -71,6 +71,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
+### 2.2.3
+Restrict REST-API-access only if password protection is active. Added viewport meta tag to login page.
+
 ### 2.2.2
 Fix REST option and always allow access to REST API for logged in users. Change locked admin bar icon to green.
 
