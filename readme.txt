@@ -3,9 +3,9 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 3.9
-Tested up to: 4.9.6
+Tested up to: 5.1
 Requires PHP: 5.6
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -81,6 +81,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 2.2.4 = 
+- Check that `$_SERVER['REMOTE_ADDR']` is set.
 
 = 2.2.3 =
 - Restrict REST-API-access only if password protection is active.

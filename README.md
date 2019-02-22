@@ -71,6 +71,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
+### 2.2.4
+Check that `$_SERVER['REMOTE_ADDR']` is set.
+
 ### 2.2.3
 Restrict REST-API-access only if password protection is active. Added viewport meta tag to login page.
 
