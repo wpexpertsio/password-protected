@@ -226,7 +226,7 @@ class Password_Protected {
 
 		$ip_addresses = $this->get_allowed_ip_addresses();
 
-		if ( in_array( $_SERVER['REMOTE_ADDR'], $ip_addresses ) ) {
+		if ( isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $ip_addresses ) ) {
 			$bool = false;
 		}
 
