@@ -18,7 +18,7 @@ Features include:
 Translations
 ------------
 
-If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via Wordpress.
+If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via WordPress.
 
 Installation
 ------------
@@ -37,7 +37,7 @@ If you are upgrading manually via FTP rather that through the WordPress automati
 Frequently Asked Questions
 --------------------------
 
-__How can I change the Wordpress logo to a different image?__  
+__How can I change the WordPress logo to a different image?__  
 Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith or the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin. This will change the logo on your password entry page AND also your admin login page.
 
 __How can I enable feeds while the site is password protected?__  
@@ -64,7 +64,7 @@ __How can I contribute?__
 If you can, please [fork the code](https://github.com/benhuson/password-protected) and submit a pull request via GitHub. If you're not comfortable using Git, then please just submit it to the issues link above.
 
 __How can I translate this plugin?__  
-If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via Wordpress.
+If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via WordPress.
 
 Upgrade Notice
 --------------
