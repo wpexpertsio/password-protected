@@ -21,8 +21,8 @@ Features include:
 * Password protect your WordPress site with a single password.
 * Option to allow access to feeds.
 * Option to allow administrators access without entering password.
-* Works with Mark Jaquith's [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin.
-* Works with the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin.
+* Works with Mark Jaquith's [Login Logo](https://wordpress.org/plugins/login-logo/) plugin.
+* Works with the [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo/) plugin.
 
 > Please note, this plugin works by setting a cookie to allow access to the site. If you are using a caching plugin or web hosting such as WP Engine that has in-built caching, you will need to configure the caching service to be disabled if the Password Protected cookie is set.
 
@@ -45,7 +45,7 @@ If you are upgrading manually via FTP rather that through the WordPress automati
 == Frequently Asked Questions ==
 
 = How can I change the WordPress logo to a different image? =
-Install and configure the [Login Logo](http://wordpress.org/extend/plugins/login-logo/) plugin by Mark Jaquith or the [Uber Login Logo](http://wordpress.org/plugins/uber-login-logo/) plugin. This will change the logo on your password entry page AND also your admin login page.
+Install and configure the [Login Logo](https://wordpress.org/plugins/login-logo/) plugin by Mark Jaquith or the [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo/) plugin. This will change the logo on your password entry page AND also your admin login page.
 
 = How can I enable feeds while the site is password protected? =
 In the settings, check the 'Allow Feeds' checkbox.
