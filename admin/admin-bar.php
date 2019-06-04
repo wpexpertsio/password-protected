@@ -41,7 +41,7 @@ class Admin_Bar {
 
 			$wp_admin_bar->add_menu( array(
 				'id'     => 'password_protected',
-				'title'  => __( '', 'password-protected' ),
+				'title'  => '',
 				'href'   => self::get_toolbar_item_url(),
 				'meta'   => array(
 					'title' => self::get_toolbar_item_title()
