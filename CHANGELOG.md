@@ -141,7 +141,6 @@ Check that `$_SERVER['REMOTE_ADDR']` is set.
 
 ### Added
 - Added 'password_protected_theme_file' filter to allow custom login templates.
-- It's now really easy to contribute to the translation of this plugin via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/).
 - Add option to allow logged in users.
 
 ## [1.6.2] - 2014-01-10

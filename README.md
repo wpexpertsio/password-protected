@@ -18,8 +18,7 @@ Features include:
 Translations
 ------------
 
-If you would like to translate this plugin you can easily contribute via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/) - just signup for a free account.
-More instructions can be found at [wp-translations.org](http://wp-translations.org/translators-wp-translations/)
+If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via Wordpress.
 
 Installation
 ------------
@@ -65,8 +64,7 @@ __How can I contribute?__
 If you can, please [fork the code](https://github.com/benhuson/password-protected) and submit a pull request via GitHub. If you're not comfortable using Git, then please just submit it to the issues link above.
 
 __How can I translate this plugin?__  
-If you would like to translate this plugin you can easily contribute via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/) - just signup for a free account.
-More instructions can be found at [wp-translations.org](http://wp-translations.org/translators-wp-translations/)
+If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via Wordpress.
 
 Upgrade Notice
 --------------
@@ -117,7 +115,7 @@ Added 'password_protected_login_redirect' filter.
 Fix login template compatibility for WordPress 3.9
 
 ### 1.7
-Added 'password_protected_theme_file' filter and option to allow logged in users. Contribute to the translation of this plugin via our [Transifex page](https://www.transifex.com/projects/p/password-protected/resource/password-protected/).
+Added 'password_protected_theme_file' filter and option to allow logged in users.
 
 ### 1.6.2
 Allow redirection to a different URL when logging out.
