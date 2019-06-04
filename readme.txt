@@ -83,7 +83,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 = Unreleased =
 
 = 2.2.5 =
-- Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com).
+- Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com/jeherve).
 - Fix stray "and" in readme. Props [Viktor Szépe](https://github.com/szepeviktor).
 - Update Portuguese translation. Props [Jonathan Hult](https://github.com/jhult).
 - Update Russian translation. Props [Alexey Chumakov](https://github.com/achumakov).
