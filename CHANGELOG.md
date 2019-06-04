@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.2.5] - 2019-06-04
 
 ### Added
-- Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com).
+- Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com/jeherve).
 
 ### Changed
 - Fix stray "and" in readme. Props [Viktor Szépe](https://github.com/szepeviktor).
