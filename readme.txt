@@ -3,9 +3,9 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 3.9
-Tested up to: 5.1
+Tested up to: 5.2.1
 Requires PHP: 5.6
-Stable tag: 2.2.4
+Stable tag: 2.2.5
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -14,7 +14,7 @@ A very simple way to quickly password protect your WordPress site with a single 
 
 A very simple way to quickly password protect your WordPress site with a single password.
 
-This plugin only protects your WordPress content. It **does not protect and images or uploaded files** so if you enter and exact URL to in image file it will still be accessible.
+This plugin only protects your WordPress generated content. It **does not protect images or uploaded files** so if you enter and exact URL to in image file it will still be accessible.
 
 Features include:
 
@@ -81,6 +81,14 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 2. Password Protected settings page.
 
 == Changelog ==
+ 
+= Unreleased =
+
+= 2.2.5 =
+- Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com).
+- Fix stray "and" in readme. Props [Viktor Szépe](https://github.com/szepeviktor).
+- Update Portuguese translation. Props [Jonathan Hult](https://github.com/jhult).
+- Update Russian translation. Props [Alexey Chumakov](https://github.com/achumakov).
 
 = 2.2.4 = 
 - Check that `$_SERVER['REMOTE_ADDR']` is set.
@@ -208,6 +216,12 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+### 2.2.5
+Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form.
+
+### 2.2.4
+Check that `$_SERVER['REMOTE_ADDR']` is set.
 
 = 2.2.3 =
 Restrict REST-API-access only if password protection is active. Added viewport meta tag to login page.

@@ -3,7 +3,7 @@ Password Protected
 
 A very simple way to quickly password protect your WordPress site with a single password.
 
-This plugin only protects your WordPress content. It **does not protect and images or uploaded files** so if you enter and exact URL to in image file it will still be accessible.
+This plugin only protects your WordPress generated content. It **does not protect images or uploaded files** so if you enter and exact URL to in image file it will still be accessible.
 
 Features include:
 
@@ -70,6 +70,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 
 Upgrade Notice
 --------------
+
+### 2.2.5
+Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form.
 
 ### 2.2.4
 Check that `$_SERVER['REMOTE_ADDR']` is set.

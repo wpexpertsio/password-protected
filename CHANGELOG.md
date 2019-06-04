@@ -4,6 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.5] - 2019-06-04
+
+### Added
+- Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com).
+
+### Changed
+- Fix stray "and" in readme. Props [Viktor Szépe](https://github.com/szepeviktor).
+- Update Portuguese translation. Props [Jonathan Hult](https://github.com/jhult).
+- Update Russian translation. Props [Alexey Chumakov](https://github.com/achumakov).
+
 ## [2.2.4] - 2019-02-22
 
 ### Fixed
@@ -217,7 +227,8 @@ Check that `$_SERVER['REMOTE_ADDR']` is set.
 ### Added
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
-[Unreleased]: https://github.com/benhuson/password-protected/compare/2.2.4...HEAD
+[Unreleased]: https://github.com/benhuson/password-protected/compare/2.2.5...HEAD
+[2.2.5]: https://github.com/benhuson/password-protected/compare/2.2.4...2.2.5
 [2.2.4]: https://github.com/benhuson/password-protected/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/benhuson/password-protected/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/benhuson/password-protected/compare/2.2.1...2.2.2
