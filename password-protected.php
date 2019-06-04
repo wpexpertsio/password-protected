@@ -672,8 +672,8 @@ class Password_Protected {
 	 *
 	 * Support for 3rd party plugins:
 	 *
-	 * - Login Logo       http://wordpress.org/extend/plugins/login-logo/
-	 * - Uber Login Logo  http://wordpress.org/plugins/uber-login-logo/
+	 * - Login Logo       https://wordpress.org/plugins/login-logo/
+	 * - Uber Login Logo  https://wordpress.org/plugins/uber-login-logo/
 	 */
 	public function compat() {
 
