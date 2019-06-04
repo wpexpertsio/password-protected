@@ -82,6 +82,12 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 
 == Changelog ==
 
+= Unreleased = 
+- Add `password_protected_login_password_title` filter to allow customizing "Password" label on login form. Props [Jeremy Herve](https://github.com/jeherve).
+- Fix stray "and" in readme. Props [Viktor Szépe](https://github.com/szepeviktor).
+- Update Portuguese translation. Props [Jonathan Hult](https://github.com/jhult).
+- Update Russian translation. Props [Alexey Chumakov](https://github.com/achumakov).
+
 = 2.2.4 = 
 - Check that `$_SERVER['REMOTE_ADDR']` is set.
 
