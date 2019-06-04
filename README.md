@@ -71,6 +71,9 @@ More instructions can be found at [wp-translations.org](http://wp-translations.o
 Upgrade Notice
 --------------
 
+### 2.2.5
+Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form.
+
 ### 2.2.4
 Check that `$_SERVER['REMOTE_ADDR']` is set.
 
