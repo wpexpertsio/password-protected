@@ -117,7 +117,7 @@ do_action( 'password_protected_login_head' );
 
 	<form name="loginform" id="loginform" action="<?php echo esc_url( $Password_Protected->login_url() ); ?>" method="post">
 		<p>
-			<label for="password_protected_pass"><?php _e( 'Password', 'password-protected' ) ?><br />
+			<label for="password_protected_pass"><?php echo apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ); ?><br />
 			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>
 		</p>
 
