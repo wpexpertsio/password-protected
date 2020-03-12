@@ -643,7 +643,10 @@ class Password_Protected {
 	 */
 	public function cookie_name() {
 
-		return $this->get_site_id() . '_password_protected_auth';
+		/**
+		 * Filters the cookie name
+		 */
+		return apply_filters( 'password_protected_cookie_name', $this->get_site_id() . '_password_protected_auth', $this );
 
 	}
 
