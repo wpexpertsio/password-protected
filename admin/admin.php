@@ -232,9 +232,42 @@ class Password_Protected_Admin {
 	 */
 	private function validate_ip_address( $ip_address ) {
 
-		return filter_var( $ip_address, FILTER_VALIDATE_IP );
+		$ip = trim(explode("#",$ip_address)[0]); // allow for comments after ip
+
+		if ($this->is_ip($ip)) {
+			return trim($ip_address);
+		}
+		else {
+			return "";
+		}
 
 	}
+
+	/**
+	 * Is it a valid IP address? v4/v6 with subnet range.
+	 *
+	 * @param string $ip_address IP Address to check.
+	 *
+	 * @return bool True if its a valid IP address.
+	 */
+	private function  is_ip( $ip_address ) {
+		// very basic validation of ranges.
+		if ( strpos( $ip_address, '/' ) ) {
+			$ip_parts = explode( '/', $ip_address );
+			if ( empty( $ip_parts[1] ) || ! is_numeric( $ip_parts[1] ) || strlen( $ip_parts[1] ) > 3 ) {
+				return false;
+			}
+			$ip_address = $ip_parts[0];
+		}
+
+		// confirm IP part is a valid IPv6 or IPv4 IP.
+		if ( empty( $ip_address ) || ! inet_pton( stripslashes( $ip_address ) ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
 
 	/**
 	 * Password Protected Section
@@ -282,9 +315,9 @@ class Password_Protected_Admin {
 	 */
 	public function password_protected_allowed_ip_addresses_field() {
 
-		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" class="large-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
+		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="20" class="large-text" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
 
-		echo '<p class="description">' . esc_html__( 'Enter one IP address per line.', 'password-protected' );
+		echo '<p class="description">' . esc_html__( 'Enter one IP address per line. (IP/CIDR netmask notation is allowed eg. 127.0.0.0/24, comments are allowed after IP eg. 127.0.0.1 #Comment)', 'password-protected' );
 		if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
 			echo ' ' . esc_html( sprintf( __( 'Your IP is address %s.', 'password-protected' ), $_SERVER['REMOTE_ADDR'] ) );
 		}
