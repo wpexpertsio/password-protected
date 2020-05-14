@@ -79,9 +79,11 @@ class Password_Protected {
 		if ( is_admin() ) {
 
 			include_once( dirname( __FILE__ ) . '/admin/admin-caching.php' );
+			include_once( dirname( __FILE__ ) . '/admin/admin-debug.php' );
 			include_once( dirname( __FILE__ ) . '/admin/admin.php' );
 
 			$this->admin_caching = new Password_Protected_Admin_Caching( $this );
+			$this->admin_debug = new Password_Protected_Admin_Debug( $this );
 			$this->admin = new Password_Protected_Admin();
 
 		}

@@ -162,6 +162,14 @@ class Password_Protected_Admin {
 			'password_protected'
 		);
 
+		add_settings_field(
+			'password_protected_debugging',
+			__( 'Enable Debugging', 'password-protected' ),
+			array( $this, 'password_protected_debugging_field' ),
+			$this->options_group,
+			'password_protected'
+		);
+
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
 		register_setting( $this->options_group, 'password_protected_rest', 'intval' );
@@ -171,6 +179,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
 		register_setting( $this->options_group, 'password_protected_remember_me', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
+		register_setting( $this->options_group, 'password_protected_debugging', 'intval' );
 
 	}
 
@@ -307,6 +316,19 @@ class Password_Protected_Admin {
 	public function password_protected_remember_me_lifetime_field() {
 
 		echo '<label><input name="password_protected_remember_me_lifetime" id="password_protected_remember_me_lifetime" type="number" value="' . get_option( 'password_protected_remember_me_lifetime', 14 ) . '" /></label>';
+
+	}
+
+	/**
+	 * Debugging field
+	 */
+	public function password_protected_debugging_field() {
+
+		echo '<label><input name="password_protected_debugging" id="password_protected_debugging" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_debugging' ), false ) . ' /></label>';
+
+		if ( 1 == get_option( 'password_protected_debugging' ) ) {
+			echo ' <span class="description">' . esc_html__( 'Please check the debugging section further down this page.', 'password-protected' ) . '</span>';
+		}
 
 	}
 
