@@ -328,6 +328,8 @@ class Password_Protected_Admin {
 
 		if ( 1 == get_option( 'password_protected_debugging' ) ) {
 			echo ' <span class="description">' . esc_html__( 'Please check the debugging section further down this page.', 'password-protected' ) . '</span>';
+		} else {
+			\Password_Protected\Debugger::clear_log();
 		}
 
 	}

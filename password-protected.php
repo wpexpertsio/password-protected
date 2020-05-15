@@ -74,6 +74,7 @@ class Password_Protected {
 
 		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
 
+		include_once( dirname( __FILE__ ) . '/includes/debugger.php' );
 		include_once( dirname( __FILE__ ) . '/admin/admin-bar.php' );
 
 		if ( is_admin() ) {
@@ -298,11 +299,19 @@ class Password_Protected {
 	public function maybe_process_login() {
 
 		if ( $this->is_active() && isset( $_REQUEST['password_protected_pwd'] ) ) {
+
+			\Password_Protected\Debugger::add( '-----' );
+			\Password_Protected\Debugger::add( 'Start to process login.' );
+			$http = isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+			\Password_Protected\Debugger::add( 'URL = ' . $http . '://' . $_SERVER[HTTP_HOST] . $_SERVER[REQUEST_URI] );
+
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
 			$pwd = get_option( 'password_protected_password' );
 
 			// If correct password...
 			if ( ( hash_equals( $pwd, $this->encrypt_password( $password_protected_pwd ) ) && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
+
+				\Password_Protected\Debugger::add( 'Correct password entered.' );
 
 				$remember = isset( $_REQUEST['password_protected_rememberme'] ) ? boolval( $_REQUEST['password_protected_rememberme'] ) : false;
 
@@ -313,13 +322,19 @@ class Password_Protected {
 				$this->set_auth_cookie( $remember );
 				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
+				\Password_Protected\Debugger::add( 'Redirect To = ' . $redirect_to );
 
 				if ( ! empty( $redirect_to ) ) {
+
+					\Password_Protected\Debugger::save();
+
 					$this->safe_redirect( $redirect_to );
 					exit;
 				}
 
 			} else {
+
+				\Password_Protected\Debugger::add( 'Incorrect password entered.' );
 
 				// ... otherwise incorrect password
 				$this->clear_auth_cookie();
@@ -328,6 +343,8 @@ class Password_Protected {
 			}
 
 		}
+
+		\Password_Protected\Debugger::save();
 
 	}
 
@@ -509,8 +526,13 @@ class Password_Protected {
 	 */
 	public function validate_auth_cookie( $cookie = '', $scheme = '' ) {
 
+		\Password_Protected\Debugger::add( '-----' );
+		\Password_Protected\Debugger::add( 'Start validating cookie.' );
+
 		if ( ! $cookie_elements = $this->parse_auth_cookie( $cookie, $scheme ) ) {
 			do_action( 'password_protected_auth_cookie_malformed', $cookie, $scheme );
+			\Password_Protected\Debugger::add( 'Auth cookie malformed.' );
+			\Password_Protected\Debugger::save();
 			return false;
 		}
 
@@ -526,20 +548,32 @@ class Password_Protected {
 		// Quick check to see if an honest cookie has expired
 		if ( $expired < current_time( 'timestamp' ) ) {
 			do_action('password_protected_auth_cookie_expired', $cookie_elements);
+			\Password_Protected\Debugger::add( 'Cookie expired.' );
+			\Password_Protected\Debugger::save();
 			return false;
 		}
 
 		$key = md5( $this->get_site_id() . $this->get_hashed_password() . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key);
 
+		\Password_Protected\Debugger::add( 'Hashed Password = ' . $this->get_hashed_password() );
+		\Password_Protected\Debugger::add( 'Expiration = ' . $expiration );
+		\Password_Protected\Debugger::add( 'Key = ' . $key );
+		\Password_Protected\Debugger::add( 'Hash = ' . $hash );
+
 		if ( $hmac != $hash ) {
 			do_action( 'password_protected_auth_cookie_bad_hash', $cookie_elements );
+			\Password_Protected\Debugger::add( 'Auth cookie bad hash' );
+			\Password_Protected\Debugger::save();
 			return false;
 		}
 
 		if ( $expiration < current_time( 'timestamp' ) ) { // AJAX/POST grace period set above
 			$GLOBALS['login_grace_period'] = 1;
 		}
+
+		\Password_Protected\Debugger::add( 'Validated OK' );
+		\Password_Protected\Debugger::save();
 
 		return true;
 
@@ -557,6 +591,11 @@ class Password_Protected {
 		$key = md5( $this->get_site_id() . $this->get_hashed_password() . '|' . $expiration );
 		$hash = hash_hmac( 'md5', $this->get_site_id() . '|' . $expiration, $key );
 		$cookie = $this->get_site_id() . '|' . $expiration . '|' . $hash;
+
+		\Password_Protected\Debugger::add( 'Generating auth cookie...' );
+		\Password_Protected\Debugger::add( 'Hashed Password = ' . $this->get_hashed_password() );
+		\Password_Protected\Debugger::add( 'Key = ' . $key );
+		\Password_Protected\Debugger::add( 'Hash = ' . $hash );
 
 		return $cookie;
 
@@ -603,7 +642,9 @@ class Password_Protected {
 	 * @param  boolean  $remember  Remember logged in.
 	 * @param  string   $secure    Secure cookie.
 	 */
-	public function set_auth_cookie( $remember = false, $secure = '') {
+	public function set_auth_cookie( $remember = false, $secure = '' ) {
+
+		\Password_Protected\Debugger::add( 'Setting auth cookie...' );
 
 		if ( $remember ) {
 			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', get_option( 'password_protected_remember_me_lifetime', 14 ) * DAY_IN_SECONDS, $remember );
@@ -621,8 +662,18 @@ class Password_Protected {
 		$secure_password_protected_cookie = apply_filters( 'password_protected_secure_password_protected_cookie', false, $secure );
 		$password_protected_cookie = $this->generate_auth_cookie( $expiration, 'password_protected' );
 
+		\Password_Protected\Debugger::add( 'Secure = ' . absint( $secure_password_protected_cookie ) );
+		\Password_Protected\Debugger::add( 'Cookie Name = ' . $this->cookie_name() );
+		\Password_Protected\Debugger::add( 'Cookie Value = ' . $password_protected_cookie );
+		\Password_Protected\Debugger::add( 'Current Time = ' . current_time( 'timestamp' ) );
+		\Password_Protected\Debugger::add( 'Expire = ' . $expire );
+		\Password_Protected\Debugger::add( 'Expiration = ' . $expiration );
+		\Password_Protected\Debugger::add( 'COOKIEPATH = ' . COOKIEPATH );
+		\Password_Protected\Debugger::add( 'COOKIEPATH = ' . COOKIE_DOMAIN );
+
 		setcookie( $this->cookie_name(), $password_protected_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
 		if ( COOKIEPATH != SITECOOKIEPATH ) {
+			\Password_Protected\Debugger::add( 'SITECOOKIEPATH = ' . SITECOOKIEPATH );
 			setcookie( $this->cookie_name(), $password_protected_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
 		}
 
