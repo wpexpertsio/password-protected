@@ -278,7 +278,7 @@ class Password_Protected {
 			$this->logout();
 
 			if ( isset( $_REQUEST['redirect_to'] ) ) {
-				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
+				$redirect_to = remove_query_arg( 'password-protected', esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) ) );
 			} else {
 				$redirect_to = home_url( '/' );
 			}
@@ -773,8 +773,6 @@ class Password_Protected {
 	 * Based on the WordPress wp_safe_redirect() function.
 	 */
 	public function safe_redirect( $location, $status = 302 ) {
-
-		$location = remove_query_arg( 'password-protected', $location );
 
 		$location = wp_sanitize_redirect( $location );
 		$location = wp_validate_redirect( $location, home_url() );
