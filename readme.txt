@@ -81,6 +81,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 == Changelog ==
  
 = Unreleased =
+- Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
 
 = 2.2.5 =
 - Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com/jeherve).
