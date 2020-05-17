@@ -81,6 +81,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 == Changelog ==
  
 = Unreleased =
+- Adds `password_protected_cookie_name` filter for the cookie name. Props [Jose Castaneda](https://github.com/jocastaneda).
 - Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
 - Translations now via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/password-protected/).
 - Updated URL references. Props [Garrett Hyder](https://github.com/garretthyder).
