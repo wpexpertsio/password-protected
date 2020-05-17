@@ -3,9 +3,9 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 4.6
-Tested up to: 5.3.2
+Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 2.2.5
+Stable tag: 2.3
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -80,7 +80,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 == Changelog ==
  
-= Unreleased =
+= 2.3 =
 - Adds `password_protected_cookie_name` filter for the cookie name. Props [Jose Castaneda](https://github.com/jocastaneda).
 - Let developers override the capability needed to see the options page via a `password_protected_options_page_capability` filter. Props [Nicola Peluchetti](https://github.com/nicoladj77).
 - Don't use a "testcookie" POST query as it is blocked by Namecheap (and possibly other hosts).
@@ -219,6 +219,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.3 =
+Fixed an issue with "testcookie" on some hosts. Added `password_protected_cookie_name` and `password_protected_options_page_capability` filters.
 
 = 2.2.5 =
 Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form.

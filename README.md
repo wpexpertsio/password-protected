@@ -69,6 +69,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 Upgrade Notice
 --------------
 
+### 2.3
+Fixed an issue with "testcookie" on some hosts. Added `password_protected_cookie_name` and `password_protected_options_page_capability` filters.
+
 ### 2.2.5
 Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form.
 
