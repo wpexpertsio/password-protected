@@ -82,6 +82,8 @@ If you would like to translate this plugin you can easily contribute at the [Tra
  
 = Unreleased =
 - Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
+- Translations now via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/password-protected/).
+- Updated URL references. Props [Garrett Hyder](https://github.com/garretthyder).
 
 = 2.2.5 =
 - Added `password_protected_login_password_title` filter to allow customizing the "Password" label on the login form. Props [Jeremy Herve](https://github.com/jeherve).

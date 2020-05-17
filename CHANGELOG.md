@@ -4,8 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-### Changed
+### Fixed
 - Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
+
+### Changed
+- Translations now via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/password-protected/).
+- Updated URL references. Props [Garrett Hyder](https://github.com/garretthyder).
 
 ## [2.2.5] - 2019-06-04
 
