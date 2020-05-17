@@ -2,10 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [2.3] - 2020-05-17
+
+### Added
+- Adds `password_protected_cookie_name` filter for the cookie name. Props [Jose Castaneda](https://github.com/jocastaneda).
+- Let developers override the capability needed to see the options page via a `password_protected_options_page_capability` filter. Props [Nicola Peluchetti](https://github.com/nicoladj77).
+
+### Fixed
+- Don't use a "testcookie" POST query as it is blocked by Namecheap (and possibly other hosts).
+- Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
 
 ### Changed
-- Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
+- Translations now via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/password-protected/).
+- Updated URL references. Props [Garrett Hyder](https://github.com/garretthyder).
 
 ## [2.2.5] - 2019-06-04
 
@@ -229,7 +238,8 @@ Check that `$_SERVER['REMOTE_ADDR']` is set.
 ### Added
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
-[Unreleased]: https://github.com/benhuson/password-protected/compare/2.2.5...HEAD
+[Unreleased]: https://github.com/benhuson/password-protected/compare/2.3...HEAD
+[2.2.5]: https://github.com/benhuson/password-protected/compare/2.2.5...2.3
 [2.2.5]: https://github.com/benhuson/password-protected/compare/2.2.4...2.2.5
 [2.2.4]: https://github.com/benhuson/password-protected/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/benhuson/password-protected/compare/2.2.2...2.2.3

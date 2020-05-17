@@ -108,6 +108,7 @@ class Password_Protected_Admin_Caching {
 	public function field_cookies() {
 
 		echo '<p><code>' . esc_html( $this->plugin->cookie_name() ) . '</code></p>';
+		echo '<p class="description">' . __( 'Can be changed using the `password_protected_cookie_name` filter.', 'password-protected' ) . '</p>';
 
 	}
 

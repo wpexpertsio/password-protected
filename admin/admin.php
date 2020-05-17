@@ -43,7 +43,8 @@ class Password_Protected_Admin {
 	 */
 	public function admin_menu() {
 
-		$this->settings_page_id = add_options_page( __( 'Password Protected', 'password-protected' ), __( 'Password Protected', 'password-protected' ), 'manage_options', 'password-protected', array( $this, 'settings_page' ) );
+		$capability = apply_filters( 'password_protected_options_page_capability', 'manage_options' );
+		$this->settings_page_id = add_options_page( __( 'Password Protected', 'password-protected' ), __( 'Password Protected', 'password-protected' ), $capability, 'password-protected', array( $this, 'settings_page' ) );
 		add_action( 'load-' . $this->settings_page_id, array( $this, 'add_help_tabs' ), 20 );
 
 	}
