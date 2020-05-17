@@ -6,8 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Adds `password_protected_cookie_name` filter for the cookie name. Props [Jose Castaneda](https://github.com/jocastaneda).
+- Let developers override the capability needed to see the options page via a `password_protected_options_page_capability` filter. Props [Nicola Peluchetti](https://github.com/nicoladj77).
 
 ### Fixed
+- Don't use a "testcookie" POST query as it is blocked by Namecheap (and possibly other hosts).
 - Fix warnings in W3 validator - script and style “type” attribute not required. Props [@dianamurcia](https://github.com/dianamurcia).
 
 ### Changed
