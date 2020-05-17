@@ -49,7 +49,7 @@ if ( SITECOOKIEPATH != COOKIEPATH ) {
 }
 
 // If cookies are disabled we can't log in even with a valid password.
-if ( isset( $_POST['testcookie'] ) && empty( $_COOKIE[ TEST_COOKIE ] ) ) {
+if ( isset( $_POST['password_protected_cookie_test'] ) && empty( $_COOKIE[ TEST_COOKIE ] ) ) {
 	$Password_Protected->errors->add( 'test_cookie', __( "<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href='http://www.google.com/cookies.html'>enable cookies</a> to use WordPress.", 'password-protected' ) );
 }
 
@@ -129,7 +129,7 @@ do_action( 'password_protected_login_head' );
 
 		<p class="submit">
 			<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In' ); ?>" tabindex="100" />
-			<input type="hidden" name="testcookie" value="1" />
+			<input type="hidden" name="password_protected_cookie_test" value="1" />
 			<input type="hidden" name="password-protected" value="login" />
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $_REQUEST['redirect_to'] ); ?>" />
 		</p>
