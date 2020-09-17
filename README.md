@@ -10,6 +10,7 @@ Features include:
 - Password protect your WordPress site with a single password.
 - Option to allow access to feeds.
 - Option to allow administrators access without entering password.
+- Option to unprotect pages and posts by ID (allowed list)
 - Works with Mark Jaquith's [Login Logo](https://wordpress.org/plugins/login-logo/) plugin.
 - Works with the [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo/) plugin.
 
