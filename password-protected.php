@@ -278,7 +278,7 @@ class Password_Protected {
 			$this->logout();
 
 			if ( isset( $_REQUEST['redirect_to'] ) ) {
-				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
+				$redirect_to = remove_query_arg( 'password-protected', esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) ) );
 			} else {
 				$redirect_to = home_url( '/' );
 			}
@@ -313,7 +313,10 @@ class Password_Protected {
 				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
 
 				if ( ! empty( $redirect_to ) ) {
-					$this->safe_redirect( $redirect_to );
+					$this->safe_redirect( remove_query_arg( 'password-protected', $redirect_to ) );
+					exit;
+				} elseif ( isset( $_GET['password_protected_pwd'] ) ) {
+					$this->safe_redirect( remove_query_arg( 'password-protected' ) );
 					exit;
 				}
 
