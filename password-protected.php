@@ -387,6 +387,7 @@ class Password_Protected {
 				$redirect_to = add_query_arg( 'redirect_to', urlencode( $redirect_to_url ), $redirect_to );
 			}
 
+			nocache_headers();
 			wp_redirect( $redirect_to );
 			exit();
 
