@@ -5,6 +5,7 @@ Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
 Version: 2.3
+Requires PHP: 5.6
 Author: Ben Huson
 Text Domain: password-protected
 Author URI: http://github.com/benhuson/password-protected/
@@ -42,6 +43,18 @@ $Password_Protected = new Password_Protected();
 
 class Password_Protected {
 
+	const _OPTION_ADMINISTRATORS = 'password_protected_administrators';
+	const _OPTION_ALLOWED_IP_ADDRESSES = 'password_protected_allowed_ip_addresses';
+	const _OPTION_FEEDS = 'password_protected_feeds';
+	const _OPTION_PASSWORD = 'password_protected_password';
+	const _OPTION_PASSWORD_PROTECTED = 'password_protected_password';
+	const _OPTION_REMEMBER_ME = 'password_protected_remember_me';
+	const _OPTION_REMEMBER_ME_LIFETIME = 'password_protected_remember_me_lifetime';
+	const _OPTION_REST = 'password_protected_rest';
+	const _OPTION_STATUS = 'password_protected_status';
+	const _OPTION_USERS = 'password_protected_users';
+	const _OPTION_VERSION = 'password_protected_version';
+
 	var $version = '2.3';
 	var $admin   = null;
 	var $errors  = null;
@@ -54,6 +67,7 @@ class Password_Protected {
 		$this->errors = new WP_Error();
 
 		register_activation_hook( __FILE__, array( &$this, 'install' ) );
+		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
@@ -122,7 +136,7 @@ class Password_Protected {
 			return false;
 		}
 
-		if ( (bool) get_option( 'password_protected_status' ) ) {
+		if ( (bool) get_option( self::_OPTION_STATUS ) ) {
 			$is_active = true;
 		} else {
 			$is_active = false;
@@ -174,7 +188,7 @@ class Password_Protected {
 	 */
 	public function allow_feeds( $bool ) {
 
-		if ( is_feed() && (bool) get_option( 'password_protected_feeds' ) ) {
+		if ( is_feed() && (bool) get_option( self::_OPTION_FEEDS ) ) {
 			return 0;
 		}
 
@@ -190,7 +204,7 @@ class Password_Protected {
 	 */
 	public function allow_administrators( $bool ) {
 
-		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( 'password_protected_administrators' ) ) {
+		if ( ! is_admin() && current_user_can( 'manage_options' ) && (bool) get_option( self::_OPTION_ADMINISTRATORS ) ) {
 			return 0;
 		}
 
@@ -206,7 +220,7 @@ class Password_Protected {
 	 */
 	public function allow_users( $bool ) {
 
-		if ( ! is_admin() && is_user_logged_in() && (bool) get_option( 'password_protected_users' ) ) {
+		if ( ! is_admin() && is_user_logged_in() && (bool) get_option( self::_OPTION_USERS ) ) {
 			return 0;
 		}
 
@@ -241,7 +255,7 @@ class Password_Protected {
 	 */
 	public function get_allowed_ip_addresses() {
 
-		return explode( "\n", get_option( 'password_protected_allowed_ip_addresses' ) );
+		return explode( "\n", get_option( self::_OPTION_ALLOWED_IP_ADDRESSES ) );
 
 	}
 
@@ -252,7 +266,7 @@ class Password_Protected {
 	 */
 	public function allow_remember_me() {
 
-		return (bool) get_option( 'password_protected_remember_me' );
+		return (bool) get_option( self::_OPTION_REMEMBER_ME );
 
 	}
 
@@ -297,7 +311,7 @@ class Password_Protected {
 
 		if ( $this->is_active() && isset( $_REQUEST['password_protected_pwd'] ) ) {
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
-			$pwd = get_option( 'password_protected_password' );
+			$pwd = get_option( self::_OPTION_PASSWORD_PROTECTED );
 
 			// If correct password...
 			if ( ( hash_equals( $pwd, $this->encrypt_password( $password_protected_pwd ) ) && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
@@ -497,7 +511,7 @@ class Password_Protected {
 	 */
 	public function get_hashed_password() {
 
-		return md5( get_option( 'password_protected_password' ) . wp_salt() );
+		return md5( get_option( self::_OPTION_PASSWORD_PROTECTED ) . wp_salt() );
 
 	}
 
@@ -607,7 +621,7 @@ class Password_Protected {
 	public function set_auth_cookie( $remember = false, $secure = '') {
 
 		if ( $remember ) {
-			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', get_option( 'password_protected_remember_me_lifetime', 14 ) * DAY_IN_SECONDS, $remember );
+			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', get_option( self::_OPTION_REMEMBER_ME_LIFETIME, 14 ) * DAY_IN_SECONDS, $remember );
 			$expiration = $expire = current_time( 'timestamp' ) + $expiration_time;
 		} else {
 			$expiration_time = apply_filters( 'password_protected_auth_cookie_expiration', DAY_IN_SECONDS * 20, $remember );
@@ -658,11 +672,11 @@ class Password_Protected {
 	 */
 	public function install() {
 
-		$old_version = get_option( 'password_protected_version' );
+		$old_version = get_option( self::_OPTION_VERSION );
 
 		// 1.1 - Upgrade to MD5
 		if ( empty( $old_version ) || version_compare( '1.1', $old_version ) ) {
-			$pwd = get_option( 'password_protected_password' );
+			$pwd = get_option( self::_OPTION_PASSWORD );
 			if ( ! empty( $pwd ) ) {
 				$new_pwd = $this->encrypt_password( $pwd );
 				update_option( 'password_protected_password', $new_pwd );
@@ -671,6 +685,28 @@ class Password_Protected {
 
 		update_option( 'password_protected_version', $this->version );
 
+	}
+
+	/**
+	 * Uninstall
+	 */
+	public static function uninstall() {
+		$options = array(
+			self::_OPTION_ADMINISTRATORS,
+			self::_OPTION_ALLOWED_IP_ADDRESSES,
+			self::_OPTION_FEEDS,
+			self::_OPTION_PASSWORD,
+			self::_OPTION_PASSWORD_PROTECTED,
+			self::_OPTION_REMEMBER_ME,
+			self::_OPTION_REMEMBER_ME_LIFETIME,
+			self::_OPTION_REST,
+			self::_OPTION_STATUS,
+			self::_OPTION_USERS,
+			self::_OPTION_VERSION,
+		);
+		foreach ( $options as $option ) {
+			delete_option($option);
+		}
 	}
 
 	/**
@@ -810,7 +846,7 @@ class Password_Protected {
 	public function only_allow_logged_in_rest_access( $access ) {
 
 		// If user is not logged in
-		if ( $this->is_active() && ! $this->is_user_logged_in() && ! is_user_logged_in() && ! (bool) get_option( 'password_protected_rest' ) ) {
+		if ( $this->is_active() && ! $this->is_user_logged_in() && ! is_user_logged_in() && ! (bool) get_option( self::_OPTION_REST ) ) {
 			return new WP_Error( 'rest_cannot_access', __( 'Only authenticated users can access the REST API.', 'password-protected' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
