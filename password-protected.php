@@ -72,6 +72,11 @@ class Password_Protected {
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_theme_stylesheet' ), 5 );
 
+		// Available from WordPress 4.3+
+		if ( function_exists( 'wp_site_icon' ) ) {
+			add_action( 'password_protected_login_head', 'wp_site_icon' );
+		}
+
 		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
 
 		include_once( dirname( __FILE__ ) . '/admin/admin-bar.php' );
