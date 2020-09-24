@@ -3,9 +3,9 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 4.6
-Tested up to: 5.4
+Tested up to: 5.5.1
 Requires PHP: 5.6
-Stable tag: 2.3
+Stable tag: 2.4
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -79,7 +79,13 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 2. Password Protected settings page.
 
 == Changelog ==
- 
+
+= 2.4 =
+- Add a Nocache header to the login page redirect to prevent the browser from caching the redirect page. Props [De'Yonte W.](https://github.com/rxnlabs)
+- Remove ‘password-protected’ query from redirects on successful login or logout.
+- Check "redirect_to" query var is set in hidden form field. Props [Matthias Kittsteiner](https://wordpress.org/support/users/kittmedia/).
+- Add favicon to password protected login page.
+
 = 2.3 =
 - Adds `password_protected_cookie_name` filter for the cookie name. Props [Jose Castaneda](https://github.com/jocastaneda).
 - Let developers override the capability needed to see the options page via a `password_protected_options_page_capability` filter. Props [Nicola Peluchetti](https://github.com/nicoladj77).
@@ -219,6 +225,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.4 =
+Fixes to help with caching issues and favicon on login page.
 
 = 2.3 =
 Fixed an issue with "testcookie" on some hosts. Added `password_protected_cookie_name` and `password_protected_options_page_capability` filters.

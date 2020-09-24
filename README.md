@@ -69,6 +69,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 Upgrade Notice
 --------------
 
+### 2.4
+Fixes to help with caching issues and favicon on login page.
+
 ### 2.3
 Fixed an issue with "testcookie" on some hosts. Added `password_protected_cookie_name` and `password_protected_options_page_capability` filters.
 

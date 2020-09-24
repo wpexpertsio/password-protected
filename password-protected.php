@@ -4,7 +4,7 @@
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
-Version: 2.3
+Version: 2.4
 Author: Ben Huson
 Text Domain: password-protected
 Author URI: http://github.com/benhuson/password-protected/
@@ -71,6 +71,11 @@ class Password_Protected {
 		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_theme_stylesheet' ), 5 );
+
+		// Available from WordPress 4.3+
+		if ( function_exists( 'wp_site_icon' ) ) {
+			add_action( 'password_protected_login_head', 'wp_site_icon' );
+		}
 
 		add_shortcode( 'password_protected_logout_link', array( $this, 'logout_link_shortcode' ) );
 
@@ -278,7 +283,7 @@ class Password_Protected {
 			$this->logout();
 
 			if ( isset( $_REQUEST['redirect_to'] ) ) {
-				$redirect_to = esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) );
+				$redirect_to = remove_query_arg( 'password-protected', esc_url_raw( $_REQUEST['redirect_to'], array( 'http', 'https' ) ) );
 			} else {
 				$redirect_to = home_url( '/' );
 			}
@@ -313,7 +318,10 @@ class Password_Protected {
 				$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to );
 
 				if ( ! empty( $redirect_to ) ) {
-					$this->safe_redirect( $redirect_to );
+					$this->safe_redirect( remove_query_arg( 'password-protected', $redirect_to ) );
+					exit;
+				} elseif ( isset( $_GET['password_protected_pwd'] ) ) {
+					$this->safe_redirect( remove_query_arg( 'password-protected' ) );
 					exit;
 				}
 
@@ -384,6 +392,7 @@ class Password_Protected {
 				$redirect_to = add_query_arg( 'redirect_to', urlencode( $redirect_to_url ), $redirect_to );
 			}
 
+			nocache_headers();
 			wp_redirect( $redirect_to );
 			exit();
 
