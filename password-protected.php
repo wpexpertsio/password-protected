@@ -359,6 +359,7 @@ class Password_Protected {
 					$this->clear_auth_cookie();
 					$this->errors->add('failed_captcha', __('Complete the CAPTCHA!', 'password-protected'));
 				}
+
 			}
 
 		}
