@@ -121,7 +121,14 @@ do_action( 'password_protected_login_head' );
 			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>
 		</p>
 
-		<?php if ( $Password_Protected->allow_remember_me() ) : ?>
+		<?php
+		if ($Password_Protected->captcha_enabled() == true) {
+			do_action('anr_captcha_form_field');
+			echo '<br>';
+		}
+		?>
+
+        <?php if ( $Password_Protected->allow_remember_me() ) : ?>
 			<p class="forgetmenot">
 				<label for="password_protected_rememberme"><input name="password_protected_rememberme" type="checkbox" id="password_protected_rememberme" value="1" tabindex="90" /> <?php esc_attr_e( 'Remember Me' ); ?></label>
 			</p>
