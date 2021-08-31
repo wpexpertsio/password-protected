@@ -60,6 +60,11 @@ You must be an administrator (have the manage_options capability) and in the Pas
 Just add a "password-protected=logout" query to your URL.
 eg. http://www.example.com/?password-protected=logout
 
+= I have forgotten the password. How can I disable the plugin? =
+If you go to your WordPress admin login page `/wp-login.php` and it shows the admin login fields, you should still be able to login and disable the plugin.
+
+If the admin login screen insteads shows the Password Protected field, you will need to access your site via SFTP/SSH and delete the Password Protected plugin folder in the plugins folder `wp-content/plugins/password-protected`.
+
 = How can I redirect to a different domain name when logging out? =
 If passing a redirect URL using 'redirect_to' when logging out you need you may need to use the [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) filter to allow redirecting to an external domain.
 
