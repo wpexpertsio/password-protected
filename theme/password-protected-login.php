@@ -60,7 +60,12 @@ if ( $Password_Protected->errors->get_error_code() && in_array( $Password_Protec
 }
 
 // Obey privacy setting
-add_action( 'password_protected_login_head', 'wp_no_robots' );
+if ( function_exists( 'wp_robots' ) && function_exists( 'wp_robots_no_robots' ) && function_exists( 'add_filter' ) ) {
+	add_filter( 'wp_robots', 'wp_robots_no_robots' );
+	add_action( 'password_protected_login_head', 'wp_robots', 1 );
+} elseif ( function_exists( 'wp_no_robots' ) ) {
+	add_action( 'password_protected_login_head', 'wp_no_robots' );
+}
 
 add_action( 'password_protected_login_head', 'wp_login_viewport_meta' );
 

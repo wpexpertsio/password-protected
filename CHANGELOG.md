@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5] - 2021-09-01
+
+### Fixed
+- Deprecate `wp_no_robots` and replace with `wp_robots_no_robots` for WordPress 5.7+
+
 ## [2.4] - 2020-09-24
 
 ### Fixed
@@ -246,7 +251,8 @@ Check that `$_SERVER['REMOTE_ADDR']` is set.
 ### Added
 - First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
-[Unreleased]: https://github.com/benhuson/password-protected/compare/2.4...HEAD
+[Unreleased]: https://github.com/benhuson/password-protected/compare/2.5...HEAD
+[2.4]: https://github.com/benhuson/password-protected/compare/2.4...2.5
 [2.4]: https://github.com/benhuson/password-protected/compare/2.3...2.4
 [2.3]: https://github.com/benhuson/password-protected/compare/2.2.5...2.3
 [2.2.5]: https://github.com/benhuson/password-protected/compare/2.2.4...2.2.5

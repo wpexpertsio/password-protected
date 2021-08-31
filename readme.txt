@@ -3,9 +3,9 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXRJDNCMK9U3N
 Tags: password, protect, password protect, login
 Requires at least: 4.6
-Tested up to: 5.5.1
+Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.4
+Stable tag: 2.5
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -60,6 +60,11 @@ You must be an administrator (have the manage_options capability) and in the Pas
 Just add a "password-protected=logout" query to your URL.
 eg. http://www.example.com/?password-protected=logout
 
+= I have forgotten the password. How can I disable the plugin? =
+If you go to your WordPress admin login page `/wp-login.php` and it shows the admin login fields, you should still be able to login and disable the plugin.
+
+If the admin login screen insteads shows the Password Protected field, you will need to access your site via SFTP/SSH and delete the Password Protected plugin folder in the plugins folder `wp-content/plugins/password-protected`.
+
 = How can I redirect to a different domain name when logging out? =
 If passing a redirect URL using 'redirect_to' when logging out you need you may need to use the [allowed domain names](https://codex.wordpress.org/Plugin_API/Filter_Reference/allowed_redirect_hosts) filter to allow redirecting to an external domain.
 
@@ -71,7 +76,7 @@ You can also submit suggested enhancements if you like.
 If you can, please [fork the code](https://github.com/benhuson/password-protected) and submit a pull request via GitHub. If you're not comfortable using Git, then please just submit it to the issues link above.
 
 = How can I translate this plugin? =
-If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via WordPress.
+If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 90% translated for a language file to be available to download/update via WordPress.
 
 == Screenshots ==
 
@@ -79,6 +84,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 2.5 =
+- Deprecate `wp_no_robots` and replace with `wp_robots_no_robots` for WordPress 5.7+
 
 = 2.4 =
 - Add a Nocache header to the login page redirect to prevent the browser from caching the redirect page. Props [De'Yonte W.](https://github.com/rxnlabs)
@@ -225,6 +233,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.5 =
+Fixes robots tag for WordPress 5.7+
 
 = 2.4 =
 Fixes to help with caching issues and favicon on login page.
