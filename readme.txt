@@ -85,6 +85,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 == Changelog ==
 
+= Unreleased =
+- Deprecate `wp_no_robots` and replace with `wp_robots_no_robots` for WordPress 5.7+
+
 = 2.4 =
 - Add a Nocache header to the login page redirect to prevent the browser from caching the redirect page. Props [De'Yonte W.](https://github.com/rxnlabs)
 - Remove ‘password-protected’ query from redirects on successful login or logout.
