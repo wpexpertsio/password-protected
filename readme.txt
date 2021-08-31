@@ -5,7 +5,7 @@ Tags: password, protect, password protect, login
 Requires at least: 4.6
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.4
+Stable tag: 2.5
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -85,7 +85,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 == Changelog ==
 
-= Unreleased =
+= 2.5 =
 - Deprecate `wp_no_robots` and replace with `wp_robots_no_robots` for WordPress 5.7+
 
 = 2.4 =
@@ -233,6 +233,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 * First Release. If you spot any bugs or issues please [log them here](https://github.com/benhuson/password-protected/issues).
 
 == Upgrade Notice ==
+
+= 2.5 =
+Fixes robots tag for WordPress 5.7+
 
 = 2.4 =
 Fixes to help with caching issues and favicon on login page.

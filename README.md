@@ -74,6 +74,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 Upgrade Notice
 --------------
 
+### 2.5
+Fixes robots tag for WordPress 5.7+
+
 ### 2.4
 Fixes to help with caching issues and favicon on login page.
 
