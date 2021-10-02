@@ -262,6 +262,23 @@ class Password_Protected {
 	}
 
 	/**
+	 * Check if the CAPTCHA is enabled
+	 * Will return false if advanced-nocaptcha-recaptcha is not active
+	 *
+	 * @return. boolean
+	 */
+	public function captcha_enabled() {
+
+		include_once(ABSPATH.'wp-admin/includes/plugin.php');
+		if (is_plugin_active('advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php')) {
+			return (bool)get_option('password_protected_captcha');
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
 	 * Encrypt Password
 	 *
 	 * @param  string  $password  Password.
@@ -304,8 +321,11 @@ class Password_Protected {
 			$password_protected_pwd = $_REQUEST['password_protected_pwd'];
 			$pwd = get_option( 'password_protected_password' );
 
-			// If correct password...
-			if ( ( hash_equals( $pwd, $this->encrypt_password( $password_protected_pwd ) ) && $pwd != '' ) || apply_filters( 'password_protected_process_login', false, $password_protected_pwd ) ) {
+			// If correct password and CAPTCHA (or CAPTCHA is disabled)
+			if (((hash_equals($pwd, $this->encrypt_password($password_protected_pwd)) &&
+						$pwd != '') ||
+					apply_filters('password_protected_process_login', false, $password_protected_pwd))
+				&& ($this->captcha_enabled() == false || anr_verify_captcha())) {
 
 				$remember = isset( $_REQUEST['password_protected_rememberme'] ) ? boolval( $_REQUEST['password_protected_rememberme'] ) : false;
 
@@ -327,9 +347,18 @@ class Password_Protected {
 
 			} else {
 
-				// ... otherwise incorrect password
-				$this->clear_auth_cookie();
-				$this->errors->add( 'incorrect_password', __( 'Incorrect Password', 'password-protected' ) );
+				// Invalid password
+				if ($this->captcha_enabled() == false || anr_verify_captcha()) {
+
+					$this->clear_auth_cookie();
+					$this->errors->add('incorrect_password', __('Incorrect Password!', 'password-protected'));
+
+					// ... otherwise invalid CAPTCHA
+				} else {
+
+					$this->clear_auth_cookie();
+					$this->errors->add('failed_captcha', __('Complete the CAPTCHA!', 'password-protected'));
+				}
 
 			}
 

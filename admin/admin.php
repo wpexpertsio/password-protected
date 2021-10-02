@@ -147,6 +147,16 @@ class Password_Protected_Admin {
 			'password_protected'
 		);
 
+		if (is_plugin_active('advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php')) {
+			add_settings_field(
+				'password_protected_captcha',
+				__('Enable <a href="options-general.php?page=anr-admin-settings">CAPTCHA</a>', 'password-protected'),
+				array($this, 'password_protected_captcha_field'),
+				$this->options_group,
+				'password_protected'
+			);
+		}
+
 		add_settings_field(
 			'password_protected_remember_me',
 			__( 'Allow Remember me', 'password-protected' ),
@@ -170,6 +180,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_users', 'intval' );
 		register_setting( $this->options_group, 'password_protected_password', array( $this, 'sanitize_password_protected_password' ) );
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
+		register_setting( $this->options_group, 'password_protected_captcha', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
 
@@ -290,6 +301,15 @@ class Password_Protected_Admin {
 			echo ' ' . esc_html( sprintf( __( 'Your IP is address %s.', 'password-protected' ), $_SERVER['REMOTE_ADDR'] ) );
 		}
 		echo '</p>';
+
+	}
+
+	/**
+	 * CAPTCHA Field
+	 */
+	public function password_protected_captcha_field() {
+
+		echo '<label><input name="password_protected_captcha" id="password_protected_captcha" type="checkbox" value="1" ' . checked( 1, get_option( 'password_protected_captcha' ), false ) . ' /></label>';
 
 	}
 
