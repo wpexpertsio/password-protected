@@ -220,6 +220,27 @@ class Password_Protected {
 	}
 
 	/**
+	 * Check if a given ip is in a network.
+	 * Source: https://gist.github.com/tott/7684443
+	 *
+	 * @param  string $ip    IP to check in IPV4 format eg. 127.0.0.1.
+	 * @param  string $range IP/CIDR netmask eg. 127.0.0.0/24, also 127.0.0.1 is accepted and /32 assumed.
+	 * @return boolean true if the ip is in this range / false if not.
+	 */
+	public static function ip_in_range( $ip, $range ) {
+		if ( strpos( $range, '/' ) === false ) {
+			$range .= '/32';
+		}
+		// $range is in IP/CIDR format eg 127.0.0.1/24
+		list( $range, $netmask ) = explode( '/', $range, 2 );
+		$range_decimal           = ip2long( $range );
+		$ip_decimal              = ip2long( $ip );
+		$wildcard_decimal        = pow( 2, ( 32 - $netmask ) ) - 1;
+		$netmask_decimal         = ~ $wildcard_decimal;
+		return ( ( $ip_decimal & $netmask_decimal ) === ( $range_decimal & $netmask_decimal ) );
+	}
+
+	/**
 	 * Allow IP Addresses
 	 *
 	 * If user has a valid email address, return false to disable password protection.
@@ -231,8 +252,18 @@ class Password_Protected {
 
 		$ip_addresses = $this->get_allowed_ip_addresses();
 
-		if ( isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $ip_addresses ) ) {
-			$bool = false;
+		if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
+
+			$remote_ip = $_SERVER['REMOTE_ADDR'];
+
+			// iterate through the allow list.
+			foreach ( $ip_addresses as $line ) {
+				$line = trim(explode("#",$line)[0]); // allow for comments after ip
+				if ( $this->ip_in_range( $remote_ip, $line ) ) {
+					$bool = false;
+				}
+			}
+
 		}
 
 		return $bool;
