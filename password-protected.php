@@ -70,6 +70,7 @@ class Password_Protected {
 		add_filter( 'rest_authentication_errors', array( $this, 'only_allow_logged_in_rest_access' ) );
 		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
+		add_action( 'password_protected_before_login_form', array( $this, 'display_custom_message' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_theme_stylesheet' ), 5 );
 
 		// Available from WordPress 4.3+
@@ -738,6 +739,22 @@ class Password_Protected {
 				echo '<p class="message">' . apply_filters( 'password_protected_login_messages', $messages ) . "</p>\n";
 			}
 
+		}
+
+	}
+
+	/**
+	 * Add a message above the "password protected" form, if set.
+	 *
+	 * @since   3.0
+	 *
+	 * @return string HTML to display.
+	 */
+	function display_custom_message() {
+
+		$message = get_option( 'password_protected_message' );
+		if ( $message ) {
+			echo apply_filters( 'the_content', wp_unslash( $message ) );
 		}
 
 	}

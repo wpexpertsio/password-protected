@@ -163,6 +163,14 @@ class Password_Protected_Admin {
 			'password_protected'
 		);
 
+		add_settings_field(
+			'password_protected_message',
+			__( 'Message to display above the password form', 'password-protected' ),
+			array( $this, 'password_protected_message_field' ),
+			$this->options_group,
+			'password_protected'
+		);
+
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
 		register_setting( $this->options_group, 'password_protected_rest', 'intval' );
@@ -172,6 +180,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
 		register_setting( $this->options_group, 'password_protected_remember_me', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
+		register_setting( $this->options_group, 'password_protected_message', 'wp_filter_post_kses' );
 
 	}
 
@@ -308,6 +317,24 @@ class Password_Protected_Admin {
 	public function password_protected_remember_me_lifetime_field() {
 
 		echo '<label><input name="password_protected_remember_me_lifetime" id="password_protected_remember_me_lifetime" type="number" value="' . get_option( 'password_protected_remember_me_lifetime', 14 ) . '" /></label>';
+
+	}
+
+	/**
+	 * Output the form element to collect the message input.
+	 *
+	 * @since   3.0
+	 *
+	 * @return string HTML to display.
+	 */
+	public function password_protected_message_field() {
+
+		$settings = apply_filters( 'password_protected_message_editor_settings', array(
+			'textarea_rows' => 5,
+		) );
+		$saved_option = wp_unslash( get_option( 'password_protected_message' ) );
+
+		wp_editor( $saved_option, 'password_protected_message', $settings );
 
 	}
 
