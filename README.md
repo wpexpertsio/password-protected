@@ -155,4 +155,4 @@ Passwords saved encrypted.
 Changelog
 ---------
 
-View a list of all plugin changes in [CHANGELOG.md](https://github.com/benhuson/password-protected/blob/master/CHANGELOG.md).
+View a list of all plugin changes in [CHANGELOG.md](https://github.com/wpexpertsio/password-protected/blob/master/CHANGELOG.md).
