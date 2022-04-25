@@ -64,6 +64,7 @@ class Password_Protected {
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_feeds' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_administrators' ) );
 		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_users' ) );
+		add_filter( 'pre_option_password_protected_status', array( $this, 'allow_pages' ) );
 		add_filter( 'rest_authentication_errors', array( $this, 'only_allow_logged_in_rest_access' ) );
 		add_action( 'init', array( $this, 'compat' ) );
 		add_action( 'password_protected_login_messages', array( $this, 'login_messages' ) );
@@ -215,6 +216,33 @@ class Password_Protected {
 		return $bool;
 
 	}
+
+    /**
+     * Allow Pages
+     *
+     * @param   boolean  $bool  Allow administrators.
+     * @return  boolean         True/false.
+     */
+    public function allow_pages( $bool ) {
+
+        if (is_admin() && (bool) get_option( 'password_protected_administrators' ) ) {
+            return 0;
+        }
+
+        if (is_user_logged_in() && (bool) get_option( 'password_protected_users' ) ) {
+            return 0;
+        }
+
+        $ppup_val = get_option( 'password_protected_unprotected_pages' );
+        if($ppup_val !== false && strlen(trim($ppup_val)) > 0) {
+            $unprotected_page_ids = explode( "\n", $ppup_val );
+            if( is_array($unprotected_page_ids) && is_page( $unprotected_page_ids ) ) {
+                return 0;
+            }
+        }
+
+        return $bool;
+    }
 
 	/**
 	 * Allow IP Addresses

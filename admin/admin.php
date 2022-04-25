@@ -163,6 +163,14 @@ class Password_Protected_Admin {
 			'password_protected'
 		);
 
+        add_settings_field(
+            'password_protected_unprotected_pages',
+            __( 'Unprotected Pages', 'password-protected' ),
+            array( $this, 'password_protected_unprotected_pages_field' ),
+            $this->options_group,
+            'password_protected'
+        );
+
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
 		register_setting( $this->options_group, 'password_protected_rest', 'intval' );
@@ -172,6 +180,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
 		register_setting( $this->options_group, 'password_protected_remember_me', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
+        register_setting( $this->options_group, 'password_protected_unprotected_pages', array( $this, 'sanitize_pages' ) );
 
 	}
 
@@ -236,6 +245,25 @@ class Password_Protected_Admin {
 		return filter_var( $ip_address, FILTER_VALIDATE_IP );
 
 	}
+
+    /**
+     * Sanitize Pages
+     *
+     * @param   string  $val  List of page IDs, one per line
+     * @return  string        Sanitized list of pages.
+     */
+    public function sanitize_pages( $val ) {
+
+        $page_ids = explode( "\n", $val );
+        $page_ids = array_map( 'sanitize_text_field', $page_ids );
+        $page_ids = array_map( 'trim', $page_ids );
+        $page_ids = array_filter( $page_ids );
+
+        $val = implode( "\n", $page_ids );
+
+        return $val;
+
+    }
 
 	/**
 	 * Password Protected Section
@@ -310,6 +338,16 @@ class Password_Protected_Admin {
 		echo '<label><input name="password_protected_remember_me_lifetime" id="password_protected_remember_me_lifetime" type="number" value="' . get_option( 'password_protected_remember_me_lifetime', 14 ) . '" /></label>';
 
 	}
+
+    /**
+     * Unprotected Pages Field
+     */
+    public function password_protected_unprotected_pages_field() {
+
+        echo '<textarea name="password_protected_unprotected_pages" id="password_protected_unprotected_pages" rows="3" class="large-text" />' . get_option( 'password_protected_unprotected_pages' ) . '</textarea>';
+        echo '<p class="description">' . esc_html__( 'Enter one Page/Post ID per line.', 'password-protected' ) . '</p>';
+
+    }
 
 	/**
 	 * Pre-update 'password_protected_password' Option
