@@ -107,6 +107,7 @@ if ( $is_iphone ) {
 }
 
 do_action( 'login_enqueue_scripts' );
+do_action( 'password_protected_enqueue_scripts' );
 do_action( 'password_protected_login_head' );
 
 ?>
@@ -115,16 +116,16 @@ do_action( 'password_protected_login_head' );
 <body class="login login-password-protected login-action-password-protected-login wp-core-ui">
 
 <div id="login">
-	<h1><a href="<?php echo esc_url( apply_filters( 'password_protected_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+    <h1 id="password-protected-logo"><a href="<?php echo esc_url( apply_filters( 'password_protected_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
 
 	<?php do_action( 'password_protected_login_messages' ); ?>
 	<?php do_action( 'password_protected_before_login_form' ); ?>
 
-	<form name="loginform" id="loginform" action="<?php echo esc_url( $Password_Protected->login_url() ); ?>" method="post">
-		<p>
-			<label for="password_protected_pass"><?php echo apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ); ?><br />
-			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" /></label>
-		</p>
+    <form name="loginform" id="loginform" action="<?php echo esc_url( $Password_Protected->login_url() ); ?>" method="post">
+        <p>
+            <label for="password_protected_pass"><?php echo apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ); ?></label>
+            <input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" />
+            </p>
 
 		<?php if ( $Password_Protected->allow_remember_me() ) : ?>
 			<p class="forgetmenot">
@@ -152,6 +153,8 @@ if(typeof wpOnload=='function')wpOnload();
 <?php do_action( 'login_footer' ); ?>
 
 <div class="clear"></div>
+
+<div id="password-protected-background" style="position:absolute; inset: 0;width: 100%;height: 100%;z-index: -1;transition: opacity 300ms cubic-bezier(0.694, 0, 0.335, 1) 0s"></div>
 
 </body>
 </html>
