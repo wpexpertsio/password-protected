@@ -4,7 +4,7 @@ Tags: password, protect, password protect, login
 Requires at least: 4.6
 Tested up to: 5.9.1
 Requires PHP: 5.6
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -83,6 +83,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 2. Password Protected settings page.
 
 == Changelog ==
+
+= 2.5.2 =
+- Improved - HTML structure with IDs to make it easily customizable with CSS
 
 = 2.5.1 =
 - Fix - Author name conflict resolved
