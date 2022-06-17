@@ -20,8 +20,19 @@ class Password_Protected_Admin {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 4 );
 		add_filter( 'plugin_action_links_password-protected/password-protected.php', array( $this, 'plugin_action_links' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
-
+        add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
+
+	/**
+     * Admin enqueue scripts.
+     *
+	 * @param string $hooks Page Hook.
+	 */
+	public function admin_enqueue_scripts( $hooks ) {
+	    if ( 'settings_page_password-protected' === $hooks ) {
+	        wp_enqueue_style( 'password-protected-page-script', PASSWORD_PROTECTED_URL . 'assets/css/admin.css', array(), '2.5.2' );
+        }
+    }
 
 	/**
 	 * Add Privacy Policy
@@ -65,7 +76,13 @@ class Password_Protected_Admin {
 				?>
 				<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e( 'Save Changes' ) ?>"></p>
 			</form>
-			<?php do_settings_sections( 'password-protected-compat' ); ?>
+            <div id="login-designer-message">
+                <?php do_settings_sections( 'password-protected-login-designer' ); ?>
+            </div>
+
+			<div id="help-notice">
+				<?php do_settings_sections( 'password-protected-compat' ); ?>
+            </div>
 		</div>
 
 		<?php
@@ -163,6 +180,13 @@ class Password_Protected_Admin {
 			'password_protected'
 		);
 
+		add_settings_section(
+            'password-protected-login-designer',
+            '',
+            array( $this, 'login_designer_message' ),
+            'password-protected-login-designer'
+        );
+
 		register_setting( $this->options_group, 'password_protected_status', 'intval' );
 		register_setting( $this->options_group, 'password_protected_feeds', 'intval' );
 		register_setting( $this->options_group, 'password_protected_rest', 'intval' );
@@ -173,6 +197,17 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_remember_me', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
 
+	}
+
+	/**
+	 * Login Designer Message
+	 */
+	function login_designer_message(){
+		echo '<h3>
+                        🎨' . esc_attr__( 'Now you can customize your Password Protected screen with the', 'password-protected' ) . ' <a href="https://wp.org/plugins/login-designer/">Login Designer plugin</a>🌈
+                        <br>
+                         👉<a href="https://wp.org/plugins/login-designer">' . esc_attr__( 'Try it now! It\'s Free.', 'password-protected' ) . '</a>
+                    </h3>';
 	}
 
 	/**

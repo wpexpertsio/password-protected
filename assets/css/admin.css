@@ -1,0 +1,9 @@
+#help-notice {
+    margin-top: 10px;
+}
+
+#help-notice, #login-designer-message {
+    background: white;
+    border: #9d9d9d 1px solid;
+    padding: 0px 20px;
+}

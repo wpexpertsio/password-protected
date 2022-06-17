@@ -46,7 +46,7 @@ class Password_Protected_Admin_Caching {
 		// Caching Section
 		add_settings_section(
 			'password_protected_compat_caching',
-			__( 'Caching', 'password-protected' ),
+			__( 'Having issue with Caching?', 'password-protected' ),
 			array( $this, 'section_caching' ),
 			'password-protected-compat'
 		);
