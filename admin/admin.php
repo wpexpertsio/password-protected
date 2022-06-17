@@ -30,7 +30,7 @@ class Password_Protected_Admin {
 	 */
 	public function admin_enqueue_scripts( $hooks ) {
 	    if ( 'settings_page_password-protected' === $hooks ) {
-	        wp_enqueue_style( 'password-protected-page-script', PASSWORD_PROTECTED_URL . 'assets/css/admin.css', array(), '2.5.2' );
+	        wp_enqueue_style( 'password-protected-page-script', PASSWORD_PROTECTED_URL . 'assets/css/admin.css', array(), '2.5.3' );
         }
     }
 

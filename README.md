@@ -72,6 +72,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 Upgrade Notice
 --------------
+### 2.5.3
+- Improved Settings HTML structure
+- Added Note regarding compatibility with login designer within dashboard
 
 ### 2.5.2
 Made compatibility with [login designer](https://wp.org/plugins/login-designer); Now you can customize the password-protected screen with the customizer using login designer plugin.

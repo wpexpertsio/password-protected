@@ -4,7 +4,7 @@ Tags: password, protect, password protect, login
 Requires at least: 4.6
 Tested up to: 5.9.1
 Requires PHP: 5.6
-Stable tag: 2.5.2
+Stable tag: 2.5.3
 License: GPLv2 or later
 
 A very simple way to quickly password protect your WordPress site with a single password.
@@ -82,6 +82,9 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 2. Password Protected settings page.
 
 == Changelog ==
+= 2.5.3 =
+- Improved Settings HTML structure
+- Added Note regarding compatibility with login designer within dashboard
 
 = 2.5.2 =
 - Made compatibility with [login designer](https://wp.org/plugins/login-designer); Now you can customize the password-protected screen with the customizer using login designer plugin.

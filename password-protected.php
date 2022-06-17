@@ -3,7 +3,7 @@
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
-Version: 2.5.2
+Version: 2.5.3
 Author: WPExperts
 Text Domain: password-protected
 Author URI: https://wpexperts.io/
@@ -39,7 +39,7 @@ $Password_Protected = new Password_Protected();
 
 class Password_Protected {
 
-	var $version = '2.5.1';
+	var $version = '2.5.3';
 	var $admin   = null;
 	var $errors  = null;
 
