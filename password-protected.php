@@ -318,7 +318,7 @@ class Password_Protected {
 					$this->safe_redirect( remove_query_arg( 'password-protected', $redirect_to ) );
 					exit;
 				} elseif ( isset( $_GET['password_protected_pwd'] ) ) {
-					$this->safe_redirect( remove_query_arg( 'password-protected' ) );
+                    $this->safe_redirect( remove_query_arg( ['password_protected_pwd', 'password-protected'] ) );
 					exit;
 				}
 
