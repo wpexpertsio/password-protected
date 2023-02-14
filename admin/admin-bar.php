@@ -36,7 +36,7 @@ class Admin_Bar {
 	public static function toolbar_item() {
 
 		global $wp_admin_bar;
-
+	
 		if ( self::allow_current_user() ) {
 
 			$wp_admin_bar->add_menu( array(

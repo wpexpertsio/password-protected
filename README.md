@@ -10,8 +10,7 @@ Features include:
 - Password protect your WordPress site with a single password.
 - Option to allow access to feeds.
 - Option to allow administrators access without entering password.
-- Works with Mark Jaquith's [Login Logo](https://wordpress.org/plugins/login-logo/) plugin.
-- Works with the [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo/) plugin.
+- *New* 👉 Now you can customize the whole password protected screen including the background, font, logo, color e.t.c.
 
 > Please note, this plugin works by setting a cookie to allow access to the site. If you are using a caching plugin or web hosting such as WP Engine that has in-built caching, you will need to configure the caching service to be disabled if the Password Protected cookie is set.
 
@@ -73,6 +72,12 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 Upgrade Notice
 --------------
+### 2.5.3
+- Improved Settings HTML structure
+- Added Note regarding compatibility with login designer within dashboard
+
+### 2.5.2
+Made compatibility with [login designer](https://wp.org/plugins/login-designer); Now you can customize the password-protected screen with the customizer using login designer plugin.
 
 ### 2.5
 Fixes robots tag for WordPress 5.7+

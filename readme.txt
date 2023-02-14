@@ -2,32 +2,87 @@
 Contributors: wpexpertsio
 Tags: password, protect, password protect, login
 Requires at least: 4.6
-Tested up to: 5.9.1
+Tested up to: 6.1.1
 Requires PHP: 5.6
-Stable tag: 2.5.1
+Stable tag: 2.6.1
 License: GPLv2 or later
 
-A very simple way to quickly password protect your WordPress site with a single password.
+The ultimate password protection plugin that protects your WordPress site with a single password.
 
 == Description ==
 
-A very simple way to quickly password protect your WordPress site with a single password.
+Password Protected for WordPress allows you to secure your website with a single password. The ultimate password protection plugin protects your WordPress categories, posts, products, and more with the simplest of ease. 
 
-This plugin only protects your WordPress generated content. It **does not protect images or uploaded files** so if you enter and exact URL to in image file it will still be accessible.
+Password Protected does not protect images or uploaded files, so if you enter an exact URL of an image file, it will still be accessible.
 
-Features include:
+= Password Protected Features =
 
-* Password protect your WordPress site with a single password.
-* Option to allow access to feeds.
-* Option to allow administrators access without entering password.
-* Works with Mark Jaquith's [Login Logo](https://wordpress.org/plugins/login-logo/) plugin.
-* Works with the [Uber Login Logo](https://wordpress.org/plugins/uber-login-logo/) plugin.
+* Easy to set up - Password protect your WordPress site with a single password.
+* Set a description - Display text (description or instructions) above or below the password field.
+* reCaptcha v2/v3 - You can enable Google reCAPTCHA v2 or V3 to increase bot security measures.  
+* Allow administrators  - Option to allow administrators access without entering the password.
+* Allow logged-in users - Option to give logged-in users access to the website.
+* Allow RSS Feeds - Option to allow access to feeds.
+* Allow Rest API Access - Allow admin to access pages and posts.
+* Customization - Customize the password-protected screen, including the background, font, logo, color, etc.
 
 > Please note, this plugin works by setting a cookie to allow access to the site. If you are using a caching plugin or web hosting such as WP Engine that has in-built caching, you will need to configure the caching service to be disabled if the Password Protected cookie is set.
 
-= Translations =
+= Password Protected Pro =
 
-If you would like to translate this plugin you can easily contribute at the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via WordPress.
+[Password Protected Pro](https://passwordwp.com/#pricing_sec) is equipped with powerful features that will take your WordPress website security to the next level. 
+
+* Exclude page posts & post types - Option to exclude specific pages and post types from password protection.
+* Limit login attempts - Limit the user’s attempts to enter a password for a specified interval.
+* Lockdown time - Set a time (in minutes) during which users can not enter the password after their login attempts are limited.
+* Usage limits - Set a usage limit after which a password can not be used.
+* Status control - You can change the status of the password (Active, Deactivated, Expired).
+* Manage multiple passwords - Edit, activate, deactivate, or delete passwords (individual or bulk action).
+* Set Expiry Dates - Options to select the expiry date for specific passwords
+* Activity Log Reports - View the Activity Logs of each user, including their IP address, browser, status, date, and time of password attempts.
+* Priority Support - Our team of support professionals will make sure to handle your queries on high priority.
+
+= Detect hackers and bots from abusing password protection with reCAPTCHA =
+Google reCAPTCHA v2 or v3 empowers your WordPress website to prevent password abuse against automated software, bots, hackers, etc. This anti-spam tool will allow any real user to access your website easily.
+
+= Password protect any post type =
+You can include or exclude any post type from password protection. All of this can be done from the back end using a single password. 
+
+= Password protect your WordPress site with a single password =
+Password Protected has the ability to secure your entire website with a single password. Everything from pages to posts will also be protected.
+
+= Customize your login page using Login Designer for WordPress =
+You password forms should match the theme and branding of your website. With Login Designer, you can add a logo, change the color and background of the form, and use other elemenets to improve the overall user experience.  
+
+[Login Designer](https://wordpress.org/plugins/login-designer/) is the all-in-one WordPress plugin designed for styling custom login pages and giving you live-editing experience unlike any other. Why use Login Designer? Zero refreshes. Contextually displayed options and plugin settings. Custom event triggers. Context-aware previews. Powerful custom controls. Live editing… the list goes on.
+
+= Display password protected content in RSS feeds =
+You can allow RSS feeds to show a login page after which user accessing the feed can view the password protected content. Disabling the option will restrict any user's access to the website even if the RSS feed is public.  
+
+= Password usage limits and complexities =
+Limits users from entering the password using Password Protected’s Usage Limit counter. Password greater than that limit can not be applicable on the login page.
+
+Usage limits can also be restricted by setting a password expiry from the calendar settings. This prevents users from re-using any given password. Regular password changes mitigate the risk of any security breach.
+
+Limiting password attempts prevents security issues like the Brute Force attack, where hackers keep trying to guess your password until they get it right. A complimentary solution to this feature is the Lockdown Timer, which resets the user’s right to log in after exceeding their login attempt limit. 
+
+= Monitor and review activity logs for Password Protected =
+Password Protected’s Activity Log is similar to an audit log that gives you a record of the events that have taken place on your website. To provide you with a better understanding, here is a list of the details you will find in the activity log:
+
+* Filter options for passwords used in a specific range (All-time, Today, Yesterday, This Week, This Month)
+* IP addresses of the system from where the passwords were attempted.
+* Country names from where the passwords were attempted.
+* Browser names where the password was attempted. 
+* Status of the password attempts (successful or failed)
+
+The admin can also perform the search operation on the activity log. You can search by IP, Country, Browser, and Status. For e.g., searching Success will search all the passwords with successful attempts, and searching Failure will search all the orders with failed attempts.
+
+= Documentation and support =
+* Password Protected [Technical Documentation](https://passwordwp.com/documentation/)
+* You can open a support ticket [here](https://objectsws.atlassian.net/servicedesk/customer/portal/18)
+
+= Translations =
+If you would like to translate this plugin, you can easily contribute to the [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/password-protected/) page. The stable plugin needs to be 95% translated for a language file to be available to download/update via WordPress.
 
 == Installation ==
 
@@ -80,9 +135,28 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 == Screenshots ==
 
 1. Login page perfectly mimicks the WordPress login.
-2. Password Protected settings page.
+2. Login page with reCaptcha v3
+3. Login page with reCaptcha v2
+4. Password Protected general settings page.
+4. Password Protected advanced settings page.
 
 == Changelog ==
+2.6.1
+- Fix – Parse error related to PHP version 7.2
+
+= 2.6.0 =
+- Improved admin settings interface and introduced NEW tabs structure.
+- NEW: Added Google Recaptcha v2 and v3 to make it more secure.
+- NEW: Added Password Protected top-level admin menu for ease.
+- NEW: Added option to add text above password Field.
+- NEW: Added option to add text below password Field.
+
+= 2.5.3 =
+- Improved Settings HTML structure
+- Added Note regarding compatibility with login designer within dashboard
+
+= 2.5.2 =
+- Made compatibility with [login designer](https://wp.org/plugins/login-designer); Now you can customize the password-protected screen with the customizer using login designer plugin.
 
 = 2.5.1 =
 - Fix - Author name conflict resolved
