@@ -70,7 +70,7 @@ class Password_Protected {
 
 		add_action('password_protected_above_password_field', array( $this, 'password_protected_above_password_field' ));
 		add_action('password_protected_below_password_field', array( $this, 'password_protected_below_password_field' ));
-		add_action( 'admin_head', array( $this, 'password_protected_remove_tastewp_marketing' ) );
+		add_action( 'admin_head', array( $this, 'password_protected_remove_unwanted_headers' ) );
 
 		// Available from WordPress 4.3+
 		if ( function_exists( 'wp_site_icon' ) ) {
@@ -894,9 +894,9 @@ class Password_Protected {
 	}
 
 	/**
-	 * Remove Tastewp Marketing
+	 * Remove unwanted headers.
 	 */
-	public function password_protected_remove_tastewp_marketing() {
+	public function password_protected_remove_unwanted_headers() {
 		echo '<style type="text/css">
 			div#tastewp_intro {
 				display: none;
