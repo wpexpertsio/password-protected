@@ -11,6 +11,8 @@ The ultimate password protection plugin that protects your WordPress site with a
 
 == Description ==
 
+[Live Demo](https://tastewp.com/new/?pre-installed-plugin-slug=password-protected)
+
 Password Protected for WordPress allows you to secure your website with a single password. The ultimate password protection plugin protects your WordPress categories, posts, products, and more with the simplest of ease. 
 
 Password Protected does not protect images or uploaded files, so if you enter an exact URL of an image file, it will still be accessible.
@@ -24,7 +26,7 @@ Password Protected does not protect images or uploaded files, so if you enter an
 * Allow logged-in users - Option to give logged-in users access to the website.
 * Allow RSS Feeds - Option to allow access to feeds.
 * Allow Rest API Access - Allow admin to access pages and posts.
-* Customization - Customize the password-protected screen, including the background, font, logo, color, etc.
+* Customization – Customize the password-protected screen, including the background, font, logo, and colors (using [Login Designer](https://wp.org/plugins/login-designer))
 
 > Please note, this plugin works by setting a cookie to allow access to the site. If you are using a caching plugin or web hosting such as WP Engine that has in-built caching, you will need to configure the caching service to be disabled if the Password Protected cookie is set.
 
@@ -50,11 +52,6 @@ You can include or exclude any post type from password protection. All of this c
 
 = Password protect your WordPress site with a single password =
 Password Protected has the ability to secure your entire website with a single password. Everything from pages to posts will also be protected.
-
-= Customize your login page using Login Designer for WordPress =
-You password forms should match the theme and branding of your website. With Login Designer, you can add a logo, change the color and background of the form, and use other elemenets to improve the overall user experience.  
-
-[Login Designer](https://wordpress.org/plugins/login-designer/) is the all-in-one WordPress plugin designed for styling custom login pages and giving you live-editing experience unlike any other. Why use Login Designer? Zero refreshes. Contextually displayed options and plugin settings. Custom event triggers. Context-aware previews. Powerful custom controls. Live editing… the list goes on.
 
 = Display password protected content in RSS feeds =
 You can allow RSS feeds to show a login page after which user accessing the feed can view the password protected content. Disabling the option will restrict any user's access to the website even if the RSS feed is public.  
@@ -157,7 +154,7 @@ Update - Link to official Google Re-captcha documentation
 - Added Note regarding compatibility with login designer within dashboard
 
 = 2.5.2 =
-- Made compatibility with [login designer](https://wp.org/plugins/login-designer); Now you can customize the password-protected screen with the customizer using login designer plugin.
+- Made compatibility with [Login Designer](https://wp.org/plugins/login-designer); Now you can customize the password-protected screen with the customizer using login designer plugin.
 
 = 2.5.1 =
 - Fix - Author name conflict resolved
