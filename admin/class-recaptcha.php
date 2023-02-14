@@ -233,7 +233,7 @@ class Password_Protected_reCAPTCHA  {
                 />
                 <p class="description">
                     Enter Google reCAPTCHA v2 Site Key.&nbsp;
-                    <a target="_blank" href="https://scriptstown.com/how-to-get-site-and-secret-key-for-google-recaptcha/">
+                    <a target="_blank" href="https://developers.google.com/recaptcha/intro#recaptcha-overview">
                         Click Here
                     </a>
                 </p>
@@ -249,7 +249,7 @@ class Password_Protected_reCAPTCHA  {
                     />
                 <p class="description">
                     Enter Google reCAPTCHA v3 Site Key.&nbsp;
-                    <a target="_blank" href="https://scriptstown.com/how-to-get-site-and-secret-key-for-google-recaptcha/">
+                    <a target="_blank" href="https://developers.google.com/recaptcha/intro#recaptcha-overview">
                         Click Here
                     </a>
                 </p>
@@ -275,7 +275,7 @@ class Password_Protected_reCAPTCHA  {
                 />
                 <p class="description">
                     Enter Google reCAPTCHA v2 Secret Key.&nbsp;
-                    <a target="_blank" href="https://scriptstown.com/how-to-get-site-and-secret-key-for-google-recaptcha/">
+                    <a target="_blank" href="https://developers.google.com/recaptcha/intro#recaptcha-overview">
                         Click Here
                     </a>
                 </p>
@@ -290,7 +290,7 @@ class Password_Protected_reCAPTCHA  {
                 />
                 <p class="description">
                     Enter Google reCAPTCHA v3 Secret Key.&nbsp;
-                    <a target="_blank" href="https://scriptstown.com/how-to-get-site-and-secret-key-for-google-recaptcha/">
+                    <a target="_blank" href="https://developers.google.com/recaptcha/intro#recaptcha-overview">
                         Click Here
                     </a>
                 </p>

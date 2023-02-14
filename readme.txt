@@ -142,7 +142,8 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 
 == Changelog ==
 2.6.1
-- Fix – Parse error related to PHP version 7.2
+Fix – Parse error related to PHP version 7.2
+Update - Link to official Google Re-captcha documentation
 
 = 2.6.0 =
 - Improved admin settings interface and introduced NEW tabs structure.
