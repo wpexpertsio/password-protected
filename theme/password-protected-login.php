@@ -122,10 +122,15 @@ do_action( 'password_protected_login_head' );
 <div id="login">
 	<h1 id="password-protected-logo"><a href="<?php echo esc_url( apply_filters( 'password_protected_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
 	<?php do_action( 'password_protected_login_messages' ); ?>
+
 	<?php do_action( 'password_protected_before_login_form' ); ?>
 
 	<form name="loginform" id="loginform" action="<?php echo esc_url( $Password_Protected->login_url() ); ?>" method="post">
-		<?php do_action( 'password_protected_above_password_field' ); ?>
+
+        <p>
+            <?php do_action( 'password_protected_above_password_field' ); ?>
+        </p>
+
 		<p>
 			<label for="password_protected_pass"><?php echo esc_attr( apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ) ); ?></label>
 			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" />
@@ -143,8 +148,13 @@ do_action( 'password_protected_login_head' );
 			<input type="hidden" name="password-protected" value="login" />
 			<input type="hidden" name="redirect_to" value="<?php echo esc_attr( ! empty( $_REQUEST['redirect_to'] ) ? esc_url( $_REQUEST['redirect_to'] ) : '' ); ?>" />
 		</p>
-		<?php do_action( 'password_protected_below_password_field' ); ?>
-		
+
+        <div style="display: table;clear: both;"></div>
+
+        <p>
+		    <?php do_action( 'password_protected_below_password_field' ); ?>
+        </p>
+
 	</form>
 
 	<?php do_action( 'password_protected_after_login_form' ); ?>

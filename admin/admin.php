@@ -21,6 +21,7 @@ class Password_Protected_Admin {
 		add_filter( 'plugin_action_links_password-protected/password-protected.php', array( $this, 'plugin_action_links' ) );
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+        add_action( 'init', array( $this, 'init' ) );
 	}
 
 	/**
@@ -48,8 +49,15 @@ class Password_Protected_Admin {
 	public function admin_enqueue_scripts( $hooks ) {
 		
 	    if ( 'settings_page_password-protected' === $hooks || 'toplevel_page_password-protected' === $hooks ) {
-	        wp_enqueue_style( 'password-protected-page-script', PASSWORD_PROTECTED_URL . 'assets/css/admin.css', array(), '2.6.0' );
-	        wp_enqueue_script( 'password-protected-admin-script', PASSWORD_PROTECTED_URL . 'assets/js/admin.js', array('jquery'), '2.6.0' );
+	        wp_enqueue_style( 'password-protected-page-script', PASSWORD_PROTECTED_URL . 'assets/css/admin.css', array(), '2.6.2' );
+	        wp_enqueue_script( 'password-protected-admin-script', PASSWORD_PROTECTED_URL . 'assets/js/admin.js', array('jquery'), '2.6.2' );
+        }
+    }
+
+    public function init() {
+        if ( isset( $_GET['page'] ) && 'password-protected-get-pro' === $_GET['page'] ) {
+            wp_redirect( 'https://passwordwp.com/pricing/?utm_source=Plugin&utm_medium=Sidebar' );
+            exit;
         }
     }
 
@@ -72,9 +80,12 @@ class Password_Protected_Admin {
 	 * Admin Menu
 	 */
 	public function admin_menu() {
-	
+
 		$capability = apply_filters( 'password_protected_options_page_capability', 'manage_options' );
-		$this->settings_page_id = add_options_page( __( 'Password Protected', 'password-protected' ), __( 'Password Protected', 'password-protected' ), $capability, 'password-protected', array( $this, 'settings_page' ) );
+		$this->settings_page_id = add_options_page( __( 'Password Protected', 'password-protected' ), __( 'Password Protected', 'password-protected' ), $capability, 'password-protected', array(
+			$this,
+			'settings_page'
+		) );
 		add_menu_page(
 			'Password Protected',
 			'Password Protected',
@@ -86,6 +97,17 @@ class Password_Protected_Admin {
 		);
 		add_action( 'load-' . $this->settings_page_id, array( $this, 'add_help_tabs' ), 20 );
 
+
+        if ( ! class_exists( 'Password_Protected_Pro' ) ) {
+            add_submenu_page(
+                'password-protected',
+	            __( 'Get Pro', 'password-protected' ),
+	            __( '↳ ⭐ Get Pro', 'password-protected' ),
+                'manage_options',
+                'password-protected-get-pro',
+                array( $this, 'password_protected_get_pro_features' )
+            );
+        }
 	}
 
 	/**
@@ -310,6 +332,17 @@ class Password_Protected_Admin {
 			'password-protected-advanced-tab'
 		);
 
+		add_settings_field(
+            'password-protected-use-transient',
+            __( 'Use Transients', 'password-protected' ),
+            array( $this, 'password_protected_use_transient' ),
+			'password-protected&tab=advanced',
+			'password-protected-advanced-tab',
+            array(
+                'label_for' => 'password-protected-use-transient',
+            )
+        );
+
 		// password protected help tab
 		add_settings_section(
             'password-protected-help',
@@ -317,7 +350,8 @@ class Password_Protected_Admin {
             array( $this, 'password_protected_help_tab' ),
             'password-protected-help'
         );
-		
+
+
 		// sidebar login designer compatibity
 		if( !$this->login_designer_is_installed_and_activated() ) {
 			add_settings_section(
@@ -347,6 +381,7 @@ class Password_Protected_Admin {
 		register_setting( $this->options_group, 'password_protected_allowed_ip_addresses', array( $this, 'sanitize_ip_addresses' ) );
 		register_setting( $this->options_group, 'password_protected_remember_me', 'boolval' );
 		register_setting( $this->options_group, 'password_protected_remember_me_lifetime', 'intval' );
+        register_setting( $this->options_group . '-advanced', 'password_protected_use_transient' );
 		register_setting( $this->options_group.'-advanced', 'password_protected_text_above_password', array( 'type' => 'string' ) );
 		register_setting( $this->options_group.'-advanced', 'password_protected_text_below_password', array( 'type' => 'string' ) );
 
@@ -474,8 +509,7 @@ class Password_Protected_Admin {
 	 * Allowed IP Addresses Field
 	 */
 	public function password_protected_allowed_ip_addresses_field() {
-
-		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" />' . get_option( 'password_protected_allowed_ip_addresses' ) . '</textarea>';
+		echo '<textarea name="password_protected_allowed_ip_addresses" id="password_protected_allowed_ip_addresses" rows="3" />' . esc_html( get_option( 'password_protected_allowed_ip_addresses' ) ) . '</textarea>';
 
 		echo '<p class="description">' . esc_html__( 'Enter one IP address per line.', 'password-protected' );
 		if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
@@ -514,15 +548,21 @@ class Password_Protected_Admin {
 	 * Password Protected text above passsword
 	 */
 	public function password_protected_text_above_password() {
-		echo '<label><textarea id="password_protected_text_above_password" name="password_protected_text_above_password" rows="4" cols="50" class="regular-text">' . get_option('password_protected_text_above_password') . '</textarea></label>';
+		echo '<label><textarea id="password_protected_text_above_password" name="password_protected_text_above_password" rows="4" cols="50" class="regular-text">' . esc_attr( get_option('password_protected_text_above_password') ) . '</textarea></label>';
 	}
 
 	/**
 	 * Password Protected below above passsword
 	 */
 	public function password_protected_text_below_password() {
-		echo '<label><textarea id="password_protected_text_below_password" name="password_protected_text_below_password" rows="4" cols="50" class="regular-text">' . get_option('password_protected_text_below_password') . '</textarea></label>';
+		echo '<label><textarea id="password_protected_text_below_password" name="password_protected_text_below_password" rows="4" cols="50" class="regular-text">' . esc_attr( get_option('password_protected_text_below_password') ) . '</textarea></label>';
 	}
+
+    public function password_protected_use_transient() {
+        $use_transient = get_option( 'password_protected_use_transient', false );
+        $checked       = empty( $use_transient ) ? '' : 'checked="checked"';
+        echo '<lable for="password-protected-use-transient"><input ' . esc_attr( $checked ) . ' type="checkbox" name="password_protected_use_transient" value="1" id="password-protected-use-transient" /> ' . esc_attr__( 'This option will save your passwords in transients for your IP instead of cookies. Only use it if you face any cache-related issues on your site.', 'password-protected' ) . '</lable>';
+    }
 
 	/**
 	 * Help Tab text field
@@ -535,15 +575,24 @@ class Password_Protected_Admin {
 	/**
 	 * Try pro sideabr 
 	 */
-	public function password_protected_try_pro(){
-		$image = plugin_dir_url( __DIR__ ) . "assets/images/login-designer-demo.gif";
+	public function password_protected_try_pro() {
+        $pro_url = 'https://passwordwp.com/pricing/?utm_source=Plugin&utm_medium=ProWidget';
 		echo '
 			<div id="pp-sidebar-box">
 				<h3>
 					' . esc_attr__( 'Looking for more options?', 'password-protected' ) . '
 				</h3>
-				<p class="pro-features"><a href="'.esc_url( "https://passwordwp.com/?utm=wp-dash" ).'">Click here to learn more about pro features</a></p>
-					<h3><a href="'.esc_url( "https://passwordwp.com/?utm=wp-dash" ).'" class="pp-try button-primary">' . esc_attr__( '👉 Try Pro', 'password-protected' ) . '</a></h3>
+				<ol>
+                    <li>⚡ Get the option to exclude specific pages and posts.</li>
+                    <li>⚡ You can exclude specific post types.</li>
+                    <li>🔐 Feature to limit password attempts for a certain interval.</li>
+                    <li>⚡ You get the capability of managing multiple passwords with the following options.:
+                    </li>
+                    <li>📃 Display activity log for each password attempt.</li>
+                    <li>🔗 Get Bypass URL - You can access without a password using a unique link.</li>
+                </ol>
+
+                <h3><a href="'.esc_url( $pro_url ).'" class="pp-try pp-pro-try button-primary" target="_blank">' . esc_attr__( '👉 Try Pro', 'password-protected' ) . '</a></h3>
 				
 			</div>';
 	}
@@ -738,21 +787,24 @@ class Password_Protected_Admin {
 					<div id="wcwp" class="wrap" style="background: #FFF;">
 						<div class="pro_container">
 						<h2>Pro Features</h2>
-							<ol>		
-								<li><p>Option to exclude individual pages and posts.</p></li>
-								<li><p>Exclude specific post types.</p></li>
-								<li><p>Feature to limit password attempts for certain interval.</p></li>
-								<li><p>Ability to manage multiple passwords with the following options:</p>
-									<ol style="list-style-type: lower-alpha;margin-top: 5px;">
-										<li>Option to activate and deactivate manually.</li>
-										<li>Set the expiry date for each password.</li>
-										<li>Set the usage limit for each password.</li>
-									</ol>
-								</li>
-								<li><p>Display activity log for each password attempt.</p></li>
-							</ol>
-							
-							<a href="<?php echo esc_url( "https://passwordwp.com/?utm=wp-dash" ); ?>" class="get_pro_btn">Get Pro Now</a>
+                            <ol>
+                                <li>⚡ Get the option to exclude specific pages and posts.</li>
+                                <li>⚡ You can exclude specific post types.</li>
+                                <li>🔐 Feature to limit password attempts for a certain interval.</li>
+                                <li>⚡ You get the capability of managing multiple passwords with the following options.:
+                                    <ol>
+                                        <li>👉 Option to activate and deactivate manually.</li>
+                                        <li>👉 Set the expiry date for each Password.</li>
+                                        <li>👉 Set the usage limit for each Password.</li>
+                                    </ol>
+                                </li>
+                                <li>📃 Display activity log for each password attempt.</li>
+                                <li>🔗 Get Bypass URL - You can access without a password using a unique link.</li>
+                            </ol>
+							<?php
+                            $pro_url = 'https://passwordwp.com/pricing/?utm_source=Plugin&utm_medium=ProTab';
+                            ?>
+							<a target="_blank" href="<?php echo esc_url( $pro_url ); ?>" class="get_pro_btn">Get Pro Now</a>
 						</div>
 					</div>
 				</div>

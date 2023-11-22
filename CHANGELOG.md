@@ -2,7 +2,41 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.5.3 - 2022-06-17
+## 2.6.5.1 - 2023-11-20
+- Ensured seamless compatibility with the latest WordPress version
+
+## 2.6.5 - 2023-06-17
+- Fixed - [Login Designer](https://wp.org/plugins/login-designer) compatibility issues.
+
+## 2.6.4 - 2023-09-22
+- Fixed - Added compatibility for PHP version 8.2
+
+## 2.6.3.2 - 2023-07-20
+- Update - Feedback library updated
+
+## 2.6.3.1 - 2023-06-26
+- Fix - Parse error related to PHP version 7.2
+
+## 2.6.3 - 2023-05-22
+- New - Added Freemius SDK integration.
+- New - Added functionality to login with transient if the cookies are blocked.
+- Fix – Fixed Redirect Issue from excluded page to password protected page.
+
+## 2.6.2 - 2023-02-16
+- Fix – Parse error related to PHP version 7.2
+
+## 2.6.1 - 2023-02-15
+- Fix – Parse error related to PHP version 7.2
+- Update - Link to official Google Re-captcha documentation
+
+## 2.6.0 - 2023-02-13
+- Improved admin settings interface and introduced NEW tabs structure.
+- NEW: Added Google Recaptcha v2 and v3 to make it more secure.
+- NEW: Added Password Protected top-level admin menu for ease.
+- NEW: Added option to add text above password Field.
+- NEW: Added option to add text below password Field.
+
+## 2.5.3 - 2023-02-06
 - Improved Settings HTML structure
 - Added Note regarding compatibility with login designer within dashboard
 

@@ -458,7 +458,7 @@ class Password_Protected_reCAPTCHA  {
 	 * @return  void  password protected reCAPTCHA v2 field
 	 */
     public function display_recaptcha_v2() {
-        wp_enqueue_style( 'pp-recaptcha-style', plugin_dir_url( __DIR__ ) . "assets/css/recaptcha.css", array(), '2.6.0' );
+        wp_enqueue_style( 'pp-recaptcha-style', plugin_dir_url( __DIR__ ) . "assets/css/recaptcha.css", array(), '2.6.2' );
         wp_enqueue_script( 'pp-recaptcha-api-v2',   esc_url( 'https://www.google.com/recaptcha/api.js' ), array(), null );
         echo '<div 
                 class="g-recaptcha" 

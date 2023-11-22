@@ -1,10 +1,10 @@
-=== Password Protected ===
+=== Password Protected - Ultimate Plugin to Password Protect Your WordPress Content with Ease ===
 Contributors: wpexpertsio
-Tags: password, protect, password protect, login
+Tags: password, maintenance mode, coming soon page, password protect, login
 Requires at least: 4.6
-Tested up to: 6.1.1
+Tested up to: 6.4.1
 Requires PHP: 5.6
-Stable tag: 2.6.1
+Stable tag: 2.6.5.1
 License: GPLv2 or later
 
 The ultimate password protection plugin that protects your WordPress site with a single password.
@@ -32,7 +32,7 @@ Password Protected does not protect images or uploaded files, so if you enter an
 
 = Password Protected Pro =
 
-[Password Protected Pro](https://passwordwp.com/#pricing_sec) is equipped with powerful features that will take your WordPress website security to the next level. 
+[Password Protected Pro](https://passwordwp.com/pricing/?utm_source=wp_org&utm_medium=readme) is a [Kinsta recommended plugin](https://kinsta.com/blog/password-protect-wordpress-site/) that offers powerful features that will take your WordPress website password protected to the next level.
 
 * Exclude page posts & post types - Option to exclude specific pages and post types from password protection.
 * Limit login attempts - Limit the user’s attempts to enter a password for a specified interval.
@@ -75,7 +75,7 @@ Password Protected’s Activity Log is similar to an audit log that gives you a 
 The admin can also perform the search operation on the activity log. You can search by IP, Country, Browser, and Status. For e.g., searching Success will search all the passwords with successful attempts, and searching Failure will search all the orders with failed attempts.
 
 = Documentation and support =
-* Password Protected [Technical Documentation](https://passwordwp.com/documentation/)
+* Password Protected [Technical Documentation](https://passwordwp.com/documentation/?utm_source=wp_org&utm_medium=readme)
 * You can open a support ticket [here](https://objectsws.atlassian.net/servicedesk/customer/portal/18)
 
 = Translations =
@@ -138,9 +138,32 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 4. Password Protected advanced settings page.
 
 == Changelog ==
-2.6.1
-Fix – Parse error related to PHP version 7.2
-Update - Link to official Google Re-captcha documentation
+= 2.6.5.1 =
+- Ensured seamless compatibility with the latest WordPress version
+
+= 2.6.5 =
+- Fixed - [Login Designer](https://wp.org/plugins/login-designer) compatibility issues.
+
+= 2.6.4 =
+- Fixed - Added compatibility for PHP version 8.2
+
+= 2.6.3.2 =
+- Update - Feedback library updated
+
+= 2.6.3.1 =
+- Fix - Parse error related to PHP version 7.2
+
+= 2.6.3 =
+- New - Added Freemius SDK integration.
+- New - Added functionality to login with transient if the cookies are blocked.
+- Fix – Fixed Redirect Issue from excluded page to password protected page.
+
+= 2.6.2 =
+- Fix – Parse error related to PHP version 7.2
+
+= 2.6.1 =
+- Fix – Parse error related to PHP version 7.2
+- Update - Link to official Google Re-captcha documentation
 
 = 2.6.0 =
 - Improved admin settings interface and introduced NEW tabs structure.
