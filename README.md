@@ -13,7 +13,7 @@ The ultimate password protection plugin that protects your WordPress site with a
 
 [Live Demo](https://tastewp.com/new/?pre-installed-plugin-slug=password-protected)
 
-Password Protected for WordPress allows you to secure your website with a single password. The ultimate password protection plugin protects your WordPress categories, posts, products, and more with the simplest of ease. 
+Password Protected for WordPress allows you to secure your website with a single password. The ultimate password protection plugin protects your WordPress categories, posts, products, and more with the simplest of ease.
 
 Password Protected does not protect images or uploaded files, so if you enter an exact URL of an image file, it will still be accessible.
 
@@ -21,7 +21,7 @@ Password Protected does not protect images or uploaded files, so if you enter an
 
 * Easy to set up - Password protect your WordPress site with a single password.
 * Set a description - Display text (description or instructions) above or below the password field.
-* reCaptcha v2/v3 - You can enable Google reCAPTCHA v2 or V3 to increase bot security measures.  
+* reCaptcha v2/v3 - You can enable Google reCAPTCHA v2 or V3 to increase bot security measures.
 * Allow administrators  - Option to allow administrators access without entering the password.
 * Allow logged-in users - Option to give logged-in users access to the website.
 * Allow RSS Feeds - Option to allow access to feeds.
@@ -48,20 +48,20 @@ Password Protected does not protect images or uploaded files, so if you enter an
 Google reCAPTCHA v2 or v3 empowers your WordPress website to prevent password abuse against automated software, bots, hackers, etc. This anti-spam tool will allow any real user to access your website easily.
 
 = Password protect any post type =
-You can include or exclude any post type from password protection. All of this can be done from the back end using a single password. 
+You can include or exclude any post type from password protection. All of this can be done from the back end using a single password.
 
 = Password protect your WordPress site with a single password =
 Password Protected has the ability to secure your entire website with a single password. Everything from pages to posts will also be protected.
 
 = Display password protected content in RSS feeds =
-You can allow RSS feeds to show a login page after which user accessing the feed can view the password protected content. Disabling the option will restrict any user's access to the website even if the RSS feed is public.  
+You can allow RSS feeds to show a login page after which user accessing the feed can view the password protected content. Disabling the option will restrict any user's access to the website even if the RSS feed is public.
 
 = Password usage limits and complexities =
 Limits users from entering the password using Password Protected’s Usage Limit counter. Password greater than that limit can not be applicable on the login page.
 
 Usage limits can also be restricted by setting a password expiry from the calendar settings. This prevents users from re-using any given password. Regular password changes mitigate the risk of any security breach.
 
-Limiting password attempts prevents security issues like the Brute Force attack, where hackers keep trying to guess your password until they get it right. A complimentary solution to this feature is the Lockdown Timer, which resets the user’s right to log in after exceeding their login attempt limit. 
+Limiting password attempts prevents security issues like the Brute Force attack, where hackers keep trying to guess your password until they get it right. A complimentary solution to this feature is the Lockdown Timer, which resets the user’s right to log in after exceeding their login attempt limit.
 
 = Monitor and review activity logs for Password Protected =
 Password Protected’s Activity Log is similar to an audit log that gives you a record of the events that have taken place on your website. To provide you with a better understanding, here is a list of the details you will find in the activity log:
@@ -69,7 +69,7 @@ Password Protected’s Activity Log is similar to an audit log that gives you a 
 * Filter options for passwords used in a specific range (All-time, Today, Yesterday, This Week, This Month)
 * IP addresses of the system from where the passwords were attempted.
 * Country names from where the passwords were attempted.
-* Browser names where the password was attempted. 
+* Browser names where the password was attempted.
 * Status of the password attempts (successful or failed)
 
 The admin can also perform the search operation on the activity log. You can search by IP, Country, Browser, and Status. For e.g., searching Success will search all the passwords with successful attempts, and searching Failure will search all the orders with failed attempts.
@@ -205,7 +205,7 @@ If you would like to translate this plugin you can easily contribute at the [Tra
 - Update Portuguese translation. Props [Jonathan Hult](https://github.com/jhult).
 - Update Russian translation. Props [Alexey Chumakov](https://github.com/achumakov).
 
-= 2.2.4 = 
+= 2.2.4 =
 - Check that `$_SERVER['REMOTE_ADDR']` is set.
 
 = 2.2.3 =
