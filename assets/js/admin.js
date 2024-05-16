@@ -3,6 +3,40 @@ jQuery( document ).ready(function( $ ) {
     toggle_recaptcha_version( $ );
     set_recaptcha_version_fields( $ );
 
+    $( '.click-to-display-popup' ).on( 'click', function( e ) {
+        let elementId = '#pro-popup';
+        if ( $( elementId ).length ) {
+            $( elementId ).remove();
+        }
+
+        let popupHtml = `<div id="pro-popup" style="">
+            <div class="pp-container" style="">
+                <a class="pp-close-button" style="">&times;</a>
+                
+                <div class="pp-body" style="">
+                    <img style="" src="${passwordProtectedAdminObject.imageURL}cropped-logo.png" alt="Password Protected logo">
+                
+                    <p class="pp-description" style="">
+                        ${passwordProtectedAdminObject.description}
+                    </p>
+                    <a class="pp-link" style="" href="#">${passwordProtectedAdminObject.buttonText}</a>
+                </div>
+                
+                
+            </div>
+        </div>`;
+        $( 'body' ).append( popupHtml );
+    } );
+
+    $( 'body' ).on( 'click', '.pp-close-button', function( e ) {
+        $( '#pro-popup' ).remove();
+    } );
+
+    $( 'body' ).on( 'click', '.pp-link', function( e ) {
+        e.preventDefault();
+        window.location.href = $( '.pro-badge a' ).attr( 'href' );
+    } );
+
 } );
 
 function set_recaptcha_version_fields( $ ) {

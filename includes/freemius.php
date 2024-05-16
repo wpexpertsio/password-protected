@@ -33,6 +33,7 @@ if ( ! function_exists( 'pp_free_fs' ) ) {
 					'menu'                => array(
 						'slug'           => 'password-protected',
 						'support'        => false,
+						'contact'        => false,
 					),
 				)
 			);

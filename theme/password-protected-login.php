@@ -133,7 +133,7 @@ do_action( 'password_protected_login_head' );
 
 		<p>
 			<label for="password_protected_pass"><?php echo esc_attr( apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ) ); ?></label>
-			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" />
+			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" autocomplete="false" />
 		</p>
 		<?php do_action('password_protected_after_password_field'); ?>
 		<?php if ( $Password_Protected->allow_remember_me() ) : ?>
