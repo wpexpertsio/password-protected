@@ -120,7 +120,7 @@ do_action( 'password_protected_login_head' );
 <body class="login login-password-protected login-action-password-protected-login wp-core-ui">
 
 <div id="login">
-	<h1 id="password-protected-logo"><a href="<?php echo esc_url( apply_filters( 'password_protected_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+	<h1 class="wp-login-logo" id="password-protected-logo"><a href="<?php echo esc_url( apply_filters( 'password_protected_login_headerurl', home_url( '/' ) ) ); ?>" title="<?php echo esc_attr( apply_filters( 'password_protected_login_headertitle', get_bloginfo( 'name' ) ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
 	<?php do_action( 'password_protected_login_messages' ); ?>
 
 	<?php do_action( 'password_protected_before_login_form' ); ?>
@@ -131,10 +131,24 @@ do_action( 'password_protected_login_head' );
             <?php do_action( 'password_protected_above_password_field' ); ?>
         </p>
 
-		<p>
-			<label for="password_protected_pass"><?php echo esc_attr( apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ) ); ?></label>
-			<input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" autocomplete="false" />
-		</p>
+        <!--
+		We are removing this field PP-245
+             <p>
+                <label for="password_protected_pass"><?php echo esc_attr( apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ) ); ?></label>
+                <input type="password" name="password_protected_pwd" id="password_protected_pass" class="input" value="" size="20" tabindex="20" autocomplete="false" />
+            </p>
+        -->
+
+        <div class="user-pass-wrap">
+            <label for="password_protected_pass"><?php echo esc_attr( apply_filters( 'password_protected_login_password_title', __( 'Password', 'password-protected' ) ) ); ?></label>
+            <div class="wp-pwd">
+                <input id="password_protected_pass" class="input password-input" type="password" name="password_protected_pwd" value="" size="20" autocomplete="false" spellcheck="false" required>
+                <button id="pp-hide-show-password" class="button button-secondary hide-if-no-js wp-hide-pw" type="button" data-toggle="0" aria-label="Show password">
+                    <span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+
 		<?php do_action('password_protected_after_password_field'); ?>
 		<?php if ( $Password_Protected->allow_remember_me() ) : ?>
 			<p class="forgetmenot">
@@ -164,6 +178,7 @@ do_action( 'password_protected_login_head' );
 <script>
 try{document.getElementById('password_protected_pass').focus();}catch(e){}
 if(typeof wpOnload=='function')wpOnload();
+try{let s=document.getElementById("pp-hide-show-password");s.addEventListener("click",function(e){e.preventDefault();let t=document.getElementById("password_protected_pass");"password"===t.type?(t.type="text",s.innerHTML='<span class="dashicons dashicons-hidden" aria-hidden="true"></span>'):(t.type="password",s.innerHTML='<span class="dashicons dashicons-visibility" aria-hidden="true"></span>')})}catch(e){}
 </script>
 
 <?php do_action( 'login_footer' ); ?>

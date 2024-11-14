@@ -23,7 +23,24 @@ class Password_Protected_Admin {
 		add_filter( 'pre_update_option_password_protected_password', array( $this, 'pre_update_option_password_protected_password' ), 10, 2 );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
         add_action( 'init', array( $this, 'init' ) );
+
+        add_action( 'password_protected_subtab_cache-issue_content', array( $this, 'cache_related_issue' ) );
+        add_action( 'admin_footer', array( $this, 'add_script_in_footer' ), 9999 );
 	}
+    
+    public function add_script_in_footer() {
+        ?>
+        <script type="text/javascript">
+	        jQuery( document ).ready( function( $ ) {
+		        $( '.toplevel_page_password-protected a' ).each( function( index,element ) {
+			        if ( 'admin.php?page=password-protected-get-pro' === $( element ).attr( 'href' ) ) {
+				        $( element ).css( { 'background-color': '#8076ff', 'color': '#ffffff', 'padding': '15px auto' } );
+			        }
+		        } );
+	        } );
+        </script>
+        <?php
+    }
 
 	/**
 	 * Password protected setting tabs
@@ -42,6 +59,11 @@ class Password_Protected_Admin {
                 'slug'     => 'advanced',
                 'icon'     => 'dashicons-admin-settings',
                 'sub-tabs' => array(
+                    'cache-issue' => array(
+                        'title' => __( 'Cache Issue', 'password-protected' ),
+                        'slug'  => 'cache-issue',
+                    ),
+
                     'exclude-from-protection' => array(
                         'title' => __( 'Exclude From Protection', 'password-protected' ),
                         'slug'  => 'exclude-from-protection',
@@ -241,8 +263,8 @@ class Password_Protected_Admin {
         if ( ! class_exists( 'Password_Protected_Pro' ) ) {
             add_submenu_page(
                 'password-protected',
-	            __( 'Get Pro', 'password-protected' ),
-	            __( '↳ ⭐ Get Pro', 'password-protected' ),
+	            __( 'Get Pro Now', 'password-protected' ),
+	            __( '⭐ Get Pro Now', 'password-protected' ),
                 'manage_options',
                 'password-protected-get-pro',
                 array( $this, 'password_protected_get_pro_features' )
@@ -530,17 +552,24 @@ class Password_Protected_Admin {
 			'password-protected&tab=advanced&sub-tab=password-protected-page-description',
 			'password-protected-advanced-tab'
 		);
+        
+        add_settings_section(
+            'password-protected-advanced-tab-cache-issue',
+            'Cache Issue',
+            '__return_null',
+            'password-protected&tab=advanced&sub-tab=cache-issue'
+        );
 
-		/*add_settings_field(
-            'password-protected-use-transient',
-            __( 'Use Transients', 'password-protected' ),
+		add_settings_field(
+            'password-protected-advance-cache',
+            __( 'Advance Cache Fix', 'password-protected' ),
             array( $this, 'password_protected_use_transient' ),
-			'password-protected&tab=advanced',
-			'password-protected-advanced-tab',
+			'password-protected&tab=advanced&sub-tab=cache-issue',
+			'password-protected-advanced-tab-cache-issue',
             array(
                 'label_for' => 'password-protected-use-transient',
             )
-        );*/
+        );
 
 		// password protected help tab
 		add_settings_section(
@@ -581,6 +610,8 @@ class Password_Protected_Admin {
 
 		register_setting( $this->options_group.'-advanced', 'password_protected_text_above_password', array( 'type' => 'string' ) );
 		register_setting( $this->options_group.'-advanced', 'password_protected_text_below_password', array( 'type' => 'string' ) );
+        
+        register_setting( 'password_protected_cache_issue', 'password_protected_use_transient' );
 	}
 
 	/**
@@ -621,6 +652,7 @@ class Password_Protected_Admin {
 	 * @return  string        Sanitized IP addresses.
 	 */
 	public function sanitize_ip_addresses( $val ) {
+        $un_sanitized_value = $val;
 
 		$ip_addresses = explode( "\n", $val );
 		$ip_addresses = array_map( 'sanitize_text_field', $ip_addresses );
@@ -630,7 +662,7 @@ class Password_Protected_Admin {
 
 		$val = implode( "\n", $ip_addresses );
 
-		return $val;
+		return apply_filters( 'password_protected__sanitize_ip_addresses', $val, $un_sanitized_value );
 
 	}
 
@@ -778,9 +810,26 @@ class Password_Protected_Admin {
 	}
 
     public function password_protected_use_transient() {
-        $use_transient = get_option( 'password_protected_use_transient', false );
-        $checked       = empty( $use_transient ) ? '' : 'checked="checked"';
-        echo '<lable for="password-protected-use-transient"><input ' . esc_attr( $checked ) . ' type="checkbox" name="password_protected_use_transient" value="1" id="password-protected-use-transient" /> ' . esc_attr__( 'This option will save your passwords in transients for your IP instead of cookies. Only use it if you face any cache-related issues on your site.', 'password-protected' ) . '</lable>';
+        $use_transient = get_option( 'password_protected_use_transient', 'default' );
+        
+        $cache_issue = array(
+            array(
+                'name' => 'default',
+                'title' => __( 'Use default settings', 'password-protected' ),
+            ),
+            array(
+                'name' => 'transient',
+                'title' => __( 'Use Transient', 'password-protected' ),
+            ),
+        );
+        
+        foreach ( $cache_issue as $issue ) {
+            echo '<p>
+                <label>
+                    <input type="radio" name="password_protected_use_transient" value="' . esc_attr( $issue['name'] ) . '" ' . checked( $use_transient, $issue['name'], false ) . ' />' . esc_html( $issue['title'] ) . '
+                </label>
+            </p>';
+        }
     }
 
 	/**
@@ -1566,6 +1615,14 @@ class Password_Protected_Admin {
         }
             echo '</div>
         </div>';
+    }
+	
+	public function cache_related_issue() {
+        echo '<form action="options.php" method="post">';
+        do_settings_sections( 'password-protected&tab=advanced&sub-tab=cache-issue' );
+        settings_fields( 'password_protected_cache_issue' );
+        submit_button();
+        echo '</form>';
     }
 
 }

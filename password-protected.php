@@ -3,7 +3,7 @@
 Plugin Name: Password Protected
 Plugin URI: https://wordpress.org/plugins/password-protected/
 Description: A very simple way to quickly password protect your WordPress site with a single password. Please note: This plugin does not restrict access to uploaded files and images and does not work with some caching setups.
-Version: 2.7.2
+Version: 2.7.4
 Author: Password Protected
 Text Domain: password-protected
 Author URI: https://passwordprotectedwp.com/
@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * @todo Remember me
  */
 
+
 define( 'PASSWORD_PROTECTED_SUBDIR', '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) );
 define( 'PASSWORD_PROTECTED_URL', plugins_url( PASSWORD_PROTECTED_SUBDIR ) );
 define( 'PASSWORD_PROTECTED_DIR', plugin_dir_path( __FILE__ ) );
@@ -40,7 +41,7 @@ $Password_Protected = new Password_Protected();
 
 class Password_Protected {
 
-	var $version 	   = '2.7.2';
+	var $version 	   = '2.7.4';
 	var $admin   	   = null;
 	var $errors  	   = null;
 	var $admin_caching = null;
@@ -242,6 +243,8 @@ class Password_Protected {
 
 		if ( isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $ip_addresses ) ) {
 			$bool = false;
+		} else {
+			$bool = apply_filters( 'password_protected__allowed_ip_ranges',  $bool, $ip_addresses, isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '' );
 		}
 
 		return $bool;
@@ -254,8 +257,11 @@ class Password_Protected {
 	 * @return  array  IP addresses.
 	 */
 	public function get_allowed_ip_addresses() {
-
-		return explode( "\n", get_option( 'password_protected_allowed_ip_addresses' ) );
+		$allowed_ip_address = get_option( 'password_protected_allowed_ip_addresses' );
+		if ( empty( $allowed_ip_address ) ) {
+			return array();
+		}
+		return explode( "\n", $allowed_ip_address );
 
 	}
 
@@ -364,7 +370,8 @@ class Password_Protected {
 			}
 			$this->set_auth_cookie( $remember );
 			
-			$redirect_to = isset( $_REQUEST['redirect_to'] ) ? esc_url($_REQUEST['redirect_to']) : '';
+			$redirect_to = isset( $_REQUEST['redirect_to'] ) ? sanitize_text_field( $_REQUEST['redirect_to'] ) : '';
+
 			$redirect_to = apply_filters( 'password_protected_login_redirect', $redirect_to, $requested_password );
 
 			if ( ! empty( $redirect_to ) ) {
@@ -692,16 +699,28 @@ class Password_Protected {
 		if ( empty( $cookie ) ) {
 
 			$cookie_name = $this->cookie_name();
-			$use_transient = get_option( 'password_protected_use_transient', '' );
-
-			if ( empty( $use_transient ) ) {
+			$use_transient = get_option( 'password_protected_use_transient', 'default' );
+			
+			if ( 'default' === $use_transient )  {
 				if ( empty( $_COOKIE[ $cookie_name ] ) ) {
 					return false;
 				}
-
+				
 				$cookie = $_COOKIE[ $cookie_name ];
-			} else {
+			}
+			
+			if ( 'transient' === $use_transient ) {
 				$cookie = pp_get_transient( $cookie_name );
+				if ( empty( $cookie ) ) {
+					return false;
+				}
+			}
+			
+			if ( 'something-else' === $use_transient ) {
+				$cookie = apply_filters( 'password_protected_setting_get_cookie', null, $cookie );
+				if ( empty( $cookie ) ) {
+					return false;
+				}
 			}
 		}
 
@@ -743,14 +762,27 @@ class Password_Protected {
 		$secure_password_protected_cookie = apply_filters( 'password_protected_secure_password_protected_cookie', false, $secure );
 		$password_protected_cookie        = $this->generate_auth_cookie( $expiration, 'password_protected' );
 
-		$use_transient = get_option( 'password_protected_use_transient', '' );
-		if ( empty( $use_transient ) ) {
+		$use_transient = get_option( 'password_protected_use_transient', 'default' );
+		
+		if ( 'default' === $use_transient ) {
 			setcookie( $this->cookie_name(), $password_protected_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
 			if ( COOKIEPATH != SITECOOKIEPATH ) {
 				setcookie( $this->cookie_name(), $password_protected_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, $secure_password_protected_cookie, true );
 			}
-		} else {
+		}
+		
+		if ( 'transient' === $use_transient ) {
 			pp_set_transient( $this->cookie_name(), $password_protected_cookie, $expiration_time );
+		}
+		
+		if ( 'something-else' === $use_transient ) {
+			do_action(
+				'password_protected_setting_set_cookie',
+				$this->cookie_name(),
+				$password_protected_cookie,
+				$secure_password_protected_cookie,
+				$expire
+			);
 		}
 
 	}
@@ -759,14 +791,20 @@ class Password_Protected {
 	 * Clear Auth Cookie
 	 */
 	public function clear_auth_cookie() {
-		$use_transient = get_option( 'password_protected_use_transient', '' );
-		if ( empty( $use_transient ) ) {
+		$use_transient = get_option( 'password_protected_use_transient', 'default' );
+
+		if ( 'default' === $use_transient ) {
 			setcookie( $this->cookie_name(), ' ', current_time( 'timestamp' ) - 31536000, COOKIEPATH, COOKIE_DOMAIN );
 			setcookie( $this->cookie_name(), ' ', current_time( 'timestamp' ) - 31536000, SITECOOKIEPATH, COOKIE_DOMAIN );
-		} else {
+		}
+
+		if ( 'transient' === $use_transient ) {
 			pp_delete_transient( $this->cookie_name() );
 		}
 
+		if ( 'something-else' === $use_transient ) {
+			do_action( 'password_protected_setting_delete_cookie', $this->cookie_name() );
+		}
 	}
 
 	/**
@@ -980,3 +1018,5 @@ class Password_Protected {
 	}
 
 }
+
+

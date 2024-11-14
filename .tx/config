@@ -1,9 +1,0 @@
-[main]
-host = https://www.transifex.com
-
-[password-protected.password-protected]
-file_filter = languages/password-protected-<lang>.po
-source_file = languages/password-protected.pot
-source_lang = en_US
-type = PO
-minimum_perc = 20
